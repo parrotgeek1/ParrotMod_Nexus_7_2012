@@ -11,7 +11,11 @@ setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
-am idle-maintenance #trim etc
+for i in 0 1 2 3; do
+echo performance > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
+done
+echo cfq > /sys/block/mmcblk0/queue/scheduler
+echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
 cd /sys/block/mmcblk0/queue
 echo 2048 > nr_requests
 echo 0 > add_random # dont contribute to entropy
@@ -37,12 +41,6 @@ done
 mount | grep '/system' | grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128 /system /system
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
-for i in 0 1 2 3; do
-echo interactive > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
-done
-echo cfq > /sys/block/mmcblk0/queue/scheduler
-echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
 $bb renice -10 $($bb pidof mmcqd/0)
 while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 sleep 5
@@ -59,4 +57,9 @@ settings put global sys_storage_full_threshold_bytes 8388608
 settings put global sys_storage_threshold_percentage 2
 settings put global sys_storage_threshold_max_bytes 104857600
 settings put global wifi_allow_scan_with_traffic 1
+am idle-maintenance #trim etc
+for i in 0 1 2 3; do
+echo interactive > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
+done
+echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 $bb date > /data/local/tmp/parrotmod.txt
