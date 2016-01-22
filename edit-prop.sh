@@ -6,3 +6,4 @@ busybox sed -i 's/id=LMY47V$/id=LMY47V_ParrotMod_v1/g' /system/build.prop
 busybox sed -i 's/=user$/=userdebug/g' /system/build.prop # for hdcp etc settings
 busybox grep -F -v -q 'persist.sys.hdcp_checking=' /system/build.prop && echo 'persist.sys.hdcp_checking=never' >> /system/build.prop
 busybox grep -F -v -q 'ro.isparrotmod=1' /system/build.prop && echo 'ro.isparrotmod=1' >> /system/build.prop
+busybox grep -F -v -q 'ro.logd.size=' /system/build.prop && echo 'ro.logd.size=65536' >> /system/build.prop
