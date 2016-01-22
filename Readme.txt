@@ -82,7 +82,7 @@ not insecure adb
 app ops/autostarts/supersu in settings?
 no media scanner at boot
 more aosp apps?
-Make marshmallow version with miracast from tegra device, and version for any rom
+Make marshmallow version with miracast from http://forum.xda-developers.com/galaxy-nexus/development/rom-dreams-version-5-1-t2510649/post57458796#post57458796, and version for any rom
 S2W/DT2W settings
 Fix android pay/wallet/Snapchat/etcwith root
 deodex?
