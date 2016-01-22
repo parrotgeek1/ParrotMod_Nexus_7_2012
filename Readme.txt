@@ -49,6 +49,7 @@ https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
 https://www.kernel.org/doc/Documentation/sysctl/vm.txt
 camera LP icon
 sounds from new devices
+gpu oc/uv/etc, MAYBE cpu
 bootanim
 other cve fixes
 Ionice more audio/mmc kernel processes & realtime priority mediaserver etc http://www.askapache.com/optimize/optimize-nice-ionice.html 
