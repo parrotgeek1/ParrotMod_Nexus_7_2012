@@ -6,12 +6,14 @@ This is an optimized rom for the 2012 Nexus 7 aka grouper.
 Download: https://github.com/parrotgeek1/grouper_stockmod/archive/master.zip
 
 Features:
+=========
 
 FLASH MEMORY SPEED INCREASE! up to 6x better performance WITHOUT F2FS OR DYNAMIC FSYNC
 uses ext4 but can use data/cache f2fs
 audio stutter fix
 stagefright and lib(c)utils vulnerabilities fixed
 Fstrim every boot
+miracast/chromecast enabled (need to click disable intra macroblock refresh in app)
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, kernel samepage merging)
 a bunch of processes reniced/io priority increased to fix lag
@@ -24,7 +26,7 @@ new wallpaper
 adb insecure
 camera app is shown
 MiXplorer file manager
-rebooter 
+rebooter app
 Permissive selinux (let's call it a feature)
 
 Instructions
@@ -35,14 +37,19 @@ Flash this zip
 Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
 
 Credit
------
+------
 
 The kernel is Plain Kernel by @Snuzzo on XDA
 Busybox from http://busybox.net/downloads
+Miracast libs & app are modded versions of kensuke/s107ken's mira4u
+reboot app https://play.google.com/store/apps/details?id=com.stephansmolek.reboot&hl=en
+BSZAospLp rom for stagefright libs http://forum.xda-developers.com/nexus-7/development/rom-t2931064
+HootanParsa for MiXplorer http://forum.xda-developers.com/showthread.php?t=1523691
 
 To do
 -----
 
+the other reboot app https://play.google.com/store/apps/details?id=phongit.quickreboot&hl=en ?
 Real extended power menu not app
 Fstrim data/cache/system after install
 Fstrim cache every boot
