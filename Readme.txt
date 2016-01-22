@@ -1,3 +1,27 @@
+What?
+=====
+
+This is an optimized rom for the 2012 Nexus 7 aka grouper.
+
+Download: https://github.com/parrotgeek1/grouper_stockmod/archive/master.zip
+
+Features:
+
+FLASH MEMORY SPEED INCREASE! up to 6x better performance WITHOUT F2FS OR DYNAMIC FSYNC
+uses ext4 but can use data/cache f2fs
+audio stutter fix
+stagefright fix
+more apps open at once (minfree tweak)
+LCD color banding fix (error-diffusion dithering)
+no nvidia smartdimmer/Prism
+faster boot (wip)
+debloat
+new wallpaper
+adb insecure
+camera app is shown
+MiXplorer file manager
+rebooter app
+
 Instructions
 ============
 
@@ -13,6 +37,8 @@ The kernel is Plain Kernel by @Snuzzo on XDA
 To do
 -----
 
+performance/noop at boot
+more debloat?
 A faster browser optimized for tegra?
 Renice the framework/system ui/other system processes/DL manager -5, etc
 Wallpapers from GNL
