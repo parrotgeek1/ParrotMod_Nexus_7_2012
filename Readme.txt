@@ -40,7 +40,7 @@ Credit
 ------
 
 The kernel is Plain Kernel by @Snuzzo on XDA
-Busybox from http://busybox.net/downloads
+Busybox from https://busybox.net/downloads/binaries/
 Miracast libs & app are modded versions of kensuke/s107ken's mira4u
 reboot app https://play.google.com/store/apps/details?id=com.stephansmolek.reboot&hl=en
 BSZAospLp rom for stagefright libs http://forum.xda-developers.com/nexus-7/development/rom-t2931064
@@ -73,9 +73,10 @@ script rerun on soft reboot
 http://forum.xda-developers.com/showthread.php?t=1792531
 version for tilapia w/ tcp opts/no tether check/sms enable
 support otg native
-not need permissive
+not need permissive OR root
+not insecure adb
 app ops/autostarts/supersu in settings?
 no media scanner at boot
 more aosp apps?
 Make marshmallow version and version for any rom
-fix panorama etc
+
