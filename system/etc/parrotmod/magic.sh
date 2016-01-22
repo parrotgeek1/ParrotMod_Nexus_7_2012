@@ -57,6 +57,7 @@ settings put global sys_storage_full_threshold_bytes 8388608
 settings put global sys_storage_threshold_percentage 2
 settings put global sys_storage_threshold_max_bytes 104857600
 settings put global wifi_allow_scan_with_traffic 1
+$bb fstrim -v /cache
 am idle-maintenance #trim etc
 for i in 0 1 2 3; do
 echo interactive > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
