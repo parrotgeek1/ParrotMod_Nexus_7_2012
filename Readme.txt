@@ -28,6 +28,10 @@ camera app is shown
 MiXplorer file manager
 rebooter app
 Permissive selinux (let's call it a feature)
+no preferred networks nag
+always allow wifi roam scans
+HDCP disabled
+can use more storage space before it doesn't let you
 
 Instructions
 ============
