@@ -11,7 +11,9 @@ FLASH MEMORY SPEED INCREASE! up to 6x better performance WITHOUT F2FS OR DYNAMIC
 uses ext4 but can use data/cache f2fs
 audio stutter fix
 stagefright fix
-more apps open at once (minfree tweak)
+more apps open at once (minfree tweak, kernel samepage merging)
+a bunch of processes reniced/io priority increased to fix lag
+hard freezes are less likely
 LCD color banding fix (error-diffusion dithering)
 no nvidia smartdimmer/Prism
 faster boot (wip)
