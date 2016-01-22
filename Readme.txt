@@ -3,7 +3,17 @@ What?
 
 This is an optimized rom for the 2012 Nexus 7 aka grouper.
 
-Download: https://github.com/parrotgeek1/grouper_stockmod/archive/master.zip
+Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable.zip
+
+Instructions
+============
+
+Flash Stock LMY48V but keep TWRP
+Flash this zip
+Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
+Reboot
+Wait for device to spontaneously reboot
+Proceed with setup
 
 Features:
 =========
@@ -34,13 +44,6 @@ HDCP disabled
 can use more storage space before it doesn't let you
 Fstrim data/cache/system after install
 Fstrim cache every boot
-
-Instructions
-============
-
-Flash Stock LMY48V but keep TWRP
-Flash this zip
-Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
 
 Credit
 ------

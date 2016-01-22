@@ -101,9 +101,5 @@ symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/zcat");
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
-run_program("/sbin/busybox", "mount", "/data");
-run_program("/sbin/busybox", "fstrim", "-v", "/data");
-run_program("/sbin/busybox", "mount", "/cache");
-run_program("/sbin/busybox", "fstrim", "-v", "/cache");
 package_extract_file("boot.img", "/dev/block/platform/sdhci-tegra.3/by-name/LNX");
 run_program("/sbin/busybox", "sync");
