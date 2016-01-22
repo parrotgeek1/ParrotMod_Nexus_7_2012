@@ -1,0 +1,34 @@
+Signature-Version: 1.0
+Created-By: 1.0 (Android SignApk)
+SHA1-Digest-Manifest: 4WQYeL/buFYfKqoKarUEZm8NBi4=
+
+Name: system/bin/udptest
+SHA1-Digest-Manifest: B9Lmt9lSzRpd8+B86te28faqhTk=
+
+Name: system/bin/wfd
+SHA1-Digest-Manifest: 2G/QDCcqiVgjft8d4ztTfxMwU2E=
+
+Name: edit-prop.sh
+SHA1-Digest-Manifest: RIq3JZ4O9KNZ7xAb2NYPCRxm0nk=
+
+Name: system/app/Mira4U/Mira4U.apk
+SHA1-Digest-Manifest: QXmjIAd86Iup+OOSmdpYfmJQWO0=
+
+Name: META-INF/com/google/android/updater-script
+SHA1-Digest-Manifest: hRu5FwfIV4UexrRgnXDVjrFflK0=
+
+Name: system/lib/libMira4U.so
+SHA1-Digest-Manifest: WYBJK+Mmp1dz9Hepoc1x4j2Z3UQ=
+
+Name: system/bin/nettest
+SHA1-Digest-Manifest: FGL4gBT/1fBA9WgSXXtMUEeNUvU=
+
+Name: META-INF/com/google/android/update-binary
+SHA1-Digest-Manifest: CSZ7Gyg6X76HeNNSMKPZaNDGFlI=
+
+Name: system/bin/rtptest
+SHA1-Digest-Manifest: HCTGs1CAxgJAgHNS59OsutwuMVM=
+
+Name: system/lib/libstagefright_wfd.so
+SHA1-Digest-Manifest: ByzzqvfIkhplHLzkEqizrSFmpbM=
+

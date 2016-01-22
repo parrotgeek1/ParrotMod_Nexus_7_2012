@@ -1,0 +1,2 @@
+#!/system/bin/sh
+/system/xbin/busybox nohup /system/xbin/busybox sh /system/etc/parrotmod/magic.sh >/dev/null 2>&1 &
