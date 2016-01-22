@@ -10,7 +10,9 @@ Features:
 FLASH MEMORY SPEED INCREASE! up to 6x better performance WITHOUT F2FS OR DYNAMIC FSYNC
 uses ext4 but can use data/cache f2fs
 audio stutter fix
-stagefright fix
+stagefright and lib(c)utils vulnerabilities fixed
+Fstrim every boot
+Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, kernel samepage merging)
 a bunch of processes reniced/io priority increased to fix lag
 hard freezes are less likely
@@ -22,7 +24,8 @@ new wallpaper
 adb insecure
 camera app is shown
 MiXplorer file manager
-rebooter app
+rebooter 
+Permissive selinux (let's call it a feature)
 
 Instructions
 ============
@@ -34,11 +37,15 @@ Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is u
 Credit
 -----
 
-The kernel is Plain Kernel by @Snuzzo on XDA
+The kernel is Plain Kernel by @Snuzzo on 
+Busybox from http://busybox.net/downloads
 
 To do
 -----
 
+Real extended power menu not app
+Fstrim data/cache/system after install
+Fstrim cache every boot
 performance/noop at boot
 more debloat?
 A faster browser optimized for tegra?
