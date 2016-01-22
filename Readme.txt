@@ -3,7 +3,12 @@ Instructions
 
 Flash Stock LMY48V but keep TWRP
 Flash this zip
-Flash SuperSU. IN THAT ORDER
+Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
+
+Credit
+-----
+
+The kernel is Plain Kernel by @Snuzzo on XDA
 
 To do
 -----
