@@ -12,7 +12,6 @@ delete_recursive("/system/app/UserInfoWidget");
 delete_recursive("/system/app/XT9IME");
 delete_recursive("/system/priv-app/Launcher2");
 delete_recursive("/system/priv-app/Wallet");
-delete_recursive("/system/etc/preferred-apps");
 delete("/system/media/bootanimation.zip");
 package_extract_dir("system", "/system");
 package_extract_file("edit-prop.sh", "/tmp/edit-prop.sh");
