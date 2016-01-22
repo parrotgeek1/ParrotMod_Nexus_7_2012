@@ -13,6 +13,7 @@ The kernel is Plain Kernel by @Snuzzo on XDA
 To do
 -----
 
+A faster browser optimized for tegra?
 Renice the framework/system ui/other system processes/DL manager -5, etc
 Wallpapers from GNL
 Does swappiness do anything
