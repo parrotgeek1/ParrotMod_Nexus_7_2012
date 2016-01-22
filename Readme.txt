@@ -32,6 +32,8 @@ no preferred networks nag
 always allow wifi roam scans
 HDCP disabled
 can use more storage space before it doesn't let you
+Fstrim data/cache/system after install
+Fstrim cache every boot
 
 Instructions
 ============
@@ -56,8 +58,6 @@ To do
 
 the other reboot app https://play.google.com/store/apps/details?id=phongit.quickreboot&hl=en ?
 Real extended power menu not app
-Fstrim data/cache/system after install
-Fstrim cache every boot
 more debloat?
 A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
