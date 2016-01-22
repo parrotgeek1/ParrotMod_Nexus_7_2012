@@ -2,10 +2,6 @@
 bb=/system/xbin/busybox
 echo 0 > /sys/fs/selinux/enforce
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
-cd /sys/kernel/mm/ksm 
-echo 100 > pages_to_scan
-echo 500 > sleep_millisecs
-echo 1 > run
 setprop dalvik.vm.heapstartsize 8m
 setprop dalvik.vm.heapgrowthlimit 128m
 setprop dalvik.vm.heapsize 174m
@@ -15,17 +11,15 @@ setprop dalvik.vm.heapmaxfree 8m
 for i in 0 1 2 3; do
 echo performance > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
 done
-echo cfq > /sys/block/mmcblk0/queue/scheduler
 echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
 cd /sys/block/mmcblk0/queue
+echo noop > scheduler
 echo 2048 > nr_requests
 echo 0 > add_random # dont contribute to entropy
 echo 512 > read_ahead_kb # this is low because queue & inode settings balance it out
 echo 1 > rq_affinity # stay on same cpu core
 echo 1 > nomerges # don't try as hard to merge requests (cpu hog)
 echo 0 > rotational # obviously
-echo 0 > iosched/slice_idle
-echo 0 > iosched/group_idle
 # maybe 64?
 #echo 33554432 > discard_max_bytes not in 3.1.10
 echo 0 > iostats # cpu hog
