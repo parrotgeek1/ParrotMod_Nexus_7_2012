@@ -20,7 +20,7 @@ a bunch of processes reniced/io priority increased to fix lag
 hard freezes are less likely
 LCD color banding fix (error-diffusion dithering)
 no nvidia smartdimmer/Prism
-faster boot (wip)
+faster boot
 debloat
 new wallpaper
 adb insecure
@@ -58,7 +58,6 @@ the other reboot app https://play.google.com/store/apps/details?id=phongit.quick
 Real extended power menu not app
 Fstrim data/cache/system after install
 Fstrim cache every boot
-performance/noop at boot
 more debloat?
 A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
