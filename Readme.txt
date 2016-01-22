@@ -45,6 +45,7 @@ Miracast libs & app are modded versions of kensuke/s107ken's mira4u
 reboot app https://play.google.com/store/apps/details?id=com.stephansmolek.reboot&hl=en
 BSZAospLp rom for stagefright libs http://forum.xda-developers.com/nexus-7/development/rom-t2931064
 HootanParsa for MiXplorer http://forum.xda-developers.com/showthread.php?t=1523691
+Nexus 7 Camera https://play.google.com/store/apps/details?id=com.helffo.cameralauncher&hl=en
 
 To do
 -----
@@ -77,3 +78,4 @@ app ops/autostarts/supersu in settings?
 no media scanner at boot
 more aosp apps?
 Make marshmallow version and version for any rom
+fix panorama etc
