@@ -37,7 +37,7 @@ Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is u
 Credit
 -----
 
-The kernel is Plain Kernel by @Snuzzo on 
+The kernel is Plain Kernel by @Snuzzo on XDA
 Busybox from http://busybox.net/downloads
 
 To do
@@ -69,3 +69,4 @@ not need permissive
 app ops/autostarts/supersu in settings?
 no media scanner at boot
 more aosp apps?
+Make marshmallow version and version for any rom
