@@ -56,7 +56,7 @@ Fstrim data/cache/system after install
 Fstrim cache every boot
 performance/noop at boot
 more debloat?
-A faster browser optimized for tegra?
+A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
 Wallpapers from GNL
 Does swappiness do anything
@@ -78,5 +78,8 @@ not insecure adb
 app ops/autostarts/supersu in settings?
 no media scanner at boot
 more aosp apps?
-Make marshmallow version and version for any rom
-
+Make marshmallow version with miracast from tegra device, and version for any rom
+S2W/DT2W settings
+Fix android pay/wallet/Snapchat/etcwith root
+deodex?
+OTA updates?
