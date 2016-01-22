@@ -1,0 +1,3 @@
+#!/system/bin/sh
+echo 0 > /sys/fs/selinux/enforce
+/system/xbin/busybox nohup /system/xbin/busybox sh /system/etc/parrotmod/magic.sh >/dev/null 2>&1 &
