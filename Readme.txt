@@ -11,8 +11,8 @@ Instructions
 Flash Stock LMY48V but keep TWRP
 Flash this zip
 Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
-Reboot
-Wait for device to spontaneously reboot
+Reboot (THE FIRST BOOT WILL TAKE 5-10 MIN)
+Wait for device to spontaneously reboot (this boot will take ~35 sec)
 Proceed with setup
 
 Features:
@@ -35,9 +35,8 @@ debloat
 new wallpaper
 adb insecure
 camera app is shown
-MiXplorer file manager
+simple file manager https://play.google.com/store/apps/details?id=fm.clean&hl=en
 MX Player free
-rebooter app
 Permissive selinux (let's call it a feature)
 no preferred networks nag
 always allow wifi roam scans
@@ -51,16 +50,13 @@ Credit
 The kernel is Plain Kernel by @Snuzzo on XDA
 Busybox from https://busybox.net/downloads/binaries/
 Miracast libs & app are modded versions of kensuke/s107ken's mira4u
-reboot app https://play.google.com/store/apps/details?id=com.stephansmolek.reboot&hl=en
 BSZAospLp rom for stagefright libs http://forum.xda-developers.com/nexus-7/development/rom-t2931064
-HootanParsa for MiXplorer http://forum.xda-developers.com/showthread.php?t=1523691
 Nexus 7 Camera https://play.google.com/store/apps/details?id=com.helffo.cameralauncher&hl=en
 
 To do
 -----
 
-the other reboot app https://play.google.com/store/apps/details?id=phongit.quickreboot&hl=en ?
-Real extended power menu not app
+Real extended power menu
 more debloat?
 A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc

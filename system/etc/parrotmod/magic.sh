@@ -8,12 +8,20 @@ cd /sys/block/mmcblk0/queue
 echo cfq > scheduler
 echo 0 > iosched/slice_idle
 echo 0 > iosched/group_idle
+echo 200 > iosched/target_latency # ms
+echo "1" > iosched/low_latency
+echo "1" > iosched/back_seek_penalty # no penalty
+echo "1000000000" > iosched/back_seek_max
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 # ksm after boot better
 cd /sys/kernel/mm/ksm 
 echo 100 > pages_to_scan
 echo 500 > sleep_millisecs
 echo 1 > run
+# CFS
+echo -1 > /proc/sys/kernel/sched_rt_runtime_us
+echo 100000 > /proc/sys/kernel/sched_rt_period_us
+echo 95000 > /proc/sys/kernel/sched_rt_runtime_us
 # for (mostly) fixing audio stutter when multitasking
 $bb renice -15 $($bb pidof mediaserver) #disk io important
 $bb renice -7 $($bb pidof hd-audio0) #avoid underruns but can't be faster than media server
