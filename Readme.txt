@@ -41,7 +41,6 @@ new wallpaper
 adb insecure
 camera app is shown
 simple file manager https://play.google.com/store/apps/details?id=fm.clean&hl=en
-MX Player free
 Permissive selinux (let's call it a feature)
 no preferred networks nag
 always allow wifi roam scans
