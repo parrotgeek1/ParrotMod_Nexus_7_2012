@@ -18,9 +18,12 @@ Proceed with setup
 Features:
 =========
 
-FLASH MEMORY SPEED INCREASE! up to 6x better performance WITHOUT F2FS OR DYNAMIC FSYNC
+FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC FSYNC
 uses ext4 but can use data/cache f2fs
-audio stutter fix
+lots of features like sweep2wake/dt2w/governors/etc can be changed in Kernel Adiutor
+1.5ghz overclock, 55mhz underclock, wheatley governor
+mostly audio stutter fix
+scheduler tweaks
 stagefright and lib(c)utils vulnerabilities fixed
 Fstrim every boot
 miracast/chromecast enabled (need to click disable intra macroblock refresh in app)
@@ -82,6 +85,6 @@ no media scanner at boot
 more aosp apps?
 Make marshmallow version with miracast from http://forum.xda-developers.com/galaxy-nexus/development/rom-dreams-version-5-1-t2510649/post57458796#post57458796, and version for any rom
 S2W/DT2W settings
-Fix android pay/wallet/Snapchat/etcwith root
+Fix android pay/wallet/Snapchat/etc with root
 deodex?
 OTA updates?

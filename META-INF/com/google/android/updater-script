@@ -9,6 +9,7 @@ delete_recursive("/system/app/Newsstand");
 delete_recursive("/system/app/PlusOne");
 delete_recursive("/system/app/PrebuiltEmailGoogle");
 delete_recursive("/system/app/UserInfoWidget");
+delete_recursive("/system/app/Videos");
 delete_recursive("/system/app/XT9IME");
 delete_recursive("/system/priv-app/Launcher2");
 delete_recursive("/system/priv-app/Wallet");

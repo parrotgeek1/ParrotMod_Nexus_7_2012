@@ -31,7 +31,7 @@ $bb renice -15 $($bb pidof lmkd) # stop hard freezes from low memory killer bein
 $bb fstrim -v /cache
 am idle-maintenance #trim etc
 for i in 0 1 2 3; do
-echo interactive > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
+echo wheatley > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
 done
 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 $bb date > /data/local/tmp/parrotmod.txt
