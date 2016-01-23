@@ -36,11 +36,11 @@ new wallpaper
 adb insecure
 camera app is shown
 MiXplorer file manager
+MX Player free
 rebooter app
 Permissive selinux (let's call it a feature)
 no preferred networks nag
 always allow wifi roam scans
-HDCP disabled
 can use more storage space before it doesn't let you
 Fstrim data/cache/system after install
 Fstrim cache every boot

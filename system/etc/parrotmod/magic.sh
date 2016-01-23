@@ -36,6 +36,5 @@ settings put global sys_storage_threshold_percentage 2
 settings put global sys_storage_threshold_max_bytes 104857600
 settings put global wifi_allow_scan_with_traffic 1
 echo 1 > /data/lastpmver.txt
-$bb sync
-reboot
+am start -a android.intent.action.REBOOT # cleaner reboot
 fi
