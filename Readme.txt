@@ -21,7 +21,7 @@ Features:
 FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC FSYNC
 uses ext4 but can use data/cache f2fs
 lots of features like sweep2wake/dt2w/governors/etc can be changed in Kernel Adiutor
-1.5ghz overclock, 55mhz underclock, wheatley governor
+1.5ghz overclock, 55mhz underclock, interactive governor, cfq
 mostly audio stutter fix
 scheduler tweaks
 stagefright and lib(c)utils vulnerabilities fixed

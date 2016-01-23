@@ -18,10 +18,6 @@ cd /sys/kernel/mm/ksm
 echo 100 > pages_to_scan
 echo 500 > sleep_millisecs
 echo 1 > run
-# CFS
-echo -1 > /proc/sys/kernel/sched_rt_runtime_us
-echo 100000 > /proc/sys/kernel/sched_rt_period_us
-echo 95000 > /proc/sys/kernel/sched_rt_runtime_us
 # for (mostly) fixing audio stutter when multitasking
 $bb renice -15 $($bb pidof mediaserver) #disk io important
 $bb renice -7 $($bb pidof hd-audio0) #avoid underruns but can't be faster than media server
@@ -31,7 +27,7 @@ $bb renice -15 $($bb pidof lmkd) # stop hard freezes from low memory killer bein
 $bb fstrim -v /cache
 am idle-maintenance #trim etc
 for i in 0 1 2 3; do
-echo wheatley > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
+echo interactive > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
 done
 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 $bb date > /data/local/tmp/parrotmod.txt
