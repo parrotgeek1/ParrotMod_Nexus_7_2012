@@ -36,6 +36,7 @@ no nvidia smartdimmer/Prism
 faster boot
 debloat
 64k log buffers
+no Gentle Fair Sleepers (I don't know, either. It helps with lag spikes)
 new wallpaper
 adb insecure
 camera app is shown
