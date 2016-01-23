@@ -35,6 +35,7 @@ LCD color banding fix (error-diffusion dithering)
 no nvidia smartdimmer/Prism
 faster boot
 debloat
+64k log buffers
 new wallpaper
 adb insecure
 camera app is shown
