@@ -24,8 +24,6 @@ $bb renice -7 $($bb pidof hd-audio0) #avoid underruns but can't be faster than m
 #cfq adjusts disk io based on nice value
 $bb renice -10 $($bb pidof sdcard)
 $bb renice -15 $($bb pidof lmkd) # stop hard freezes from low memory killer being CPU starved
-$bb fstrim -v /cache
-am idle-maintenance #trim etc
 for i in 0 1 2 3; do
 echo interactive > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
 done
@@ -40,5 +38,9 @@ settings put global sys_storage_threshold_percentage 2
 settings put global sys_storage_threshold_max_bytes 104857600
 settings put global wifi_allow_scan_with_traffic 1
 echo 1 > /data/lastpmver.txt
+$bb fstrim -v /data
+$bb fstrim -v /cache
 am start -a android.intent.action.REBOOT # cleaner reboot
+else
+am idle-maintenance #trim etc
 fi
