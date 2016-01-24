@@ -1,15 +1,41 @@
 What?
 =====
 
-This is an optimized rom for the 2012 Nexus 7 aka grouper.
+This is an optimized ROM for the 2012 Nexus 7 aka grouper.
 
 Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable.zip
 
-Instructions
-============
+You can install it on top of stock 5.1.1 WITHOUT ERASING YOUR DATA!
 
-Flash Stock LMY48V but keep TWRP
-Flash this zip
+Instructions - From unrooted stock 5.1.1
+========================================
+
+Download KingRoot from http://www.kingroot.net/, install it, ignore the warnings, and tap Root
+Install Flashify from the Play Store
+Download the zip in the download link on your tablet
+Open Flashify and install TWRP recovery, the latest version
+Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
+Delete the KingRoot and Purify Apps
+Reboot your tablet while holding the power and volume down buttons
+Scroll with volume buttons to Recovery mode and tap power button
+You will see a Google screen and then TeamWin logo, just wait
+Tap Never show this screen again and Swipe to allow modification
+Tap Install
+You will see the files on your internal storage, go to Download folder
+Tap on ParrotMod_Grouper_Stable.zip
+Swipe to confirm flash
+When it finishes installing tap Reboot System
+Your tablet will reboot (THE FIRST BOOT WILL TAKE 5-10 MIN)
+Wait for device to spontaneously reboot after the lock screen appears (this next boot will take ~45 sec)
+Wait 30 seconds for the device to settle
+Enjoy the improved speed! (You can delete ParrotMod_Grouper_Stable.zip now)
+
+Instructions - Advanced users
+=============================
+
+Flash Stock LMY48V factory image https://developers.google.com/android/nexus/images?hl=en
+Install TWRP and reboot to recovery.
+Flash this zip (from the download link. don't extract it, just copy it to the tablet)
 Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
 Reboot (THE FIRST BOOT WILL TAKE 5-10 MIN)
 Wait for device to spontaneously reboot (this boot will take ~35 sec)
