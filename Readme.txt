@@ -94,6 +94,7 @@ To do
 -----
 
 Real extended power menu
+Battery percentage on by default
 more debloat?
 A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
