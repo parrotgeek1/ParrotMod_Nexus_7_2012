@@ -17,6 +17,7 @@ Download the zip from https://download.chainfire.eu/696/SuperSU on your tablet
 Open Flashify and install TWRP recovery, the latest version
 Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
 Delete the KingRoot and Purify Apps
+Plug your tablet into a computer! (not even a charger) otherwise it will freeze on the next step. This is a bug in the tablet itself.
 Reboot your tablet while holding the power and volume down buttons
 Scroll with volume buttons to Recovery mode and tap power button
 You will see a Google screen and then TeamWin logo, just wait
