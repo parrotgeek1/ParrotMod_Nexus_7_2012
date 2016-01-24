@@ -9,6 +9,39 @@ Video: https://www.youtube.com/watch?v=CSp8mc5ZkkE
 
 You can install it on top of stock 5.1.1 WITHOUT ERASING YOUR DATA!
 
+Features:
+=========
+
+FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC FSYNC
+uses ext4 but can use data/cache f2fs
+lots of features like sweep2wake/dt2w/governors/etc can be changed in Kernel Adiutor
+1.5ghz overclock, 55mhz underclock, interactive governor, cfq
+mostly audio stutter fix
+scheduler tweaks
+stagefright and lib(c)utils vulnerabilities fixed
+Fstrim every boot
+miracast/chromecast enabled (need to click disable intra macroblock refresh in app)
+Bluetooth 4.0 enabled (BLE/GATT/SMP)
+more apps open at once (minfree tweak, kernel samepage merging)
+a bunch of processes reniced/io priority increased to fix lag
+hard freezes are less likely
+LCD color banding fix (error-diffusion dithering)
+no nvidia smartdimmer/Prism
+faster boot
+debloat
+64k log buffers
+no Gentle Fair Sleepers (I don't know, either. It helps with lag spikes)
+new wallpaper
+adb insecure
+camera app is shown
+simple file manager https://play.google.com/store/apps/details?id=fm.clean&hl=en
+Permissive selinux (let's call it a feature)
+no preferred networks nag
+always allow wifi roam scans
+can use more storage space before it doesn't let you
+Fstrim data/cache/system after install
+Fstrim cache every boot
+
 Instructions - From unrooted stock 5.1.1
 ========================================
 
@@ -47,39 +80,6 @@ Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is u
 Reboot (THE FIRST BOOT WILL TAKE 5-10 MIN)
 Wait for device to spontaneously reboot (this boot will take ~35 sec)
 Proceed with setup
-
-Features:
-=========
-
-FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC FSYNC
-uses ext4 but can use data/cache f2fs
-lots of features like sweep2wake/dt2w/governors/etc can be changed in Kernel Adiutor
-1.5ghz overclock, 55mhz underclock, interactive governor, cfq
-mostly audio stutter fix
-scheduler tweaks
-stagefright and lib(c)utils vulnerabilities fixed
-Fstrim every boot
-miracast/chromecast enabled (need to click disable intra macroblock refresh in app)
-Bluetooth 4.0 enabled (BLE/GATT/SMP)
-more apps open at once (minfree tweak, kernel samepage merging)
-a bunch of processes reniced/io priority increased to fix lag
-hard freezes are less likely
-LCD color banding fix (error-diffusion dithering)
-no nvidia smartdimmer/Prism
-faster boot
-debloat
-64k log buffers
-no Gentle Fair Sleepers (I don't know, either. It helps with lag spikes)
-new wallpaper
-adb insecure
-camera app is shown
-simple file manager https://play.google.com/store/apps/details?id=fm.clean&hl=en
-Permissive selinux (let's call it a feature)
-no preferred networks nag
-always allow wifi roam scans
-can use more storage space before it doesn't let you
-Fstrim data/cache/system after install
-Fstrim cache every boot
 
 Credit
 ------
