@@ -5,6 +5,8 @@ This is an optimized ROM for the 2012 Nexus 7 aka grouper.
 
 Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable.zip
 
+Video: https://www.youtube.com/watch?v=CSp8mc5ZkkE
+
 You can install it on top of stock 5.1.1 WITHOUT ERASING YOUR DATA!
 
 Instructions - From unrooted stock 5.1.1
