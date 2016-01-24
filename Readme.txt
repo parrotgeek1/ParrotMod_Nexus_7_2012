@@ -12,8 +12,8 @@ Instructions - From unrooted stock 5.1.1
 
 Download KingRoot from http://www.kingroot.net/, install it, ignore the warnings, and tap Root
 Install Flashify from the Play Store
-Download the zip in the download link on your tablet
-Open Flashify and install TWRP recovery, the latest version
+Download the zip in the download link on your 
+ashify and install TWRP recovery, the latest version
 Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
 Delete the KingRoot and Purify Apps
 Reboot your tablet while holding the power and volume down buttons
@@ -23,6 +23,9 @@ Tap Never show this screen again and Swipe to allow modification
 Tap Install
 You will see the files on your internal storage, go to Download folder
 Tap on ParrotMod_Grouper_Stable.zip
+Tap add more zips
+You will see the files on your internal storage, go to Download folder
+Tap on UPDATE-SuperSU-v2.46.zip
 Swipe to confirm flash
 When it finishes installing tap Reboot System
 Your tablet will reboot (THE FIRST BOOT WILL TAKE 5-10 MIN)
