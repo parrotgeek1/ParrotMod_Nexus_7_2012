@@ -19,7 +19,7 @@ lots of features like sweep2wake/dt2w/governors/etc can be changed in Kernel Adi
 mostly audio stutter fix
 scheduler tweaks
 stagefright and lib(c)utils vulnerabilities fixed
-miracast/chromecast(? Please test) enabled (need to click disable intra macroblock refresh and hdcp disable in app)
+miracast enabled
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, kernel samepage merging)
 a bunch of processes reniced/io priority increased to fix lag
@@ -108,7 +108,6 @@ gpu oc/uv/etc, MAYBE cpu
 bootanim
 other cve fixes
 Ionice more audio/mmc kernel processes & realtime priority mediaserver etc http://www.askapache.com/optimize/optimize-nice-ionice.html 
-mira4u without apk & hex edit for xml path
 script rerun on soft reboot
 http://forum.xda-developers.com/showthread.php?t=1792531
 version for tilapia w/ tcp opts/no tether check/sms enable
@@ -120,6 +119,6 @@ no media scanner at boot
 more aosp apps?
 Make marshmallow version with miracast from http://forum.xda-developers.com/galaxy-nexus/development/rom-dreams-version-5-1-t2510649/post57458796#post57458796, and version for any rom
 S2W/DT2W settings
-Fix android pay/wallet/Snapchat/etc with root
+Fix wallet/Snapchat/etc with root cloak
 deodex?
 OTA updates?
