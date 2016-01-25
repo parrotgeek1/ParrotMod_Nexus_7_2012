@@ -28,6 +28,7 @@ New default wallpaper (quality could be better though)
 hard freezes are less likely
 LCD color banding fix (error-diffusion dithering)
 no nvidia smartdimmer/Prism
+Battery percentage on by default
 faster boot
 debloat
 64k log buffers
@@ -94,7 +95,6 @@ To do
 -----
 
 Real extended power menu
-Battery percentage on by default
 more debloat?
 A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
