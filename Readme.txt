@@ -19,11 +19,12 @@ lots of features like sweep2wake/dt2w/governors/etc can be changed in Kernel Adi
 mostly audio stutter fix
 scheduler tweaks
 stagefright and lib(c)utils vulnerabilities fixed
-Fstrim every boot
-miracast/chromecast enabled (need to click disable intra macroblock refresh in app)
+miracast/chromecast(? Please test) enabled (need to click disable intra macroblock refresh and hdcp disable in app)
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, kernel samepage merging)
 a bunch of processes reniced/io priority increased to fix lag
+AOSP lollipop launcher without Google now
+New default wallpaper (quality could be better though)
 hard freezes are less likely
 LCD color banding fix (error-diffusion dithering)
 no nvidia smartdimmer/Prism
@@ -34,13 +35,12 @@ no Gentle Fair Sleepers (I don't know, either. It helps with lag spikes)
 new wallpaper
 adb insecure
 camera app is shown
-simple file manager https://play.google.com/store/apps/details?id=fm.clean&hl=en
+simple file manager [url]https://play.google.com/store/apps/details?id=fm.clean&hl=en[/url]
 Permissive selinux (let's call it a feature)
 no preferred networks nag
 always allow wifi roam scans
 can use more storage space before it doesn't let you
-Fstrim data/cache/system after install
-Fstrim cache every boot
+Fstrim system after install & Fstrim data & cache every boot
 
 Instructions - From unrooted stock 5.1.1
 ========================================
