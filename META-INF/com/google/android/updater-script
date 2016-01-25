@@ -1,3 +1,4 @@
+assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") == "grouper" || getprop("ro.product.device") == "tilapia" || getprop("ro.build.product") == "tilapia");
 run_program("/sbin/busybox", "mount", "/system");
 delete("/system/recovery-from-boot.p");
 delete_recursive("/system/app/Books");
