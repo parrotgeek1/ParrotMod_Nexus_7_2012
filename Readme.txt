@@ -35,7 +35,7 @@ no Gentle Fair Sleepers (I don't know, either. It helps with lag spikes)
 new wallpaper
 adb insecure
 camera app is shown
-simple file manager [url]https://play.google.com/store/apps/details?id=fm.clean&hl=en[/url]
+simple file manager https://play.google.com/store/apps/details?id=fm.clean&hl=en
 Permissive selinux (let's call it a feature)
 no preferred networks nag
 always allow wifi roam scans
