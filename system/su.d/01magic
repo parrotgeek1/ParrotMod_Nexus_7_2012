@@ -15,14 +15,18 @@ done
 echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
 cd /sys/block/mmcblk0/queue
 echo noop > scheduler
-echo 2048 > nr_requests
+echo 4096 > nr_requests
 echo 0 > add_random # dont contribute to entropy
-echo 256 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
+if [ -f "/sdcard/use4kblock" ]; then
+echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
+elif [ -f "/sdcard/use256kblock" ]; then
+echo 256 > read_ahead_kb # between
+else
+echo 512 > read_ahead_kb # old value
+fi
 echo 1 > rq_affinity # stay on same cpu core
 echo 0 > nomerges # try hard to merge requests 
 echo 0 > rotational # obviously
-# maybe 64?
-#echo 33554432 > discard_max_bytes not in 3.1.10
 echo 0 > iostats # cpu hog
 echo 4096 > /proc/sys/vm/min_free_kbytes
 chmod 664 /sys/module/lowmemorykiller/parameters/adj
@@ -30,18 +34,15 @@ echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj
 chmod 444 /sys/module/lowmemorykiller/parameters/adj 
 chmod 664 /sys/module/lowmemorykiller/parameters/minfree 
 echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
-chmod 444 /sys/module/lowmemorykiller/parameters/minfree 
-# Tweak kernel VM management
+chmod 444 /sys/module/lowmemorykiller/parameters/minfree # android cant edit it
 echo "0" > /proc/sys/vm/swappiness
 echo "10" > /proc/sys/vm/dirty_ratio
-
-# Tweak kernel scheduler, less aggressive settings
 echo "18000000" > /proc/sys/kernel/sched_latency_ns
 echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
 echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
 mount -t debugfs none /sys/kernel/debug
 echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
-# Misc tweaks for battery life
+# Misc tweaks for battery life DO THESE DO ANYTHING WITHOUT SWAP?
 echo "2000" > /proc/sys/vm/dirty_writeback_centisecs
 echo "1000" > /proc/sys/vm/dirty_expire_centisecs
 for m in /data /cache; do
