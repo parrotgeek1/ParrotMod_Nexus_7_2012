@@ -117,7 +117,6 @@ more aosp apps?
 version for any rom with miracast https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161
 S2W/DT2W settings
 Fix wallet/Snapchat/etc with root cloak
-deodex
 OTA updates?
 can change lid magnet switch behavior
 config_safe_media_volume_enabled false overlay
@@ -128,17 +127,15 @@ viper4android?
 update gapps
 all BB symlinks auto https://gist.github.com/pocke/7667894 except su and use armv7 android busybox
 WiFidisplaysupportsprotectedbuffers?
+camera shortcut?
+https://github.com/CyanogenMod/android_device_asus_grouper/commit/19918d95d1dc24daab9c2b564777832694c203f5 & ipv6
 Add to website
 Why does it reodex
-Another contacts app with groups?
 Cm calculator?
 Wi-Fi tweaks and increase range
 Parrot wallpaper looks bad in portrait
 TCP congestion change?
 Disable otas
-Lower the amount of unwritten write cache to reduce lags when a huge write is required. Increase tendency of kernel to keep block-cache to help with slower RFS filesystem. 
-more scheduler tweaks
-http://andrs.w3pla.net/autokiller/kernel
 http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/
 Media mute? And other silent mode tweaks?
 other governor?
