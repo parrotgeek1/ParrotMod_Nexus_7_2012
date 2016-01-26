@@ -99,13 +99,10 @@ more debloat?
 A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
 Wallpapers from GNL
-Does swappiness do anything
 https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt 
 https://www.kernel.org/doc/Documentation/sysctl/vm.txt
 camera LP icon
 sounds from new devices
-gpu oc/uv/etc, MAYBE cpu
-bootanim
 other cve fixes
 Ionice more audio/mmc kernel processes & realtime priority mediaserver etc http://www.askapache.com/optimize/optimize-nice-ionice.html 
 script rerun on soft reboot
@@ -114,11 +111,37 @@ version for tilapia w/ tcp opts/no tether check/sms enable
 support otg native
 not need permissive OR root
 not insecure adb
-app ops/autostarts/supersu in settings?
-no media scanner at boot
 more aosp apps?
-Make marshmallow version with miracast from http://forum.xda-developers.com/galaxy-nexus/development/rom-dreams-version-5-1-t2510649/post57458796#post57458796, and version for any rom
+version for any rom with miracast https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161
 S2W/DT2W settings
 Fix wallet/Snapchat/etc with root cloak
-deodex?
+deodex
 OTA updates?
+can change lid magnet switch behavior
+config_safe_media_volume_enabled false overlay
+install root
+FRP?
+ambient display?
+viper4android?
+update gapps
+all BB symlinks auto https://gist.github.com/pocke/7667894 except su and use armv7 android busybox
+WiFidisplaysupportsprotectedbuffers?
+Add to website
+Why does it reodex
+Another contacts app with groups?
+Cm calculator?
+Wi-Fi tweaks and increase range
+Parrot wallpaper looks bad in portrait
+TCP congestion change?
+Disable otas
+Lower the amount of unwritten write cache to reduce lags when a huge write is required. Increase tendency of kernel to keep block-cache to help with slower RFS filesystem. 
+more scheduler tweaks
+http://andrs.w3pla.net/autokiller/kernel
+http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/
+Media mute? And other silent mode tweaks?
+other governor?
+look more at ss4n1
+switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynamic fsync
+https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
+MM boot anim
+https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161 bitrate miracast
