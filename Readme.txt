@@ -74,7 +74,7 @@ Enjoy the improved speed! (You can delete ParrotMod_Grouper_Stable.zip now)
 Instructions - Advanced users
 =============================
 
-Flash Stock LMY48V factory image https://developers.google.com/android/nexus/images?hl=en
+Flash Stock LMY47V factory image https://developers.google.com/android/nexus/images?hl=en
 Install TWRP and reboot to recovery.
 Flash this zip (from the download link. don't extract it, just copy it to the tablet)
 Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
