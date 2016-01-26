@@ -3,6 +3,8 @@ What?
 
 This is an optimized ROM for the 2012 Nexus 7 aka grouper.
 
+XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
+
 Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable.zip
 
 Video: https://www.youtube.com/watch?v=CSp8mc5ZkkE
@@ -54,7 +56,7 @@ Open Flashify and install TWRP recovery, the latest version
 Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
 Delete the KingRoot and Purify Apps
 Plug your tablet into a computer! (not even a charger) otherwise it will freeze on the next step. This is a bug in the tablet itself.
-Reboot your tablet while holding the power and volume down buttons
+Reboot your tablet while holding the power and volume down buttons. if this does not work power on while holding BOTH volume UP and DOWN. 
 Scroll with volume buttons to Recovery mode and tap power button
 You will see a Google screen and then TeamWin logo, just wait
 Tap Never show this screen again and Swipe to allow modification
