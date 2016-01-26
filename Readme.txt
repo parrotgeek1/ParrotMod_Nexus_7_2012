@@ -103,7 +103,7 @@ https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
 https://www.kernel.org/doc/Documentation/sysctl/vm.txt
 camera LP icon
 sounds from new devices
-other cve fixes
+other cve fixes http://forum.xda-developers.com/showpost.php?p=63661692&postcount=2 https://source.android.com/security/bulletin/
 Ionice more audio/mmc kernel processes & realtime priority mediaserver etc http://www.askapache.com/optimize/optimize-nice-ionice.html 
 script rerun on soft reboot
 http://forum.xda-developers.com/showthread.php?t=1792531
