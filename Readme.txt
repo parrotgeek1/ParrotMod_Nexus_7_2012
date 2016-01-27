@@ -136,7 +136,7 @@ Wi-Fi tweaks and increase range
 Parrot wallpaper looks bad in portrait
 TCP congestion change?
 Disable otas
-http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/
+http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/ http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html
 Media mute? And other silent mode tweaks?
 other governor?
 look more at ss4n1
@@ -144,3 +144,5 @@ switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynam
 https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
 MM boot anim
 https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161 bitrate miracast
+http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4?
+investigate slow charge fix
