@@ -102,7 +102,7 @@ A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
 Wallpapers from GNL
 https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt 
-https://www.kernel.org/doc/Documentation/sysctl/vm.txt
+https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/mm
 camera LP icon
 sounds from new devices
 other cve fixes http://forum.xda-developers.com/showpost.php?p=63661692&postcount=2 https://source.android.com/security/bulletin/
@@ -147,3 +147,4 @@ https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagef
 http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4?
 investigate slow charge fix
 a different encryption password and lock password, can use it with accessibility service
+entropy pool size
