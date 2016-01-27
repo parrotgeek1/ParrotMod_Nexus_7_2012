@@ -144,7 +144,7 @@ switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynam
 https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
 MM boot anim
 https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161 bitrate miracast
-http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4?
+http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4? http://forum.xda-developers.com/showpost.php?p=64429384&postcount=122
 investigate slow charge fix
 a different encryption password and lock password, can use it with accessibility service
 entropy pool size
