@@ -89,62 +89,6 @@ Credit
 
 The kernel is Plain Kernel by @Snuzzo on XDA
 Busybox from https://busybox.net/downloads/binaries/
-Miracast libs & app are modded versions of kensuke/s107ken's mira4u
+Miracast libs are modded versions of kensuke/s107ken's mira4u
 BSZAospLp rom for stagefright libs http://forum.xda-developers.com/nexus-7/development/rom-t2931064
 Nexus 7 Camera https://play.google.com/store/apps/details?id=com.helffo.cameralauncher&hl=en
-
-To do
------
-
-Real extended power menu
-more debloat?
-A faster browser optimized for tegra? and/or optimize chrome and webview
-Renice the framework/system ui/other system processes/DL manager -5, etc
-Wallpapers from GNL
-https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt 
-https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/mm
-camera LP icon
-sounds from new devices
-other cve fixes http://forum.xda-developers.com/showpost.php?p=63661692&postcount=2 https://source.android.com/security/bulletin/
-Ionice more audio/mmc kernel processes & realtime priority mediaserver etc http://www.askapache.com/optimize/optimize-nice-ionice.html 
-script rerun on soft reboot
-http://forum.xda-developers.com/showthread.php?t=1792531
-version for tilapia w/ tcp opts/no tether check/sms enable
-support otg native
-not need permissive OR root
-not insecure adb
-more aosp apps?
-version for any rom with miracast https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161
-S2W/DT2W settings
-Fix wallet/Snapchat/etc with root cloak
-OTA updates?
-can change lid magnet switch behavior
-config_safe_media_volume_enabled false overlay
-install root
-FRP?
-ambient display?
-viper4android?
-update gapps
-all BB symlinks auto https://gist.github.com/pocke/7667894 except su and use armv7 android busybox
-WiFidisplaysupportsprotectedbuffers?
-camera shortcut?
-https://github.com/CyanogenMod/android_device_asus_grouper/commit/19918d95d1dc24daab9c2b564777832694c203f5 & ipv6
-Add to website
-Why does it reodex
-Cm calculator?
-Wi-Fi tweaks and increase range
-Parrot wallpaper looks bad in portrait
-TCP congestion change?
-Disable otas
-http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/ http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html
-Media mute? And other silent mode tweaks?
-other governor?
-look more at ss4n1
-switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynamic fsync
-https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
-MM boot anim
-https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161 bitrate miracast
-http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4? http://forum.xda-developers.com/showpost.php?p=64429384&postcount=122
-investigate slow charge fix
-a different encryption password and lock password, can use it with accessibility service
-entropy pool size
