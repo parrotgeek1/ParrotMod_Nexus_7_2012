@@ -146,3 +146,4 @@ MM boot anim
 https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161 bitrate miracast
 http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4?
 investigate slow charge fix
+a different encryption password and lock password, can use it with accessibility service
