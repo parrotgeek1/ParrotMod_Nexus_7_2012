@@ -32,14 +32,13 @@ WiFidisplaysupportsprotectedbuffers?
 camera shortcut?
 https://github.com/CyanogenMod/android_device_asus_grouper/commit/19918d95d1dc24daab9c2b564777832694c203f5 & ipv6
 Add to website
-Why does it reodex
 Cm calculator?
 Wi-Fi tweaks and increase range
 Parrot wallpaper looks bad in portrait
 TCP congestion change?
 Disable otas
 http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/ http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html
-Media mute? And other silent mode tweaks?
+Media mute
 other governor?
 look more at ss4n1
 switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynamic fsync
