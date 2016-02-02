@@ -17,12 +17,10 @@ cd /sys/block/mmcblk0/queue
 echo noop > scheduler
 echo 4096 > nr_requests
 echo 0 > add_random # dont contribute to entropy
-if [ -f "/sdcard/use4kblock" ]; then
-echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
-elif [ -f "/sdcard/use256kblock" ]; then
-echo 256 > read_ahead_kb # between
+if [ -f "/data/use512kblock" ]; then
+echo 512 > read_ahead_kb
 else
-echo 512 > read_ahead_kb # old value
+echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 fi
 echo 1 > rq_affinity # stay on same cpu core
 echo 0 > nomerges # try hard to merge requests 
@@ -36,6 +34,7 @@ chmod 664 /sys/module/lowmemorykiller/parameters/minfree
 echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
 chmod 444 /sys/module/lowmemorykiller/parameters/minfree # android cant edit it
 echo "0" > /proc/sys/vm/swappiness
+# TUNE THESE https://oakbytes.wordpress.com/2012/06/06/linux-scheduler-cfs-and-latency/ http://www.postgresql.org/message-id/50E4AAB1.9040902@optionshouse.com
 echo "10" > /proc/sys/vm/dirty_ratio
 echo "18000000" > /proc/sys/kernel/sched_latency_ns
 echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
