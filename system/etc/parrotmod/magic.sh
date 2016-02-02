@@ -20,7 +20,7 @@ echo 500 > sleep_millisecs
 echo 1 > run
 # for (mostly) fixing audio stutter when multitasking
 $bb renice -15 $($bb pidof mediaserver) #disk io important
-$bb renice -7 $($bb pidof hd-audio0) #avoid underruns but can't be faster than media server
+$bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 #cfq adjusts disk io based on nice value
 $bb renice -10 $($bb pidof sdcard)
 $bb renice -15 $($bb pidof lmkd) # stop hard freezes from low memory killer being CPU starved
@@ -42,6 +42,4 @@ echo 1 > /data/lastpmver.txt
 $bb fstrim -v /data
 $bb fstrim -v /cache
 am start -a android.intent.action.REBOOT # cleaner reboot
-else
-am idle-maintenance #trim etc
 fi
