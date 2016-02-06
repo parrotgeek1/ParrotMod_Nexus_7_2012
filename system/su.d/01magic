@@ -17,8 +17,8 @@ cd /sys/block/mmcblk0/queue
 echo noop > scheduler
 echo 4096 > nr_requests
 echo 0 > add_random # dont contribute to entropy
-if [ -f "/data/use512kblock" ]; then
-echo 512 > read_ahead_kb
+if [ -f "/data/no_readahead" ]; then
+echo 0 > read_ahead_kb
 else
 echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 fi
