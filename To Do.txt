@@ -4,7 +4,7 @@ A faster browser optimized for tegra? and/or optimize chrome and webview
 Renice the framework/system ui/other system processes/DL manager -5, etc
 Wallpapers from GNL
 https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt 
-https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/
+https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/mm
 https://www.kernel.org/doc/Documentation/scheduler/sched-design-CFS.txt
 More Mount options from
 https://www.kernel.org/doc/Documentation/filesystems/ext4.txt
