@@ -37,7 +37,8 @@ settings put global sys_storage_full_threshold_bytes 8388608
 settings put global sys_storage_threshold_percentage 2
 settings put global sys_storage_threshold_max_bytes 104857600
 settings put global wifi_allow_scan_with_traffic 1
-content insert --uri content://settings/system --bind name:s:status_bar_show_battery_percent --bind value:i:1
+settings put global wifi_scan_always_enabled 0
+settings put system status_bar_show_battery_percent 1
 echo 1 > /data/lastpmver.txt
 $bb fstrim -v /data
 $bb fstrim -v /cache

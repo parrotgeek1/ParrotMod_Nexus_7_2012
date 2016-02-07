@@ -37,7 +37,6 @@ all BB symlinks auto https://gist.github.com/pocke/7667894 except su and use arm
 WiFidisplaysupportsprotectedbuffers?
 camera shortcut?
 https://github.com/CyanogenMod/android_device_asus_grouper/commit/19918d95d1dc24daab9c2b564777832694c203f5 & ipv6
-Add to website
 Cm calculator?
 Wi-Fi tweaks and increase range
 Parrot wallpaper looks bad in portrait
@@ -54,4 +53,4 @@ https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagef
 http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4? http://forum.xda-developers.com/showpost.php?p=64429384&postcount=122
 investigate slow charge fix
 a different encryption password and lock password, can use it with accessibility service
-entropy pool size
+entropy pool size https://github.com/f1vefour/CrossBreeder haveged etc
