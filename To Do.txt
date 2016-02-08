@@ -1,5 +1,6 @@
 switch to just zImage, add all kernels api 16 17 18 19 23
 miracast for EVERY version api 17 18 19 23
+libstagefright_hdcp
 trim data/cache on boot
 https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt 
 https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/mm
