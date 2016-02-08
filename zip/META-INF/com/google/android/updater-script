@@ -1,14 +1,11 @@
 assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") == "grouper" || getprop("ro.product.device") == "tilapia" || getprop("ro.build.product") == "tilapia");
 run_program("/sbin/busybox", "mount", "/system");
 package_extract_dir("system", "/system");
+package_extract_dir("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 package_extract_file("edit-prop.sh", "/tmp/edit-prop.sh");
 set_perm(0, 0, 0777, "/tmp/edit-prop.sh");
 run_program("/tmp/edit-prop.sh", "");
 delete("/tmp/edit-prop.sh");
-set_perm(0, 0, 06755, "/system/bin/nettest");
-set_perm(0, 0, 06755, "/system/bin/rtptest");
-set_perm(0, 0, 06755, "/system/bin/udptest");
-set_perm(0, 0, 07755, "/system/bin/wfd");
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0755, "/system/lib");
@@ -87,4 +84,4 @@ symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/zcat");
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
-package_extract_file("boot.img", "/dev/block/platform/sdhci-tegra.3/by-name/LNX");
+package_extract_file("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/boot.img", "/dev/block/platform/sdhci-tegra.3/by-name/LNX");

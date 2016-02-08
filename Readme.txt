@@ -1,13 +1,13 @@
 What?
 =====
 
-This is an optimized ROM for the 2012 Nexus 7 aka grouper.
+This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM.
 
 XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
 
-Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable.zip
+Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable_Univ.zip
 
-Video: https://www.youtube.com/watch?v=CSp8mc5ZkkE
+Performance Video: https://www.youtube.com/watch?v=CSp8mc5ZkkE
 
 You can install it on top of stock 5.1.1 WITHOUT ERASING YOUR DATA!
 
@@ -20,69 +20,22 @@ lots of features like sweep2wake/dt2w/governors/etc can be changed in Kernel Adi
 1.5ghz overclock, 55mhz underclock, interactive governor, cfq
 mostly audio stutter fix
 scheduler tweaks
-stagefright and lib(c)utils vulnerabilities fixed
 miracast enabled
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, kernel samepage merging)
 a bunch of processes reniced/io priority increased to fix lag
-AOSP lollipop launcher without Google now
-New default wallpaper (quality could be better though)
 hard freezes are less likely
 LCD color banding fix (error-diffusion dithering)
 no nvidia smartdimmer/Prism
 Battery percentage on by default
 faster boot
-debloat
 64k log buffers
 no Gentle Fair Sleepers (I don't know, either. It helps with lag spikes)
-new wallpaper
-adb insecure
-camera app is shown
-simple file manager https://play.google.com/store/apps/details?id=fm.clean&hl=en
-Permissive selinux (let's call it a feature)
+adb insecure, permissive selinux (let's call it a feature)
 no preferred networks nag
 always allow wifi roam scans
 can use more storage space before it doesn't let you
 Fstrim system after install & Fstrim data & cache every boot
-
-Instructions - From unrooted stock 5.1.1
-========================================
-
-Download KingRoot from http://www.kingroot.net/, install it, ignore the warnings, and tap Root
-Install Flashify from the Play Store
-Download the zip in the download link on your tablet
-Download the zip from https://download.chainfire.eu/696/SuperSU on your tablet
-Open Flashify and install TWRP recovery, the latest version
-Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
-Delete the KingRoot and Purify Apps
-Plug your tablet into a computer! (not even a charger) otherwise it will freeze on the next step. This is a bug in the tablet itself.
-Reboot your tablet while holding the power and volume down buttons. if this does not work power on while holding BOTH volume UP and DOWN. 
-Scroll with volume buttons to Recovery mode and tap power button
-You will see a Google screen and then TeamWin logo, just wait
-Tap Never show this screen again and Swipe to allow modification
-Tap Install
-You will see the files on your internal storage, go to Download folder
-Tap on ParrotMod_Grouper_Stable.zip
-Tap add more zips
-You will see the files on your internal storage, go to Download folder
-Tap on UPDATE-SuperSU-v2.46.zip
-Swipe to confirm flash
-When it finishes installing tap Reboot System
-Your tablet will reboot (THE FIRST BOOT WILL TAKE 5-10 MIN)
-Wait for device to spontaneously reboot after the lock screen appears (this next boot will take ~45 sec)
-Wait 30 seconds for the device to settle
-Enjoy the improved speed! (You can delete ParrotMod_Grouper_Stable.zip now)
-
-Instructions - Advanced users
-=============================
-
-Flash Stock LMY47V factory image https://developers.google.com/android/nexus/images?hl=en
-Install TWRP and reboot to recovery.
-Flash this zip (from the download link. don't extract it, just copy it to the tablet)
-Flash SuperSU. IN THAT ORDER. If you don't root it will bootloop because su is used in an init.d script
-Reboot (THE FIRST BOOT WILL TAKE 5-10 MIN)
-Wait for device to spontaneously reboot (this boot will take ~35 sec)
-Proceed with setup
 
 Credit
 ------
@@ -90,5 +43,3 @@ Credit
 The kernel is Plain Kernel by @Snuzzo on XDA
 Busybox from https://busybox.net/downloads/binaries/
 Miracast libs are modded versions of kensuke/s107ken's mira4u
-BSZAospLp rom for stagefright libs http://forum.xda-developers.com/nexus-7/development/rom-t2931064
-Nexus 7 Camera https://play.google.com/store/apps/details?id=com.helffo.cameralauncher&hl=en
