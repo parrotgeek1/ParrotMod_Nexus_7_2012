@@ -1,7 +1,4 @@
-Real extended power menu
 more debloat?
-A faster browser optimized for tegra? and/or optimize chrome and webview
-Renice the framework/system ui/other system processes/DL manager -5, etc
 Wallpapers from GNL
 https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt 
 https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/mm
@@ -11,6 +8,7 @@ https://www.kernel.org/doc/Documentation/filesystems/ext4.txt
 https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
 https://www.kernel.org/doc/Documentation/block/
 https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
+discard_max_bytes?  for 3.4
 camera LP icon
 sounds from new devices
 other cve fixes http://forum.xda-developers.com/showpost.php?p=63661692&postcount=2 https://source.android.com/security/bulletin/
@@ -23,7 +21,6 @@ not need permissive OR root
 not insecure adb
 more aosp apps?
 version for any rom with miracast https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161
-S2W/DT2W settings
 Fix wallet/Snapchat/etc with root cloak
 OTA updates?
 can change lid magnet switch behavior
@@ -43,7 +40,6 @@ Parrot wallpaper looks bad in portrait
 TCP congestion change?
 Disable otas
 http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/ http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html
-Media mute
 other governor?
 look more at ss4n1
 switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynamic fsync
