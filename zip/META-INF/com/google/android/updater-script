@@ -2,13 +2,13 @@ assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") 
 run_program("/sbin/busybox", "mount", "/system");
 package_extract_dir("system", "/system");
 package_extract_dir("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
-package_extract_file("edit-prop.sh", "/tmp/edit-prop.sh");
-set_perm(0, 0, 0777, "/tmp/edit-prop.sh");
-run_program("/tmp/edit-prop.sh", "");
-delete("/tmp/edit-prop.sh");
+package_extract_file("miracast_patch.sh", "/tmp/miracast_patch.sh");
+set_perm(0, 0, 0777, "/tmp/miracast_patch.sh");
+run_program("/tmp/miracast_patch.sh", "");
+delete("/tmp/miracast_patch.sh");
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
-set_perm_recursive(0, 0, 0755, 0755, "/system/lib");
+set_perm_recursive(0, 0, 0755, 0755, "/system/lib/hw");
 set_perm_recursive(0, 0, 0755, 0644, "/system/etc/permissions");
 set_perm(0, 0, 0755, "/system/xbin/busybox");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",

@@ -8,6 +8,7 @@ setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
+setprop persist.debug.wfd.enable 1
 logcat -b all -G 65536 # lower logd size
 for i in 0 1 2 3; do
 echo performance > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
