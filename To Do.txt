@@ -1,6 +1,5 @@
 switch to just zImage, add all kernels api 16 17 18 19 23
 miracast for EVERY version api 17 18 19 23
-libstagefright_hdcp
 trim data/cache on boot
 https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt 
 https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/mm
@@ -20,11 +19,8 @@ not need permissive OR root
 not insecure adb
 MM miracast hex edit https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161
 OTA updates?
-can change lid magnet switch behavior
-config_safe_media_volume_enabled false overlay
 FRP?
 all BB symlinks auto https://gist.github.com/pocke/7667894 except su and use armv7 android busybox
-WiFidisplaysupportsprotectedbuffers?
 https://github.com/CyanogenMod/android_device_asus_grouper/commit/19918d95d1dc24daab9c2b564777832694c203f5 & ipv6
 Wi-Fi tweaks and increase range
 TCP congestion change?
