@@ -1,20 +1,5 @@
 assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") == "grouper" || getprop("ro.product.device") == "tilapia" || getprop("ro.build.product") == "tilapia");
 run_program("/sbin/busybox", "mount", "/system");
-delete("/system/recovery-from-boot.p");
-delete_recursive("/system/app/Books");
-delete_recursive("/system/app/EditorsDocs");
-delete_recursive("/system/app/EditorsDocsStub");
-delete_recursive("/system/app/EditorsSheetsStub");
-delete_recursive("/system/app/EditorsSlidesStub");
-delete_recursive("/system/app/Newsstand");
-delete_recursive("/system/app/PlusOne");
-delete_recursive("/system/app/PrebuiltEmailGoogle");
-delete_recursive("/system/app/UserInfoWidget");
-delete_recursive("/system/app/Videos");
-delete_recursive("/system/app/XT9IME");
-delete_recursive("/system/priv-app/Launcher2");
-delete_recursive("/system/priv-app/Wallet");
-delete("/system/media/bootanimation.zip");
 package_extract_dir("system", "/system");
 package_extract_file("edit-prop.sh", "/tmp/edit-prop.sh");
 set_perm(0, 0, 0777, "/tmp/edit-prop.sh");
@@ -27,7 +12,6 @@ set_perm(0, 0, 07755, "/system/bin/wfd");
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0755, "/system/lib");
-set_perm_recursive(0, 0, 0755, 0644, "/system/media");
 set_perm_recursive(0, 0, 0755, 0644, "/system/etc/permissions");
 set_perm(0, 0, 0755, "/system/xbin/busybox");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
@@ -104,4 +88,3 @@ symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
 package_extract_file("boot.img", "/dev/block/platform/sdhci-tegra.3/by-name/LNX");
-run_program("/sbin/busybox", "sync");
