@@ -45,6 +45,8 @@ echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
 # Misc tweaks for battery life DO THESE DO ANYTHING WITHOUT SWAP?
 echo "500" > /proc/sys/vm/dirty_writeback_centisecs
 echo "1000" > /proc/sys/vm/dirty_expire_centisecs
+echo 0 > /proc/sys/kernel/random/write_wakeup_threshold
+echo 64 > /proc/sys/kernel/random/read_wakeup_threshold
 for m in /data /cache; do
 mount | grep "$m" | grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,data=writeback,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64 "$m" "$m"
 done
