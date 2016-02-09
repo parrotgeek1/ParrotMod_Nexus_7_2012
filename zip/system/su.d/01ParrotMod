@@ -66,11 +66,13 @@ for m in /data /cache; do
 done
 mount | grep '/system' | grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000 /system /system
 
+# https://www.kernel.org/doc/Documentation/filesystems/ext4.txt
 for f in /sys/fs/ext4/*; do
-echo 8 > ${f}/max_writeback_mb_bump
-#echo 1 > ${f}/mb_group_prealloc
-echo 0 > ${f}/mb_stats
-echo 16 > mb_stream_req # 64kb
+	echo 8 > ${f}/max_writeback_mb_bump
+	echo 1 > ${f}/mb_group_prealloc
+	echo 0 > ${f}/mb_stats
+	echo 32 > ${f}/mb_stream_req # 128kb
+done
 
 # GPU
 
