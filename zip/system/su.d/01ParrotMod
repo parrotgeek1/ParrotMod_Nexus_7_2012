@@ -55,4 +55,4 @@ echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
 $bb renice -10 $($bb pidof mmcqd/0)
 /system/etc/parrotmod/haveged -r 0 -w 1024 # number of entropy bits
-$bb nohup /system/xbin/busybox sh /system/etc/parrotmod/magic.sh >/dev/null 2>&1 &
+$bb nohup /system/xbin/busybox sh /system/etc/parrotmod/postboot.sh >/dev/null 2>&1 &
