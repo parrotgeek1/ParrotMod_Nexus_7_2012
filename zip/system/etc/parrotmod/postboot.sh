@@ -24,9 +24,6 @@ $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 #cfq adjusts disk io based on nice value
 $bb renice -10 $($bb pidof sdcard)
 $bb renice -15 $($bb pidof lmkd) # stop hard freezes from low memory killer being CPU starved
-for cpu in /sys/devices/system/cpu/cpu*; do
-	echo interactive > ${cpu}/cpufreq/scaling_governor
-done
 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 if [ "$(cat /data/lastpmver.txt)" != "1" ]; then
 	settings put global sys_storage_full_threshold_bytes 8388608
