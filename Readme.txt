@@ -27,13 +27,10 @@ a bunch of processes reniced/io priority increased to fix lag
 hard freezes are less likely
 LCD color banding fix (error-diffusion dithering)
 no nvidia smartdimmer/Prism
-Battery percentage on by default
 faster boot
 64k log buffers
 no Gentle Fair Sleepers (I don't know, either. It helps with lag spikes)
 adb insecure, permissive selinux (let's call it a feature)
-no preferred networks nag
-always allow wifi roam scans
 can use more storage space before it doesn't let you
 Fstrim system after install & Fstrim data & cache every boot
 
