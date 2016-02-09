@@ -46,7 +46,7 @@ $bb renice -10 $($bb pidof mmcqd/0)
 cd /sys/block/mmcblk0/queue
 echo noop > scheduler
 echo 4096 > nr_requests
-echo 0 > add_random # dont contribute to entropy
+echo 0 > add_random # don't contribute to entropy
 if [ -f "/data/no_readahead" ]; then
 	echo 0 > read_ahead_kb
 else
