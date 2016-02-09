@@ -5,6 +5,8 @@ https://www.kernel.org/doc/Documentation/sysctl/vm.txt also /sys/kernel/mm
 https://www.kernel.org/doc/Documentation/scheduler/sched-design-CFS.txt
 More Mount options from
 https://www.kernel.org/doc/Documentation/filesystems/ext4.txt
+https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-fs-f2fs
+https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-fs-ext4
 https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
 https://www.kernel.org/doc/Documentation/block/
 https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
@@ -16,7 +18,6 @@ version for tilapia w/ tcp opts/no tether check/sms enable
 support otg native
 not need permissive OR root
 not insecure adb
-OTA updates?
 FRP?
 https://github.com/CyanogenMod/android_device_asus_grouper/commit/19918d95d1dc24daab9c2b564777832694c203f5 & ipv6
 Wi-Fi tweaks and increase range
