@@ -18,7 +18,7 @@ echo 0 > iosched/slice_idle
 echo 0 > iosched/group_idle
 echo 80 > iosched/fifo_expire_sync
 echo 240 > iosched/fifo_expire_async
-echo 200 > iosched/target_latency # ms, maybe change to bigger?
+echo 240 > iosched/target_latency # ms, maybe change to bigger?
 echo "1" > iosched/low_latency
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
