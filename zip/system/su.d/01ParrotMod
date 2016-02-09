@@ -66,6 +66,12 @@ for m in /data /cache; do
 done
 mount | grep '/system' | grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000 /system /system
 
+for f in /sys/fs/ext4/*; do
+echo 8 > ${f}/max_writeback_mb_bump
+#echo 1 > ${f}/mb_group_prealloc
+echo 0 > ${f}/mb_stats
+echo 16 > mb_stream_req # 64kb
+
 # GPU
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
