@@ -8,6 +8,11 @@ echo 0 > /sys/fs/selinux/enforce
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
+cd /sys/kernel/mm/ksm 
+echo 100 > pages_to_scan
+echo 500 > sleep_millisecs
+echo 1 > run
+
 setprop dalvik.vm.heapstartsize 8m
 setprop dalvik.vm.heapgrowthlimit 128m
 setprop dalvik.vm.heapsize 174m
@@ -50,7 +55,6 @@ echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
 
 $bb renice -10 $($bb pidof mmcqd/0)
 cd /sys/block/mmcblk0/queue
-echo noop > scheduler
 echo 4096 > nr_requests
 echo 0 > add_random # don't contribute to entropy
 if [ -f "/data/no_readahead" ]; then
@@ -63,9 +67,33 @@ echo 0 > nomerges # try hard to merge requests
 echo 0 > rotational # obviously
 echo 0 > iostats # cpu hog
 
-# Misc tweaks for battery life DO THESE DO ANYTHING WITHOUT SWAP?
+# cfq scheduler tuning (noop is better at boot)
+# https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
+
+echo cfq > scheduler
+echo 4 > iosched/slice_async_rq
+echo 12 > iosched/quantum
+echo 40 > iosched/slice_async
+echo 120 > iosched/slice_sync
+echo 0 > iosched/slice_idle
+echo 0 > iosched/group_idle
+echo 80 > iosched/fifo_expire_sync
+echo 240 > iosched/fifo_expire_async
+echo 240 > iosched/target_latency # ms, maybe change to bigger?
+echo "1" > iosched/low_latency
+echo "1" > iosched/back_seek_penalty # no penalty
+echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
+
+for f in /sys/devices/system/cpu/cpufreq/*; do
+	echo 1 > ${f}/io_is_busy
+done
+
+# Misc tweaks for battery life
+
 echo "500" > /proc/sys/vm/dirty_writeback_centisecs
 echo "1000" > /proc/sys/vm/dirty_expire_centisecs
+
+# fs tune
 
 for m in /data /cache; do
 	mount | grep "$m" | grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,data=writeback,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000 "$m" "$m"
@@ -110,6 +138,11 @@ if [ "$(cat /data/lastpmver_univ.txt)" != "1" ]; then
 	$bb fstrim -v /data
 	$bb fstrim -v /cache
 fi
+
+
+# for (mostly) fixing audio stutter when multitasking
+
+$bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 
 # start postboot script
 
