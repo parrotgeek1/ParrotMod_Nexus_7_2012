@@ -10,13 +10,15 @@ sleep 5
 
 cd /sys/block/mmcblk0/queue
 echo cfq > scheduler
-echo 8 > iosched/slice_async_rq
-echo 16 > iosched/quantum
-echo 80 > iosched/slice_sync
+echo 4 > iosched/slice_async_rq
+echo 12 > iosched/quantum
+echo 40 > iosched/slice_async
+echo 120 > iosched/slice_sync
 echo 0 > iosched/slice_idle
 echo 0 > iosched/group_idle
-echo 150 > iosched/fifo_exire_sync
-echo 200 > iosched/target_latency # ms
+echo 80 > iosched/fifo_expire_sync
+echo 240 > iosched/fifo_expire_async
+echo 200 > iosched/target_latency # ms, maybe change to bigger?
 echo "1" > iosched/low_latency
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
