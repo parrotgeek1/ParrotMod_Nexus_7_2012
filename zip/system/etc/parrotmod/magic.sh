@@ -24,23 +24,16 @@ $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 #cfq adjusts disk io based on nice value
 $bb renice -10 $($bb pidof sdcard)
 $bb renice -15 $($bb pidof lmkd) # stop hard freezes from low memory killer being CPU starved
-for i in 0 1 2 3; do
-echo interactive > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
+for cpu in /sys/devices/system/cpu/cpu*; do
+	echo interactive > ${cpu}/cpufreq/scaling_governor
 done
 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-$bb date > /data/local/tmp/parrotmod.txt
 if [ "$(cat /data/lastpmver.txt)" != "1" ]; then
-settings put global wifi_networks_available_notification_on 0
-settings put global wifi_display_certification_on 1
-settings put global verifier_verify_adb_installs 0
-settings put global sys_storage_full_threshold_bytes 8388608
-settings put global sys_storage_threshold_percentage 2
-settings put global sys_storage_threshold_max_bytes 104857600
-settings put global wifi_allow_scan_with_traffic 1
-settings put global wifi_scan_always_enabled 0
-settings put system status_bar_show_battery_percent 1
-echo 1 > /data/lastpmver.txt
-$bb fstrim -v /data
-$bb fstrim -v /cache
-am start -a android.intent.action.REBOOT # cleaner reboot
+	settings put global sys_storage_full_threshold_bytes 8388608
+	settings put global sys_storage_threshold_percentage 2
+	settings put global sys_storage_threshold_max_bytes 104857600
+	$bb fstrim -v /data
+	$bb fstrim -v /cache
+	echo 1 > /data/lastpmver.txt
+	setprop ctl.restart zygote
 fi

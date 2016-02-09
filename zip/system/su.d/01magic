@@ -10,8 +10,8 @@ setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
 setprop persist.debug.wfd.enable 1
 logcat -b all -G 65536 # lower logd size
-for i in 0 1 2 3; do
-echo performance > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor
+for cpu in /sys/devices/system/cpu/cpu*; do
+	echo performance > ${cpu}/cpufreq/scaling_governor
 done
 echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
 cd /sys/block/mmcblk0/queue
