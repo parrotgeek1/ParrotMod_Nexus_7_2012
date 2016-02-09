@@ -1,16 +1,48 @@
 #!/system/bin/sh
 bb=/system/xbin/busybox
+
+# remove selinux
+
 echo 0 > /sys/fs/selinux/enforce
+
+# ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
+
 setprop dalvik.vm.heapstartsize 8m
 setprop dalvik.vm.heapgrowthlimit 128m
 setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
-setprop persist.debug.wfd.enable 1
+
 logcat -b all -G 65536 # lower logd size
+
+echo 4096 > /proc/sys/vm/min_free_kbytes
+
+chmod 664 /sys/module/lowmemorykiller/parameters/adj
+echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
+chmod 444 /sys/module/lowmemorykiller/parameters/adj 
+chmod 664 /sys/module/lowmemorykiller/parameters/minfree 
+echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
+chmod 444 /sys/module/lowmemorykiller/parameters/minfree # so android can't edit it
+
+# TUNE THESE https://oakbytes.wordpress.com/2012/06/06/linux-scheduler-cfs-and-latency/ http://www.postgresql.org/message-id/50E4AAB1.9040902@optionshouse.com
+echo "10" > /proc/sys/vm/dirty_ratio
+
+# process scheduling
+
 echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
+
+echo "18000000" > /proc/sys/kernel/sched_latency_ns
+echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
+echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
+
+mount -t debugfs none /sys/kernel/debug
+echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
+
+# eMMC speed
+
+$bb renice -10 $($bb pidof mmcqd/0)
 cd /sys/block/mmcblk0/queue
 echo noop > scheduler
 echo 4096 > nr_requests
@@ -24,31 +56,27 @@ echo 1 > rq_affinity # stay on same cpu core
 echo 0 > nomerges # try hard to merge requests 
 echo 0 > rotational # obviously
 echo 0 > iostats # cpu hog
-echo 4096 > /proc/sys/vm/min_free_kbytes
-chmod 664 /sys/module/lowmemorykiller/parameters/adj
-echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
-chmod 444 /sys/module/lowmemorykiller/parameters/adj 
-chmod 664 /sys/module/lowmemorykiller/parameters/minfree 
-echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
-chmod 444 /sys/module/lowmemorykiller/parameters/minfree # android cant edit it
-# TUNE THESE https://oakbytes.wordpress.com/2012/06/06/linux-scheduler-cfs-and-latency/ http://www.postgresql.org/message-id/50E4AAB1.9040902@optionshouse.com
-echo "10" > /proc/sys/vm/dirty_ratio
-echo "18000000" > /proc/sys/kernel/sched_latency_ns
-echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
-echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-mount -t debugfs none /sys/kernel/debug
-echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
+
 # Misc tweaks for battery life DO THESE DO ANYTHING WITHOUT SWAP?
 echo "500" > /proc/sys/vm/dirty_writeback_centisecs
 echo "1000" > /proc/sys/vm/dirty_expire_centisecs
-echo 0 > /proc/sys/kernel/random/write_wakeup_threshold
-echo 64 > /proc/sys/kernel/random/read_wakeup_threshold
+
 for m in /data /cache; do
-mount | grep "$m" | grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,data=writeback,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64 "$m" "$m"
+	mount | grep "$m" | grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,data=writeback,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=20000 "$m" "$m"
 done
-mount | grep '/system' | grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128 /system /system
+mount | grep '/system' | grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000 /system /system
+
+# GPU
+
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
-$bb renice -10 $($bb pidof mmcqd/0)
+
+# haveged, to compensate for setting add_random to 0
+
+echo 0 > /proc/sys/kernel/random/write_wakeup_threshold
+echo 64 > /proc/sys/kernel/random/read_wakeup_threshold
 /system/etc/parrotmod/haveged -r 0 -w 1024 # number of entropy bits
+
+# start postboot script
+
 $bb nohup /system/xbin/busybox sh /system/etc/parrotmod/postboot.sh >/dev/null 2>&1 &
