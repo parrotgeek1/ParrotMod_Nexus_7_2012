@@ -3,21 +3,14 @@ include only my own busybox or not need it
 https://www.kernel.org/doc/Documentation/sysctl/vm.txt
 https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
 https://www.kernel.org/doc/Documentation/block/
-more scheduler tweaks https://activedoc.opensuse.org/de/node/1199#sec.tuning.taskscheduler.cfs.tuning https://www.kernel.org/doc/Documentation/scheduler/ https://github.com/Paget96/L_SPEED/blob/master/L_SPEED#L2525
 check/change LMK values
 script rerun on soft reboot
-version for tilapia w/ tcp opts/no tether check/sms enable
-support otg native
 not need permissive OR root
 not insecure adb
 FRP?
-Wi-Fi tweaks and increase range
-TCP congestion change? & window size etc?
-http://www.droidforums.net/threads/simply-stunning-5-4-tweaks-for-all.154543/ http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html
-look more at ss4n1
 switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynamic fsync
 https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
 http://forum.xda-developers.com/showpost.php?p=64429384&postcount=122 ?
-Row scheduler? bfq?
-Slight overcommit (115%?)
-sqlite io mods?
+trim in updater-script
+create free space in system
+discard_max_bytes
