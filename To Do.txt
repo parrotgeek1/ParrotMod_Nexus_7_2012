@@ -7,6 +7,7 @@ More Mount options from
 https://www.kernel.org/doc/Documentation/filesystems/ext4.txt
 https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-fs-f2fs
 https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-fs-ext4
+MAKE SURE THEY WORK WITH ENCRYPTION (dm-0)
 https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
 https://www.kernel.org/doc/Documentation/block/
 https://www.kernel.org/doc/Documentation/mmc/mmc-dev-attrs.txt
