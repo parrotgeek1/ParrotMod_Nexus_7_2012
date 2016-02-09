@@ -39,14 +39,14 @@ $bb renice -15 $($bb pidof mediaserver) #disk io important
 $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 $bb renice -10 $($bb pidof sdcard) #cfq adjusts disk io based on nice value
 $bb renice -15 $($bb pidof lmkd) # stop hard freezes from low memory killer being CPU starved
-echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+for f in /sys/devices/system/cpu/cpufreq/*; do
+	echo 1 > ${f}/io_is_busy
+done
 
-if [ "$(cat /data/lastpmver.txt)" != "1" ]; then
+if [ "$(cat /data/lastpmver_univ.txt)" != "1" ]; then
 	settings put global sys_storage_full_threshold_bytes 8388608
 	settings put global sys_storage_threshold_percentage 2
 	settings put global sys_storage_threshold_max_bytes 104857600
-	$bb fstrim -v /data
-	$bb fstrim -v /cache
-	echo 1 > /data/lastpmver.txt
+	echo 1 > /data/lastpmver_univ.txt
 	setprop ctl.restart zygote # soft reboot
 fi

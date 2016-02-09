@@ -15,19 +15,23 @@ setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
 
+setprop persist.sys.purgeable_assets 1 # only for CM
+
 logcat -b all -G 65536 # lower logd size
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
-chmod 664 /sys/module/lowmemorykiller/parameters/adj
+# http://review.cyanogenmod.org/#/c/101476/ instead ???
+4bb chmod -R 0775 /sys/module/lowmemorykiller/parameters/adj
 echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
-chmod 444 /sys/module/lowmemorykiller/parameters/adj 
-chmod 664 /sys/module/lowmemorykiller/parameters/minfree 
 echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
-chmod 444 /sys/module/lowmemorykiller/parameters/minfree # so android can't edit it
+echo "24" > /sys/module/lowmemorykiller/parameters/cost # default 32
+$bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
 # TUNE THESE https://oakbytes.wordpress.com/2012/06/06/linux-scheduler-cfs-and-latency/ http://www.postgresql.org/message-id/50E4AAB1.9040902@optionshouse.com
 echo "10" > /proc/sys/vm/dirty_ratio
+
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
 # process scheduling
 
@@ -81,9 +85,15 @@ echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 # haveged, to compensate for setting add_random to 0
 
-echo 0 > /proc/sys/kernel/random/write_wakeup_threshold
 echo 64 > /proc/sys/kernel/random/read_wakeup_threshold
-/system/etc/parrotmod/haveged -r 0 -w 1024 # number of entropy bits
+/system/etc/parrotmod/haveged -r 0 -w 1024 # number of entropy bytes to keep full
+
+# fstrim on install
+
+if [ "$(cat /data/lastpmver_univ.txt)" != "1" ]; then
+	$bb fstrim -v /data
+	$bb fstrim -v /cache
+fi
 
 # start postboot script
 
