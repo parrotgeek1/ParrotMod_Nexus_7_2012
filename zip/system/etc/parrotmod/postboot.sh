@@ -6,11 +6,16 @@ while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 sleep 5
 
 # cfq scheduler tuning (noop is better at boot)
+# https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
 
 cd /sys/block/mmcblk0/queue
 echo cfq > scheduler
+echo 8 > iosched/slice_async_rq
+echo 16 > iosched/quantum
+echo 80 > iosched/slice_sync
 echo 0 > iosched/slice_idle
 echo 0 > iosched/group_idle
+echo 150 > iosched/fifo_exire_sync
 echo 200 > iosched/target_latency # ms
 echo "1" > iosched/low_latency
 echo "1" > iosched/back_seek_penalty # no penalty
