@@ -7,6 +7,8 @@ More Mount options from
 https://www.kernel.org/doc/Documentation/filesystems/ext4.txt
 https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-fs-f2fs
 https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-fs-ext4
+http://forum.xda-developers.com/showthread.php?t=1748208&page=311
+cgroups blkio
 MAKE SURE THEY WORK WITH ENCRYPTION (dm-0)
 https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
 https://www.kernel.org/doc/Documentation/block/
@@ -29,7 +31,6 @@ switch to http://forum.xda-developers.com/showthread.php?t=2168787 but NOT dynam
 https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
 https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/wifi-display/source/Converter.cpp#161 bitrate miracast
 http://forum.xda-developers.com/showthread.php?t=2280496&page=3 ext4? http://forum.xda-developers.com/showpost.php?p=64429384&postcount=122
-investigate slow charge fix
 Row scheduler? bfq?
 https://github.com/Paget96/L_SPEED/blob/master/L_SPEED
 cpuctl https://github.com/Paget96/L_SPEED/blob/master/L_SPEED#L466
@@ -39,4 +40,5 @@ https://github.com/Paget96/L_SPEED/blob/master/L_SPEED#L1650
 https://github.com/Paget96/L_SPEED/blob/master/L_SPEED#L1741
 https://github.com/Paget96/L_SPEED/blob/master/L_SPEED#L2525
 https://github.com/Paget96/L_SPEED/blob/master/L_SPEED#L3519
+http://rootzwiki.com/topic/24265-mod-increase-your-battery-tenfold/
 sqlite io mods
