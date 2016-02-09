@@ -43,7 +43,7 @@ echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
 mount -t debugfs none /sys/kernel/debug
 echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
 # Misc tweaks for battery life DO THESE DO ANYTHING WITHOUT SWAP?
-echo "2000" > /proc/sys/vm/dirty_writeback_centisecs
+echo "500" > /proc/sys/vm/dirty_writeback_centisecs
 echo "1000" > /proc/sys/vm/dirty_expire_centisecs
 for m in /data /cache; do
 mount | grep "$m" | grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,data=writeback,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64 "$m" "$m"
@@ -52,4 +52,5 @@ mount | grep '/system' | grep -q ext4 && mount -o remount,ro,inode_readahead_blk
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
 $bb renice -10 $($bb pidof mmcqd/0)
+/system/etc/parrotmod/haveged -r 0 -w 1024 # number of entropy bits
 $bb nohup /system/xbin/busybox sh /system/etc/parrotmod/magic.sh >/dev/null 2>&1 &

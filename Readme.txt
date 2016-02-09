@@ -42,4 +42,4 @@ Credit
 
 The kernel is Plain Kernel by @Snuzzo on XDA
 Busybox from https://busybox.net/downloads/binaries/
-Miracast libs are modded versions of kensuke/s107ken's mira4u
+haveged from ArchiDroid
