@@ -1,6 +1,6 @@
 switch to just zImage, add all kernels api 16 17 18 19 23
 include only my own busybox or not need it
-https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
+https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt optimize
 check/change LMK values
 not need permissive
 not insecure adb
