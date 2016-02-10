@@ -33,9 +33,6 @@ echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/paramete
 echo "24" > /sys/module/lowmemorykiller/parameters/cost # default 32
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
-# TUNE THESE https://oakbytes.wordpress.com/2012/06/06/linux-scheduler-cfs-and-latency/ http://www.postgresql.org/message-id/50E4AAB1.9040902@optionshouse.com
-echo "10" > /proc/sys/vm/dirty_ratio
-
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
 # process scheduling
@@ -88,10 +85,13 @@ for f in /sys/devices/system/cpu/cpufreq/*; do
 	echo 1 > ${f}/io_is_busy
 done
 
-# Misc tweaks for battery life
+# tweaks for background disk
 
 echo "500" > /proc/sys/vm/dirty_writeback_centisecs
 echo "1000" > /proc/sys/vm/dirty_expire_centisecs
+echo 4 > /proc/sys/vm/page-cluster
+echo "60" > /proc/sys/vm/dirty_ratio
+echo "10" > /proc/sys/vm/dirty_background_ratio
 
 # fs tune
 

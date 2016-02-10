@@ -10,4 +10,3 @@ https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64f
 trim in updater-script
 create free space in system
 discard_max_bytes
-tune dirty_ratio etc
