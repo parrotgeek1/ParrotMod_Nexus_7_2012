@@ -1,6 +1,11 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
+# haveged, to compensate for setting add_random to 0
+
+echo 64 > /proc/sys/kernel/random/read_wakeup_threshold
+$bb nohup /system/etc/parrotmod/haveged -r 0 -w 1024 > /dev/null 2>&1 & # number of entropy bytes to keep full
+
 while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 sleep 5
 

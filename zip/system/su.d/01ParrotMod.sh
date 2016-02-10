@@ -114,11 +114,6 @@ echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 setprop persist.tegra.didim.enable 0
 echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
-# haveged, to compensate for setting add_random to 0
-
-echo 64 > /proc/sys/kernel/random/read_wakeup_threshold
-/system/etc/parrotmod/haveged -r 0 -w 1024 # number of entropy bytes to keep full
-
 # tcp
 
 setprop wifi.supplicant_scan_interval 60 # was 15
