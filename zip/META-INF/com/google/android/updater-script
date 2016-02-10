@@ -10,11 +10,6 @@ package_extract_dir("system", "/system");
 
 package_extract_dir("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 
-package_extract_file("miracast_patch.sh", "/tmp/miracast_patch.sh");
-set_perm(0, 0, 0777, "/tmp/miracast_patch.sh");
-run_program("/tmp/miracast_patch.sh", "");
-delete("/tmp/miracast_patch.sh");
-
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0755, "/system/lib/hw");
