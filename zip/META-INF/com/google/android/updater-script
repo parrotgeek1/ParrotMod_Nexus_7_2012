@@ -1,87 +1,34 @@
 assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") == "grouper" || getprop("ro.product.device") == "tilapia" || getprop("ro.build.product") == "tilapia");
+
 run_program("/sbin/busybox", "mount", "/system");
+
+delete_recursive("/system/app/UserInfoWidget");
+delete_recursive("/system/app/XT9IME");
+delete("/system/recovery-from-boot.p");
+
 package_extract_dir("system", "/system");
+
 package_extract_dir("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
+
 package_extract_file("miracast_patch.sh", "/tmp/miracast_patch.sh");
 set_perm(0, 0, 0777, "/tmp/miracast_patch.sh");
 run_program("/tmp/miracast_patch.sh", "");
 delete("/tmp/miracast_patch.sh");
+
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0755, "/system/lib/hw");
 set_perm_recursive(0, 0, 0755, 0644, "/system/etc/permissions");
-set_perm(0, 0, 0755, "/system/xbin/busybox");
-symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
-        "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
-        "/system/xbin/base64", "/system/xbin/basename", "/system/xbin/bbconfig",
-        "/system/xbin/blockdev", "/system/xbin/brctl", "/system/xbin/bunzip2",
-        "/system/xbin/bzcat", "/system/xbin/bzip2", "/system/xbin/cal",
-        "/system/xbin/cat", "/system/xbin/catv", "/system/xbin/chattr",
-        "/system/xbin/chgrp", "/system/xbin/chmod", "/system/xbin/chown",
-        "/system/xbin/chroot", "/system/xbin/clear", "/system/xbin/cmp",
-        "/system/xbin/comm", "/system/xbin/cp", "/system/xbin/cpio",
-        "/system/xbin/crond", "/system/xbin/crontab", "/system/xbin/cut",
-        "/system/xbin/date", "/system/xbin/dc", "/system/xbin/dd",
-        "/system/xbin/depmod", "/system/xbin/devmem", "/system/xbin/df",
-        "/system/xbin/diff", "/system/xbin/dirname", "/system/xbin/dmesg",
-        "/system/xbin/dnsd", "/system/xbin/dos2unix", "/system/xbin/du",
-        "/system/xbin/echo", "/system/xbin/ed", "/system/xbin/egrep",
-        "/system/xbin/env", "/system/xbin/expand", "/system/xbin/expr",
-        "/system/xbin/false", "/system/xbin/fdisk", "/system/xbin/fgrep",
-        "/system/xbin/find", "/system/xbin/flash_lock",
-        "/system/xbin/flash_unlock", "/system/xbin/flashcp",
-        "/system/xbin/flock", "/system/xbin/fold", "/system/xbin/free",
-        "/system/xbin/freeramdisk", "/system/xbin/fsync", "/system/xbin/ftpget",
-        "/system/xbin/ftpput", "/system/xbin/fuser", "/system/xbin/getopt",
-        "/system/xbin/grep", "/system/xbin/groups", "/system/xbin/gunzip",
-        "/system/xbin/gzip", "/system/xbin/halt", "/system/xbin/head",
-        "/system/xbin/hexdump", "/system/xbin/id", "/system/xbin/ifconfig",
-        "/system/xbin/insmod", "/system/xbin/install", "/system/xbin/iostat",
-        "/system/xbin/ip", "/system/xbin/kill", "/system/xbin/killall",
-        "/system/xbin/killall5", "/system/xbin/length", "/system/xbin/less",
-        "/system/xbin/ln", "/system/xbin/losetup", "/system/xbin/ls",
-        "/system/xbin/lsattr", "/system/xbin/lsmod", "/system/xbin/lsusb",
-        "/system/xbin/lzcat", "/system/xbin/lzma", "/system/xbin/lzop",
-        "/system/xbin/lzopcat", "/system/xbin/man", "/system/xbin/md5sum",
-        "/system/xbin/mesg", "/system/xbin/mkdir", "/system/xbin/mke2fs",
-        "/system/xbin/mkfifo", "/system/xbin/mkfs.ext2",
-        "/system/xbin/mkfs.vfat", "/system/xbin/mknod", "/system/xbin/mkswap",
-        "/system/xbin/mktemp", "/system/xbin/modinfo", "/system/xbin/modprobe",
-        "/system/xbin/more", "/system/xbin/mount", "/system/xbin/mountpoint",
-        "/system/xbin/mpstat", "/system/xbin/mv", "/system/xbin/nanddump",
-        "/system/xbin/nandwrite", "/system/xbin/netstat", "/system/xbin/nice",
-        "/system/xbin/nohup", "/system/xbin/nslookup", "/system/xbin/ntpd",
-        "/system/xbin/od", "/system/xbin/patch", "/system/xbin/pgrep",
-        "/system/xbin/pidof", "/system/xbin/ping", "/system/xbin/pkill",
-        "/system/xbin/pmap", "/system/xbin/poweroff", "/system/xbin/printenv",
-        "/system/xbin/printf", "/system/xbin/ps", "/system/xbin/pstree",
-        "/system/xbin/pwd", "/system/xbin/pwdx", "/system/xbin/rdev",
-        "/system/xbin/readlink", "/system/xbin/realpath", "/system/xbin/renice",
-        "/system/xbin/reset", "/system/xbin/resize", "/system/xbin/rev",
-        "/system/xbin/rm", "/system/xbin/rmdir", "/system/xbin/rmmod",
-        "/system/xbin/route", "/system/xbin/run-parts", "/system/xbin/rx",
-        "/system/xbin/sed", "/system/xbin/seq", "/system/xbin/setconsole",
-        "/system/xbin/setserial", "/system/xbin/setsid", "/system/xbin/sh",
-        "/system/xbin/sha1sum", "/system/xbin/sha256sum",
-        "/system/xbin/sha512sum", "/system/xbin/sleep", "/system/xbin/sort",
-        "/system/xbin/split", "/system/xbin/stat", "/system/xbin/strings",
-        "/system/xbin/stty", "/system/xbin/sum", "/system/xbin/swapoff",
-        "/system/xbin/swapon", "/system/xbin/sync", "/system/xbin/sysctl",
-        "/system/xbin/tac", "/system/xbin/tail", "/system/xbin/tar",
-        "/system/xbin/tee", "/system/xbin/telnet", "/system/xbin/telnetd",
-        "/system/xbin/test", "/system/xbin/tftp", "/system/xbin/tftpd",
-        "/system/xbin/time", "/system/xbin/timeout", "/system/xbin/top",
-        "/system/xbin/touch", "/system/xbin/tr", "/system/xbin/traceroute",
-        "/system/xbin/true", "/system/xbin/ttysize", "/system/xbin/tune2fs",
-        "/system/xbin/umount", "/system/xbin/uname", "/system/xbin/uncompress",
-        "/system/xbin/unexpand", "/system/xbin/uniq", "/system/xbin/unix2dos",
-        "/system/xbin/unlzma", "/system/xbin/unlzop", "/system/xbin/unxz",
-        "/system/xbin/unzip", "/system/xbin/uptime", "/system/xbin/usleep",
-        "/system/xbin/uudecode", "/system/xbin/uuencode", "/system/xbin/vi",
-        "/system/xbin/watch", "/system/xbin/wc", "/system/xbin/wget",
-        "/system/xbin/which", "/system/xbin/whoami", "/system/xbin/xargs",
-        "/system/xbin/xz", "/system/xbin/xzcat", "/system/xbin/yes",
-        "/system/xbin/zcat");
+
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
+
+run_program("/sbin/busybox", "mount", "/data");
+run_program("/sbin/busybox", "fstrim", "-v", "/data");
+
+run_program("/sbin/busybox", "mount", "/cache");
+run_program("/sbin/busybox", "fstrim", "-v", "/cache");
+
 package_extract_file("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/boot.img", "/dev/block/platform/sdhci-tegra.3/by-name/LNX");
+
+run_program("/sbin/busybox", "sync");

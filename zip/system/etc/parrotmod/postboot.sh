@@ -1,5 +1,5 @@
 #!/system/bin/sh
-bb=/system/xbin/busybox
+bb=/system/etc/parrotmod/busybox
 
 while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 sleep 5

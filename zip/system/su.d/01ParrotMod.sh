@@ -1,5 +1,5 @@
 #!/system/bin/sh
-bb=/system/xbin/busybox
+bb=/system/etc/parrotmod/busybox
 
 # remove selinux
 
@@ -111,6 +111,7 @@ done
 # GPU
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
+setprop persist.tegra.didim.enable 0
 echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 # haveged, to compensate for setting add_random to 0
@@ -120,7 +121,7 @@ echo 64 > /proc/sys/kernel/random/read_wakeup_threshold
 
 # tcp
 
-setprop wifi.supplicant_scan_interval 180
+setprop wifi.supplicant_scan_interval 60 # was 15
 echo 65535 > /proc/sys/net/core/rmem_default
 echo 174760 > /proc/sys/net/core/rmem_max
 echo 65535 > /proc/sys/net/core/wmem_default
@@ -130,15 +131,8 @@ echo "4096 87380 174760" > /proc/sys/net/ipv4/tcp_rmem
 echo 0 > /proc/sys/net/ipv4/tcp_slow_start_after_idle
 echo 0 > /proc/sys/net/ipv4/tcp_timestamps
 echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
+echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
 # buffersize tweaks do nothing!
-
-# fstrim on install
-
-if [ "$(cat /data/lastpmver_univ.txt)" != "1" ]; then
-	$bb fstrim -v /data
-	$bb fstrim -v /cache
-fi
-
 
 # for (mostly) fixing audio stutter when multitasking
 

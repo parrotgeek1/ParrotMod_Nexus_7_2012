@@ -16,12 +16,12 @@ Features:
 
 FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC FSYNC
 uses ext4 but can use data/cache f2fs
-mostly audio stutter fix
+audio stutter and multitasking fix
 miracast enabled
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
-more apps open at once (minfree tweak, scheduler tweaks, kernel samepage merging 64k log buffers)
-LCD color banding fix (error-diffusion dithering)
-no nvidia smartdimmer/Prism
+more apps open at once (minfree tweak, scheduler tweaks, kernel samepage merging, 64k log buffers)
+LCD color fix (error-diffusion dithering, no nvidia smartdimmer/Prism)
+internet optimizations
 faster boot
 can use more storage space before it doesn't let you
 
