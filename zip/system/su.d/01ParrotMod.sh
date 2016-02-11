@@ -135,4 +135,4 @@ $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 
 # start postboot script
 
-$bb nohup /system/xbin/busybox sh /system/etc/parrotmod/postboot.sh >/dev/null 2>&1 &
+$bb nohup $bb sh /system/etc/parrotmod/postboot.sh >/dev/null 2>&1 &
