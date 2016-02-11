@@ -13,4 +13,6 @@ Addon.d backup
 space check
 More TCP tweaks?
 Tweak weird ext4 parameters?
+fix haveged
 nice 10 or 15 haveged
+add back kernel
