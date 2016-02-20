@@ -3,7 +3,6 @@ check/change LMK values
 not need permissive
 not insecure adb
 FRP?
-https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
 discard_max_bytes
 GPU Overclock
 Put back miracast
@@ -11,5 +10,7 @@ Addon.d backup
 space check
 More TCP tweaks?
 Tweak weird ext4 parameters?
-haveged battery optimize
+haveged FIX AND battery optimize
 make stock 5.1 addon for this version
+UPDATE INSTRUCTIONS FROM XDA POST ON GITHUB
+Kernel http://forum.xda-developers.com/showthread.php?t=3310642
