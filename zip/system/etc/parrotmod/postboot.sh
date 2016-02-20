@@ -8,7 +8,7 @@ $bb killall -STOP lmkd
 # haveged, to compensate for setting add_random to 0
 
 echo 128 > /proc/sys/kernel/random/read_wakeup_threshold
-/system/etc/parrotmod/haveged -w 1024 > /dev/null 2>&1
+/system/etc/parrotmod/haveged -w 1024 -n 0 -p /data/local/tmp/haveged.pid
 
 while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 
