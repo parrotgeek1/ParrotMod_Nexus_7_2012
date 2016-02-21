@@ -2,16 +2,18 @@ assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") 
 
 run_program("/sbin/busybox", "mount", "/system");
 
-delete_recursive("/system/app/UserInfoWidget");
-delete("/system/app/UserInfoWidget.apk");
-delete_recursive("/system/app/XT9IME");
-delete("/system/app/XT9IME.apk");
-delete("/system/recovery-from-boot.p");
+if getprop("ro.build.type") == "user" && getprop("ro.build.tags") == "release-keys" && is_substring("corp.google.com",getprop("ro.build.host")) then
+	delete_recursive("/system/app/UserInfoWidget");
+	delete("/system/app/UserInfoWidget.apk");
+	delete_recursive("/system/app/XT9IME");
+	delete("/system/app/XT9IME.apk");
+	delete("/system/recovery-from-boot.p");
+endif;
 
 package_extract_dir("system", "/system");
 
-if sha1_check(package_extract_file("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
-	package_extract_dir("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
+if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && !file_exists("/system/etc/permissions/android.hardware.bluetooth_le.xml") then
+	package_extract_dir("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
 
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
@@ -19,8 +21,8 @@ set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0755, "/system/lib/hw");
 set_perm_recursive(0, 0, 0755, 0644, "/system/etc/permissions");
 
-if sha1_check(package_extract_file("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/boot.img")) != "" then
-	package_extract_file("version_specific/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/boot.img", "/dev/block/platform/sdhci-tegra.3/by-name/LNX");
+if sha1_check(package_extract_file("kernel/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/boot.img")) != "" then
+	package_extract_file("kernel/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/boot.img", "/dev/block/platform/sdhci-tegra.3/by-name/LNX");
 endif;
 
 package_extract_file("miracast_patch.sh", "/tmp/miracast_patch.sh");		

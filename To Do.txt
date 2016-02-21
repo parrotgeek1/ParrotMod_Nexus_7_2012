@@ -4,13 +4,10 @@ not need permissive
 not insecure adb
 FRP?
 discard_max_bytes
-GPU Overclock
-Put back miracast
 Addon.d backup
 space check
 More TCP tweaks?
 Tweak weird ext4 parameters?
-haveged FIX AND battery optimize
 make stock 5.1 addon for this version
-UPDATE INSTRUCTIONS FROM XDA POST ON GITHUB
+random freeze
 Kernel http://forum.xda-developers.com/showthread.php?t=3310642
