@@ -1,11 +1,6 @@
-F2fs tweaks https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
-not need permissive
-not insecure adb
-FRP?
+F2fs SYSFS tweaks https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
 discard_max_bytes
 Addon.d backup
 space check
-More TCP tweaks?
-Tweak weird ext4 parameters?
 make stock 5.1 addon for this version
 Kernel http://forum.xda-developers.com/showthread.php?t=3310642
