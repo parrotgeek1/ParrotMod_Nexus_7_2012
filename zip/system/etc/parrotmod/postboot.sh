@@ -1,10 +1,6 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
-# stop LMK conflict
-
-$bb killall -STOP lmkd
-
 # haveged, to compensate for setting add_random to 0
 
 echo 128 > /proc/sys/kernel/random/read_wakeup_threshold
