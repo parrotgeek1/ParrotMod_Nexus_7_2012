@@ -27,8 +27,8 @@ logcat -b all -G 65536 # lower logd size
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
 # http://review.cyanogenmod.org/#/c/101476/ instead ???
-$bb chmod -R 0775 /sys/module/lowmemorykiller/parameters/adj
-echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
+$bb chmod -R 0775 /sys/module/lowmemorykiller/parameters
+#echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
 echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
 echo "24" > /sys/module/lowmemorykiller/parameters/cost # default 32
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
