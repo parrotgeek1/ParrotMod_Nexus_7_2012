@@ -4,3 +4,4 @@ Addon.d backup
 space check
 make stock 5.1 addon for this version
 Kernel http://forum.xda-developers.com/showthread.php?t=3310642
+Add back haveged 
