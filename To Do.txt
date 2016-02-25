@@ -4,3 +4,4 @@ Addon.d backup
 space check
 make stock 5.1 addon for this version
 Add back haveged 
+selinux enforcing

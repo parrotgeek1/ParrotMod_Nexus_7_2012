@@ -94,10 +94,10 @@ echo "10" > /proc/sys/vm/dirty_background_ratio
 
 for m in /data /cache; do
 	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
-	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,rw,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=8 "$m" "$m"
+	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,rw,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=15 "$m" "$m"
 done
 mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000,nomblk_io_submit /system /system
-mount | $bb grep '/system' | $bb grep -q f2fs && mount -o remount,ro,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=16  /system /system
+mount | $bb grep '/system' | $bb grep -q f2fs && mount -o remount,ro,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=10  /system /system
 
 for f in /sys/fs/ext4/mmcblk*; do
 	echo 8 > ${f}/max_writeback_mb_bump
@@ -131,6 +131,7 @@ echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
 
 $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 
-# start postboot script
-
-$bb nohup $bb sh /system/etc/parrotmod/postboot.sh >/dev/null 2>&1 &
+if [ "$(cat /data/lastpmver_univ.txt)" != "1" ]; then
+	# start postboot script
+	$bb nohup $bb sh /system/etc/parrotmod/postboot.sh >/dev/null 2>&1 &
+fi
