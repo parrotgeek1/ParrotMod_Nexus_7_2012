@@ -93,7 +93,7 @@ echo "10" > /proc/sys/vm/dirty_background_ratio
 # fs tune
 
 for m in /data /cache; do
-	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,data=writeback,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
+	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
 	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,rw,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=8 "$m" "$m"
 done
 mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000,nomblk_io_submit /system /system

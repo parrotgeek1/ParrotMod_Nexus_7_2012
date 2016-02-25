@@ -1,7 +1,6 @@
 F2fs SYSFS tweaks https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
-discard_max_bytes
+Make sure the f2fs mount options work
 Addon.d backup
 space check
 make stock 5.1 addon for this version
-Kernel http://forum.xda-developers.com/showthread.php?t=3310642
 Add back haveged 

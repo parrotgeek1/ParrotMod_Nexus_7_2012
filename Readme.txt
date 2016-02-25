@@ -11,6 +11,10 @@ Performance Video (old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
 
 You can install it on top of stock 5.1.1 WITHOUT ERASING YOUR DATA!
 
+Recommended Kernel: 
+===================
+http://forum.xda-developers.com/nexus-7/development/kernel-dc-kernel-t3310642
+
 Features:
 =========
 
@@ -20,7 +24,7 @@ audio stutter and multitasking fix
 miracast enabled
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, scheduler tweaks, kernel samepage merging, 64k log buffers)
-LCD color fix (error-diffusion dithering, no nvidia smartdimmer/Prism)
+LCD color fix (no Nvidia smartdimmer/Prism)
 internet optimizations
 faster boot
 can use more storage space before it doesn't let you
@@ -28,6 +32,9 @@ can use more storage space before it doesn't let you
 Credit
 ------
 
-The kernel is Plain Kernel by @Snuzzo on XDA
 Busybox from https://busybox.net/downloads/binaries/
-haveged from ArchiDroid
+
+Thanks
+------
+
+Thanks to bangsergio on XDA for testing several dozen beta versions
