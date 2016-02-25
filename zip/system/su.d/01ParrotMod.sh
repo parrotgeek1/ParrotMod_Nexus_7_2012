@@ -28,10 +28,11 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 
 # http://review.cyanogenmod.org/#/c/101476/ instead ???
 $bb chmod -R 0775 /sys/module/lowmemorykiller/parameters
-#echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
+echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
 echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
 echo "24" > /sys/module/lowmemorykiller/parameters/cost # default 32
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
+$bb renice -15 $($bb pidof lmkd)
 
 # process scheduling
 
@@ -42,7 +43,6 @@ echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
 echo "10000000000" > /proc/sys/kernel/sched_stat_granularity_ns
 
 # investigate these!
-mount -t debugfs none /sys/kernel/debug
 echo NO_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
 
@@ -74,7 +74,7 @@ echo 0 > iosched/group_idle
 echo 80 > iosched/fifo_expire_sync
 echo 240 > iosched/fifo_expire_async
 echo "1" > iosched/low_latency
-echo 240 > iosched/target_latency # ms, maybe change to bigger?
+$bb test -e iosched/target_latency && echo 240 > iosched/target_latency # not in 3.1
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
@@ -115,7 +115,6 @@ echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 # tcp
 
-setprop wifi.supplicant_scan_interval 60 # was 15
 echo 65535 > /proc/sys/net/core/rmem_default
 echo 174760 > /proc/sys/net/core/rmem_max
 echo 65535 > /proc/sys/net/core/wmem_default
@@ -126,7 +125,7 @@ echo 0 > /proc/sys/net/ipv4/tcp_slow_start_after_idle
 echo 0 > /proc/sys/net/ipv4/tcp_timestamps
 echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
 echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
-# buffersize tweaks do nothing!
+# investigate buffersize!
 
 # for (mostly) fixing audio stutter when multitasking
 

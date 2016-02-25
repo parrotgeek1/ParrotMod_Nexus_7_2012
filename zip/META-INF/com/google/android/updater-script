@@ -3,10 +3,9 @@ assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") 
 run_program("/sbin/busybox", "mount", "/system");
 
 if getprop("ro.build.type") == "user" && getprop("ro.build.tags") == "release-keys" && is_substring("corp.google.com",getprop("ro.build.host")) then
-	delete_recursive("/system/app/UserInfoWidget");
-	delete("/system/app/UserInfoWidget.apk");
 	delete_recursive("/system/app/XT9IME");
 	delete("/system/app/XT9IME.apk");
+	delete("/system/lib/libjni_xt9input.so");
 	delete("/system/recovery-from-boot.p");
 endif;
 
