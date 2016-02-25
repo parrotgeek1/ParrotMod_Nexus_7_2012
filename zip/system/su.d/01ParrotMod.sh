@@ -33,15 +33,13 @@ echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/paramete
 echo "24" > /sys/module/lowmemorykiller/parameters/cost # default 32
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
-echo never > /sys/kernel/mm/transparent_hugepage/enabled
-
 # process scheduling
 
 echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
 echo "18000000" > /proc/sys/kernel/sched_latency_ns
 echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
 echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-echo "10000000000" /proc/sys/kernel/sched_stat_granularity_ns
+echo "10000000000" > /proc/sys/kernel/sched_stat_granularity_ns
 
 # investigate these!
 mount -t debugfs none /sys/kernel/debug
@@ -75,8 +73,8 @@ echo 0 > iosched/slice_idle
 echo 0 > iosched/group_idle
 echo 80 > iosched/fifo_expire_sync
 echo 240 > iosched/fifo_expire_async
-echo 240 > iosched/target_latency # ms, maybe change to bigger?
 echo "1" > iosched/low_latency
+echo 240 > iosched/target_latency # ms, maybe change to bigger?
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
@@ -101,7 +99,7 @@ done
 mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000,nomblk_io_submit /system /system
 mount | $bb grep '/system' | $bb grep -q f2fs && mount -o remount,ro,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=16  /system /system
 
-for f in /sys/fs/ext4/*; do
+for f in /sys/fs/ext4/mmcblk*; do
 	echo 8 > ${f}/max_writeback_mb_bump
 	echo 1 > ${f}/mb_group_prealloc
 	echo 0 > ${f}/mb_stats
