@@ -5,3 +5,5 @@ space check
 make stock 5.1 addon for this version
 Add back haveged 
 selinux enforcing
+investigate scheduler, more tcp incl buffersize?
+dm-0 scheduler/queue/?????

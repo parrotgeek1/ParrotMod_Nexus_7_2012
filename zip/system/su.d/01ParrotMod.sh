@@ -99,7 +99,8 @@ done
 mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000,nomblk_io_submit /system /system
 mount | $bb grep '/system' | $bb grep -q f2fs && mount -o remount,ro,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=10  /system /system
 
-for f in /sys/fs/ext4/mmcblk*; do
+for f in /sys/fs/ext4/*; do
+	$bb test "$f" = "/sys/fs/ext4/features" && continue
 	echo 8 > ${f}/max_writeback_mb_bump
 	echo 1 > ${f}/mb_group_prealloc
 	echo 0 > ${f}/mb_stats
