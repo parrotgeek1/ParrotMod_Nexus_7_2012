@@ -40,7 +40,6 @@ echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
 echo "18000000" > /proc/sys/kernel/sched_latency_ns
 echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
 echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-echo "10000000000" > /proc/sys/kernel/sched_stat_granularity_ns
 
 # investigate these!
 echo NO_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
