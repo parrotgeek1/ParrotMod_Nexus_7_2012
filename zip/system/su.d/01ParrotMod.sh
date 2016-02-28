@@ -51,11 +51,7 @@ $bb renice -10 $($bb pidof mmcqd/0)
 cd /sys/block/mmcblk0/queue
 echo 4096 > nr_requests
 echo 0 > add_random # don't contribute to entropy
-if [ -f "/data/no_readahead" ]; then
-	echo 0 > read_ahead_kb
-else
-	echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
-fi
+echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 echo 1 > rq_affinity # stay on same cpu core
 echo 0 > nomerges # try hard to merge requests 
 echo 0 > rotational # obviously
@@ -78,7 +74,7 @@ echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
 for f in /sys/devices/system/cpu/cpufreq/*; do
-	echo 1 > ${f}/io_is_busy
+	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
 done
 
 # tweaks for background disk
@@ -93,10 +89,10 @@ echo "10" > /proc/sys/vm/dirty_background_ratio
 
 for m in /data /cache; do
 	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
-	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,rw,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=15 "$m" "$m"
+	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,rw,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard "$m" "$m"
 done
 mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000,nomblk_io_submit /system /system
-mount | $bb grep '/system' | $bb grep -q f2fs && mount -o remount,ro,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,ram_thresh=10  /system /system
+mount | $bb grep '/system' | $bb grep -q f2fs && mount -o remount,ro,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard  /system /system
 
 for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue

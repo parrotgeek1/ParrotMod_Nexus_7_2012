@@ -1,5 +1,4 @@
-F2fs SYSFS tweaks https://www.kernel.org/doc/Documentation/filesystems/f2fs.txt
-Make sure the f2fs mount options work
+F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
 Addon.d backup
 space check
 make stock 5.1 addon for this version
