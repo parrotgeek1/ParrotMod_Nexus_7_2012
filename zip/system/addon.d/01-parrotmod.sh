@@ -6,15 +6,17 @@
 . /tmp/backuptool.functions
 
 list_files() {
-cat <<EOF
-su.d/01ParrotMod.sh
-etc/parrotmod/busybox
-etc/parrotmod/postboot.sh
+echo "su.d/01ParrotMod.sh"
+cd /system
+/sbin/busybox find etc/parrotmod -type f
+if ! /sbin/busybox test -e /system/etc/permissions/android.hardware.bluetooth_le.xml; then
+cat << 'EOF'
 etc/permissions/android.hardware.bluetooth_le.xml
 lib/hw/bluetooth.default.so
 lib/libbt-hci.so
 lib/libbt-utils.so
 EOF
+fi
 }
 
 case "$1" in
