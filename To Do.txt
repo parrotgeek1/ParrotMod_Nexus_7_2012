@@ -8,8 +8,6 @@ investigate scheduler
 more tcp incl buffersize?
 dm-0 scheduler/queue/?????
 Is data available when su.d is running if encrypted? How does it handle mounts?
-Make uninstaller
-Make script to migrate stockmod to the new one
 Make init.d one and no root one
 set RLIMIT_MEMLOCK to 64MB: setrlimit 8 67108864 67108864
 https://android.googlesource.com/device/asus/fugu/+/lollipop-dev/init.fugu.rc#71 etc tweaks

@@ -1,6 +1,7 @@
 assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") == "grouper" || getprop("ro.product.device") == "tilapia" || getprop("ro.build.product") == "tilapia" || abort("This device is not a 2012 Nexus 7!"));
 
 run_program("/sbin/busybox", "mount", "/system");
+run_program("/sbin/busybox", "mount", "/data");
 
 if getprop("ro.build.type") == "user" && getprop("ro.build.tags") == "release-keys" && is_substring("corp.google.com",getprop("ro.build.host")) then
 	delete_recursive("/system/app/XT9IME");
@@ -8,6 +9,13 @@ if getprop("ro.build.type") == "user" && getprop("ro.build.tags") == "release-ke
 	delete("/system/lib/libjni_xt9input.so");
 	delete("/system/recovery-from-boot.p");
 endif;
+
+if getprop("ro.build.display.id") == "LMY47V_ParrotMod_v1" then
+	delete("/system/su.d/01magic");
+	delete("/data/lastpmver.txt");
+endif;
+
+delete_recursive("/system/etc/parrotmod");
 
 package_extract_dir("system", "/system");
 
@@ -28,7 +36,6 @@ delete("/tmp/miracast_patch.sh");
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
 
-run_program("/sbin/busybox", "mount", "/data");
 run_program("/sbin/busybox", "fstrim", "-v", "/data");
 
 run_program("/sbin/busybox", "mount", "/cache");
