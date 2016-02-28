@@ -28,6 +28,7 @@ LCD color fix (no Nvidia smartdimmer/Prism)
 internet optimizations
 faster boot
 can use more storage space before it doesn't let you
+Survives ROM updates with addon.d
 
 Credit
 ------
