@@ -1,12 +1,13 @@
 
 #!/sbin/sh
 # 
-# /system/addon.d/01-parrotmod.sh
+# /system/addon.d/01ParrotMod.sh
 #
 . /tmp/backuptool.functions
 
 list_files() {
 echo "su.d/01ParrotMod.sh"
+echo "addon.d/01ParrotMod.sh"
 cd /system
 /sbin/busybox find etc/parrotmod -type f
 if ! /sbin/busybox test -e /system/etc/permissions/android.hardware.bluetooth_le.xml; then
