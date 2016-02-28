@@ -1,10 +1,6 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
-# remove selinux
-
-echo 0 > /sys/fs/selinux/enforce
-
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
@@ -128,5 +124,5 @@ $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 
 if [ "$(cat /data/lastpmver_univ.txt)" != "1" ]; then
 	# start postboot script
-	$bb nohup $bb sh /system/etc/parrotmod/postboot.sh >/dev/null 2>&1 &
+	su -cn u:r:init:s0 -c "$bb nohup $bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
 fi

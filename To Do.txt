@@ -1,9 +1,8 @@
 F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
-Addon.d backup
+Addon.d backup with chcon
 space check
 make stock 5.1 addon for this version
 Add back haveged 
-selinux enforcing
 investigate scheduler
 more tcp incl buffersize?
 dm-0 scheduler/queue/?????
