@@ -7,7 +7,6 @@ if getprop("ro.build.type") == "user" && getprop("ro.build.tags") == "release-ke
 	delete_recursive("/system/app/XT9IME");
 	delete("/system/app/XT9IME.apk");
 	delete("/system/lib/libjni_xt9input.so");
-	delete("/system/recovery-from-boot.p");
 endif;
 
 if getprop("ro.build.display.id") == "LMY47V_ParrotMod_v1" then
