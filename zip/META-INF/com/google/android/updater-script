@@ -42,5 +42,3 @@ run_program("/sbin/busybox", "fstrim", "-v", "/data");
 
 run_program("/sbin/busybox", "mount", "/cache");
 run_program("/sbin/busybox", "fstrim", "-v", "/cache");
-
-run_program("/sbin/busybox", "sync");
