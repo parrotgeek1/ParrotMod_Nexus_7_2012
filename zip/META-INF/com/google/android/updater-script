@@ -9,7 +9,7 @@ if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop(
 	delete("/system/lib/libjni_xt9input.so");
 endif;
 
-if file_getprop("/system/build.prop","ro.build.display.id") == "LMY47V_ParrotMod_v1" then
+if is_substring("LMY47V_ParrotMod_",file_getprop("/system/build.prop","ro.build.display.id")) then
 	delete("/system/su.d/01magic");
 endif;
 
