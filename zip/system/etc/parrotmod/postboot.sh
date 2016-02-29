@@ -6,5 +6,7 @@ while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 settings put global sys_storage_full_threshold_bytes 8388608
 settings put global sys_storage_threshold_percentage 2
 settings put global sys_storage_threshold_max_bytes 104857600
+
 echo 1 > /data/lastpmver_univ.txt
-setprop ctl.restart zygote # soft reboot
+
+am start -a android.intent.action.REBOOT # cleaner reboot
