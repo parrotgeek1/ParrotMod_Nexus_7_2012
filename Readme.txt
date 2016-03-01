@@ -1,7 +1,7 @@
 What?
 =====
 
-This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM. (However, the custom kernel is only for 5.1.x)
+This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM. 
 
 XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
 
@@ -10,6 +10,8 @@ Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable_Univ.z
 Performance Video (old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
 
 You can install it on top of stock 5.1.1 WITHOUT ERASING YOUR DATA!
+
+REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
 
 Recommended Kernel: 
 ===================
