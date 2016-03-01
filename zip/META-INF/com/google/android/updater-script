@@ -19,7 +19,6 @@ package_extract_dir("system", "/system");
 
 if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && sha1_check("/system/etc/permissions/android.hardware.bluetooth_le.xml") == "" then
 	package_extract_dir("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
-	set_perm_recursive(0, 0, 0755, 0644, "/system/etc/permissions");
 endif;
 
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
