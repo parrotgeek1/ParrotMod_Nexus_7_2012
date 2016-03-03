@@ -22,14 +22,6 @@ logcat -b all -G 65536 # lower logd size
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
-# http://review.cyanogenmod.org/#/c/101476/ instead ???
-$bb chmod -R 0775 /sys/module/lowmemorykiller/parameters
-echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
-echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
-echo "24" > /sys/module/lowmemorykiller/parameters/cost # default 32
-$bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
-$bb renice -15 $($bb pidof lmkd)
-
 # process scheduling
 
 echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
@@ -75,11 +67,11 @@ done
 
 # tweaks for background disk
 
-echo "500" > /proc/sys/vm/dirty_writeback_centisecs
-echo "1000" > /proc/sys/vm/dirty_expire_centisecs
+echo "250" > /proc/sys/vm/dirty_writeback_centisecs
+echo "500" > /proc/sys/vm/dirty_expire_centisecs
 echo 4 > /proc/sys/vm/page-cluster
 echo "60" > /proc/sys/vm/dirty_ratio
-echo "10" > /proc/sys/vm/dirty_background_ratio
+echo "5" > /proc/sys/vm/dirty_background_ratio
 
 # fs tune
 
@@ -122,7 +114,4 @@ echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
 
 $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
 
-if [ "$(cat /data/lastpmver_univ.txt)" != "1" ]; then
-	# start postboot script
-	su -cn u:r:init:s0 -c "$bb nohup $bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
-fi
+su -cn u:r:init:s0 -c "$bb nohup $bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
