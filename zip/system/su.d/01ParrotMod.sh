@@ -113,5 +113,4 @@ echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
 # for (mostly) fixing audio stutter when multitasking
 
 $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
-
-su -cn u:r:init:s0 -c "$bb nohup $bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
+$bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
