@@ -15,6 +15,7 @@ setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
+setprop persist.debug.wfd.enable 1
 
 setprop persist.sys.purgeable_assets 1 # only for CM
 
