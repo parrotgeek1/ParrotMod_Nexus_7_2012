@@ -29,9 +29,10 @@ echo "18000000" > /proc/sys/kernel/sched_latency_ns
 echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
 echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
 
-# investigate these!
-echo NO_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
-echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
+# https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
+
+echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
+echo ARCH_POWER > /sys/kernel/debug/sched_features
 
 # eMMC speed
 
