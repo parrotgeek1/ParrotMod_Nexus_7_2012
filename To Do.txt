@@ -9,3 +9,12 @@ set RLIMIT_MEMLOCK to 64MB: setrlimit 8 67108864 67108864
 https://android.googlesource.com/device/asus/fugu/+/lollipop-dev/init.fugu.rc#71 etc tweaks
 https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
 Integrate root cloak or not need root at all
+redo xda post
+Speaker addon.d with migrate from K<->L
+ro.audio.flinger_standbytime_ms=1000 ???
+Investigate Zram and swappiness and VM settings like cache pressure and number of pages to swap at once
+this is a bug, to disconnect miracast, unplug miracast dongle from tv. it was even a bug on 4.4
+Baseband xmm power wake lock fix
+3g TCP optimisations
+Link to slow charge fix http://forum.xda-developers.com/showthread.php?p=65039448
+Set hd-audio0 and maybe mediaserver to real-time scheduling priority
