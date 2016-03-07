@@ -32,7 +32,7 @@ run_program("/tmp/miracast_patch.sh", "");
 delete("/tmp/miracast_patch.sh");
 
 run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/etc/parrotmod");
-run_program("/sbin/busybox", "chcon", "u:object_r:system_file:s0", "/system/su.d/01ParrotMod.sh");
+run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/su.d");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
