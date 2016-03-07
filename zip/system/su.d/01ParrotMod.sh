@@ -19,8 +19,6 @@ setprop persist.debug.wfd.enable 1
 
 setprop persist.sys.purgeable_assets 1 # only for CM
 
-logcat -b all -G 65536 # lower logd size
-
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
 # process scheduling

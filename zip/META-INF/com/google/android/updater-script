@@ -31,6 +31,11 @@ set_perm(0, 0, 0777, "/tmp/miracast_patch.sh");
 run_program("/tmp/miracast_patch.sh", "");		
 delete("/tmp/miracast_patch.sh");
 
+package_extract_file("bprop.sh", "/tmp/bprop.sh");		
+set_perm(0, 0, 0777, "/tmp/bprop.sh");		
+run_program("/tmp/bprop.sh", "");		
+delete("/tmp/bprop.sh");
+
 run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/etc/parrotmod");
 run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/su.d");
 
