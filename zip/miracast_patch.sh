@@ -1,4 +1,5 @@
 #!/sbin/sh
+/sbin/busybox test ! -e /system/lib/libstagefright_wfd.so && exit 0
 # for addon.d later
 rm /system/etc/parrotmod/libstagefright_wfd.so.orig
 cat /system/lib/libstagefright_wfd.so > /system/etc/parrotmod/libstagefright_wfd.so.orig
