@@ -24,6 +24,8 @@ FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC
 uses ext4 but can use data/cache f2fs
 audio stutter and multitasking fix
 miracast enabled
+64k log buffers for ram freeing
+can set up device without wifi
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, scheduler tweaks, kernel samepage merging, 64k log buffers)
 LCD color fix (no Nvidia smartdimmer/Prism)
