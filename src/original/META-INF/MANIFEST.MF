@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Created-By: 1.7.0_55 (Oracle Corporation)
+
+Name: AndroidManifest.xml
+SHA1-Digest: EsInQMrjxo24LpMiBPk3NqaIGxk=
+
+Name: res/drawable/ic_launcher.png
+SHA1-Digest: FFz0umDI2lfIoZnanKU+jRQNHi0=
+
+Name: res/layout/intro.xml
+SHA1-Digest: VeNI7RwPAKncDzbWNXxldcwnxa4=
+
+Name: resources.arsc
+SHA1-Digest: 3f0syLpi5kG/J9v5NKpi2ph+HbM=
+
+Name: classes.dex
+SHA1-Digest: c/VBN5imkuq45jQDGPXFXgDfx6w=
+
+Name: res/raw/silence.mp3
+SHA1-Digest: rdBmItmQn3vyRA2STurKxJ6pD8w=
+

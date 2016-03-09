@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.motorola.groundloopnoisepreventer" platformBuildVersionCode="22" platformBuildVersionName="5.1.1-3">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <application android:label="Charging Noise Fix">
+        <service android:exported="false" android:name=".SilenceService">
+            <intent-filter>
+                <action android:name="com.motorola.groundloopnoisepreventer.action.CHARGER_CONNECTED"/>
+                <action android:name="com.motorola.groundloopnoisepreventer.action.CHARGER_DISCONNECTED"/>
+            </intent-filter>
+        </service>
+        <receiver android:name=".ServiceStarter">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
