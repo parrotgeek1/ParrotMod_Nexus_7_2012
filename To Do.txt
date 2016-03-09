@@ -4,7 +4,6 @@ Add back haveged
 investigate scheduler
 more tcp incl buffersize?
 dm-0 scheduler/queue/?????
-Is data available when su.d is running if encrypted? How does it handle mounts?
 set RLIMIT_MEMLOCK to 64MB: setrlimit 8 67108864 67108864
 https://android.googlesource.com/device/asus/fugu/+/lollipop-dev/init.fugu.rc#71 etc tweaks
 https://github.com/Metallice/android_kernel_grouper/commit/aac1d3ba8639a6b39f64fdba4daf4698b5a00655 audio perflock or change minimum cpu to 200ish?
