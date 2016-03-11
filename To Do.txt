@@ -12,6 +12,7 @@ Set hd-audio0 and maybe mediaserver to real-time scheduling priority
 Speaker addon.d with migrate from K<->L
 ro.audio.flinger_standbytime_ms=1000 ???
 bug, to disconnect miracast, unplug miracast dongle from tv
+Fstrim at boot for 4.x/5.0 too
 
 Later
 
