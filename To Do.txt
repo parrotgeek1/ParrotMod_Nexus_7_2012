@@ -1,6 +1,7 @@
 Easy
 
 Link to slow charge fix http://forum.xda-developers.com/showthread.php?p=65039448
+Rename repo
 
 Soon
 
@@ -21,8 +22,13 @@ https://android.googlesource.com/device/asus/fugu/+/lollipop-dev/init.fugu.rc#71
 Investigate Zram and swappiness and VM settings like cache pressure and number of pages to swap at once
 Baseband xmm power wake lock fix
 3g TCP optimisations
+tilapia no tether check
+make addon.d less redundant
 
 Maybe 
 
 Integrate root cloak or not need root at all
 Add back haveged 
+Port max life from Moto G? & force fast charge
+Actual charging noise fix no apk
+noise fix include?
