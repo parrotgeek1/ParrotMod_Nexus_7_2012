@@ -3,13 +3,14 @@ bb=/system/etc/parrotmod/busybox
 
 while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 
-if [ "$(cat /data/lastpmver_univ.txt)" != "2" ]; then
+if [ "$(cat /data/lastpmver_univ.txt)" != "2.0rc2" ]; then
 
   settings put global sys_storage_full_threshold_bytes 8388608
   settings put global sys_storage_threshold_percentage 2
   settings put global sys_storage_threshold_max_bytes 104857600
+  settings put global fstrim_mandatory_interval 86400000 # 1 day
   
-  echo 2 > /data/lastpmver_univ.txt
+  echo "2.0rc2" > /data/lastpmver_univ.txt
   
   am start -a android.intent.action.REBOOT # cleaner reboot
   
