@@ -3,24 +3,23 @@ bb=/system/etc/parrotmod/busybox
 
 while [ "$(getprop sys.boot_completed)" = "" ]; do sleep 1; done
 
-if [ "$(cat /data/lastpmver_univ.txt)" != "2.0rc2" ]; then
+if [ "$(cat /data/lastpmver_univ.txt)" != "2.0rc3" ]; then
 
   settings put global sys_storage_full_threshold_bytes 8388608
   settings put global sys_storage_threshold_percentage 2
   settings put global sys_storage_threshold_max_bytes 104857600
-  settings put global fstrim_mandatory_interval 86400000 # 1 day
+  settings put global fstrim_mandatory_interval 1 # basically, every boot
   
-  echo "2.0rc2" > /data/lastpmver_univ.txt
+  echo "2.0rc3" > /data/lastpmver_univ.txt
   
   am start -a android.intent.action.REBOOT # cleaner reboot
   
 fi
 
-# http://review.cyanogenmod.org/#/c/101476/ instead ???
 $bb chmod -R 0775 /sys/module/lowmemorykiller/parameters
-echo "0,1,2,5,7,16" > /sys/module/lowmemorykiller/parameters/adj 
-echo "9933,10728,14950,17510,20019,31385" > /sys/module/lowmemorykiller/parameters/minfree 
-echo "24" > /sys/module/lowmemorykiller/parameters/cost # default 32
+echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
+echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
+echo "48" > /sys/module/lowmemorykiller/parameters/cost # default 32, should cost MORE than releasing page cache (32) on this crappy eMMC
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
 #block ota

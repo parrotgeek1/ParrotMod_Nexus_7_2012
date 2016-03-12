@@ -17,12 +17,10 @@ Fstrim at boot for 4.x/5.0 too
 Later
 
 investigate scheduler
-more tcp incl buffersize?
 set RLIMIT_MEMLOCK to 64MB: setrlimit 8 67108864 67108864
 https://android.googlesource.com/device/asus/fugu/+/lollipop-dev/init.fugu.rc#71 etc tweaks
 Investigate Zram and swappiness and VM settings like cache pressure and number of pages to swap at once
 Baseband xmm power wake lock fix
-3g TCP optimisations
 tilapia no tether check
 make addon.d less redundant
 

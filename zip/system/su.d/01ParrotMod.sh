@@ -108,7 +108,25 @@ echo 0 > /proc/sys/net/ipv4/tcp_slow_start_after_idle
 echo 0 > /proc/sys/net/ipv4/tcp_timestamps
 echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
 echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
-# investigate buffersize!
+
+# from LMR1 init.rc, for old versions
+echo 300 > /proc/sys/net/unix/max_dgram_qlen
+# Define TCP buffer sizes for various networks
+#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+setprop net.tcp.buffersize.wifi 524288,1048576,2097152,262144,524288,1048576
+setprop net.tcp.buffersize.ethernet 524288,1048576,3145728,524288,1048576,2097152
+setprop net.tcp.buffersize.lte 524288,1048576,2097152,262144,524288,1048576
+setprop net.tcp.buffersize.umts 58254,349525,1048576,58254,349525,1048576
+setprop net.tcp.buffersize.hspa 40778,244668,734003,16777,100663,301990
+setprop net.tcp.buffersize.hsupa 40778,244668,734003,16777,100663,301990
+setprop net.tcp.buffersize.hsdpa 61167,367002,1101005,8738,52429,262114
+setprop net.tcp.buffersize.hspap 122334,734003,2202010,32040,192239,576717
+setprop net.tcp.buffersize.edge 4093,26280,70800,4096,16384,70800
+setprop net.tcp.buffersize.gprs 4092,8760,48000,4096,8760,48000
+setprop net.tcp.buffersize.evdo 4094,87380,262144,4096,16384,262144
+# Define default initial receive window size in segments.
+setprop net.tcp.default_init_rwnd 60
 
 # for (mostly) fixing audio stutter when multitasking
 
