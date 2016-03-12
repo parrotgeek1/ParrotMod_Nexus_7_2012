@@ -17,6 +17,10 @@ Recommended Kernel:
 ===================
 http://forum.xda-developers.com/nexus-7/development/kernel-dc-kernel-t3310642
 
+Slow charging hardware fix:
+===========================
+http://forum.xda-developers.com/showthread.php?p=65039448
+
 Features:
 =========
 
@@ -30,10 +34,11 @@ Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, scheduler tweaks, kernel samepage merging, 64k log buffers)
 LCD color fix (no Nvidia smartdimmer/Prism)
 internet optimizations
-faster boot
 can use more storage space before it doesn't let you
 Survives ROM updates with addon.d
 block Google ota updates
+tethering without carrier checks on tilapia
+Speed up full disk encryption, but it's still pretty bad
 
 Credit
 ------

@@ -19,6 +19,8 @@ setprop persist.debug.wfd.enable 1
 
 setprop persist.sys.purgeable_assets 1 # only for CM
 
+setprop net.tethering.noprovisioning true
+
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
 # process scheduling
@@ -60,6 +62,18 @@ echo "1" > iosched/low_latency
 $bb test -e iosched/target_latency && echo 240 > iosched/target_latency # not in 3.1
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
+
+if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
+	cd /sys/block/dm-0/queue
+	$bb test -e scheduler && echo noop > scheduler # don't need two schedulers
+	echo 1 > nr_requests # don't need two queues either
+	echo 0 > add_random # don't contribute to entropy
+	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
+	echo 0 > rq_affinity # there is no queue, who cares
+	echo 1 > nomerges # ditto
+	echo 0 > rotational # obviously
+	echo 0 > iostats # cpu hog
+fi
 
 for f in /sys/devices/system/cpu/cpufreq/*; do
 	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
