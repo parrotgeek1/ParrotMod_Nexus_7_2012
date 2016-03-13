@@ -23,8 +23,11 @@ echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/paramete
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
 #block ota
+pm disable 'com.google.android.gms/.update.SystemUpdateActivity'
 pm disable 'com.google.android.gms/.update.SystemUpdateService$ActiveReceiver'
 pm disable 'com.google.android.gms/.update.SystemUpdateService$Receiver'
 pm disable 'com.google.android.gms/.update.SystemUpdateService$SecretCodeReceiver'
+pm disable 'com.google.android.gsf/.update.SystemUpdateActivity'
+pm disable 'com.google.android.gsf/.update.SystemUpdatePanoActivity'
 pm disable 'com.google.android.gsf/.update.SystemUpdateService$Receiver'
 pm disable 'com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver'
