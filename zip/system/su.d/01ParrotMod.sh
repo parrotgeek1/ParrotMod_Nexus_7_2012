@@ -23,13 +23,6 @@ setprop net.tethering.noprovisioning true
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
-# process scheduling
-
-echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
-echo "18000000" > /proc/sys/kernel/sched_latency_ns
-echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
-echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
 
 echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
@@ -79,13 +72,6 @@ for f in /sys/devices/system/cpu/cpufreq/*; do
 	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
 done
 
-# tweaks for background disk
-
-echo "250" > /proc/sys/vm/dirty_writeback_centisecs
-echo "500" > /proc/sys/vm/dirty_expire_centisecs
-echo 4 > /proc/sys/vm/page-cluster
-echo "60" > /proc/sys/vm/dirty_ratio
-echo "5" > /proc/sys/vm/dirty_background_ratio
 
 # fs tune
 
@@ -108,7 +94,6 @@ done
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 setprop persist.tegra.didim.enable 0
-echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 # tcp
 
