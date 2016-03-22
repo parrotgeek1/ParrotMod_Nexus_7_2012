@@ -1,10 +1,23 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
-# for copying verbatim from init.rc
-write() {
-	echo "$2" > "$1"
+# https://android.googlesource.com/device/huawei/angler/+/master/init.angler.power.sh
+
+################################################################################
+# helper functions to allow Android init like script
+function write() {
+    $bb echo -n $2 > $1
 }
+function copy() {
+    cat $1 > $2
+}
+function get-set-forall() {
+    for f in $1 ; do
+        cat $f
+        write $f $2
+    done
+}
+################################################################################
 
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
