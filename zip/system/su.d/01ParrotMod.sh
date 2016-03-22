@@ -41,20 +41,10 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
-    write /proc/sys/kernel/randomize_va_space 2
-    write /proc/sys/kernel/kptr_restrict 2
-    write /proc/sys/vm/mmap_min_addr 32768
-    write /proc/sys/net/ipv4/ping_group_range "0 2147483647"
+# SNIP irrelevant security stuff
     write /proc/sys/net/unix/max_dgram_qlen 600
     write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
-    # reflect fwmark from incoming packets onto generated replies
-    write /proc/sys/net/ipv4/fwmark_reflect 1
-    write /proc/sys/net/ipv6/fwmark_reflect 1
-    # set fwmark on accepted sockets
-    write /proc/sys/net/ipv4/tcp_fwmark_accept 1
-    # disable icmp redirects
-    write /proc/sys/net/ipv4/conf/all/accept_redirects 0
 
 # https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#444
     # Tweak background writeout
