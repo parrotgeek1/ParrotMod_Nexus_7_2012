@@ -102,7 +102,7 @@ done
 
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	cd /sys/block/dm-0/queue
-	$bb test -e scheduler && echo noop > scheduler # don't need two schedulers
+	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
 	echo 1 > nr_requests # don't need two queues either
 	echo 0 > add_random # don't contribute to entropy
 	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
