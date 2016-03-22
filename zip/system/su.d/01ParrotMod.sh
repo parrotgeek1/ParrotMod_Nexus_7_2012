@@ -51,10 +51,12 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio  5
 
+# battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
 
 echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo ARCH_POWER > /sys/kernel/debug/sched_features
+echo "1" > /sys/devices/system/cpu/sched_mc_power_savings # Maybe 2 but it might degrade perf too much
 
 # eMMC speed
 
@@ -117,6 +119,11 @@ for f in /sys/devices/system/cpu/cpufreq/*; do
 	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
 done
 
+if $bb test -e "/sys/block/zram0"; then 
+	echo lz4 > /sys/block/zram0/comp_algorithm # less cppu intensive than lzo
+	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of cores
+	echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
+fi
 # GPU
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
