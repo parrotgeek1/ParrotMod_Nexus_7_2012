@@ -1,7 +1,3 @@
-Easy
-
-Rename repo
-
 Soon
 
 F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
