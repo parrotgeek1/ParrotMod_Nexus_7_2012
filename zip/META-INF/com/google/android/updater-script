@@ -2,6 +2,7 @@ assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") 
 
 run_program("/sbin/busybox", "mount", "/system");
 run_program("/sbin/busybox", "mount", "/data");
+run_program("/sbin/busybox", "mount", "/cache");
 
 if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop("/system/build.prop","ro.build.tags") == "release-keys" && is_substring("corp.google.com",file_getprop("/system/build.prop","ro.build.host")) then
 	delete_recursive("/system/app/XT9IME");
@@ -11,9 +12,12 @@ endif;
 
 if is_substring("LMY47V_ParrotMod_",file_getprop("/system/build.prop","ro.build.display.id")) then
 	delete("/system/su.d/01magic");
+	delete("/data/lastmpver_univ.txt");
+	delete("/system/su.d/02parrotmodstock.sh");
 endif;
 
 delete_recursive("/system/etc/parrotmod");
+delete("/data/lastpmver.txt");
 
 package_extract_dir("system", "/system");
 
@@ -46,5 +50,4 @@ run_program("/sbin/busybox", "umount", "/system");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/data");
 
-run_program("/sbin/busybox", "mount", "/cache");
 run_program("/sbin/busybox", "fstrim", "-v", "/cache");

@@ -1,6 +1,11 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
+# for copying verbatim from init.rc
+write() {
+	echo "$2" > "$1"
+}
+
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
@@ -9,12 +14,15 @@ echo 100 > pages_to_scan
 echo 500 > sleep_millisecs
 echo 1 > run
 
+setprop ctl.stop perfprofd # useless service on M+
+
 setprop dalvik.vm.heapstartsize 8m
 setprop dalvik.vm.heapgrowthlimit 128m
 setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
+
 setprop persist.debug.wfd.enable 1
 
 setprop persist.sys.purgeable_assets 1 # only for CM
@@ -22,6 +30,36 @@ setprop persist.sys.purgeable_assets 1 # only for CM
 setprop net.tethering.noprovisioning true
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
+
+# https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#108
+    # scheduler tunables
+    # Disable auto-scaling of scheduler tunables with hotplug. The tunables
+    # will vary across devices in unpredictable ways if allowed to scale with
+    # cpu cores.
+    write /proc/sys/kernel/sched_tunable_scaling 0
+    write /proc/sys/kernel/sched_latency_ns 10000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_compat_yield 1
+    write /proc/sys/kernel/sched_child_runs_first 0
+    write /proc/sys/kernel/randomize_va_space 2
+    write /proc/sys/kernel/kptr_restrict 2
+    write /proc/sys/vm/mmap_min_addr 32768
+    write /proc/sys/net/ipv4/ping_group_range "0 2147483647"
+    write /proc/sys/net/unix/max_dgram_qlen 600
+    write /proc/sys/kernel/sched_rt_runtime_us 950000
+    write /proc/sys/kernel/sched_rt_period_us 1000000
+    # reflect fwmark from incoming packets onto generated replies
+    write /proc/sys/net/ipv4/fwmark_reflect 1
+    write /proc/sys/net/ipv6/fwmark_reflect 1
+    # set fwmark on accepted sockets
+    write /proc/sys/net/ipv4/tcp_fwmark_accept 1
+    # disable icmp redirects
+    write /proc/sys/net/ipv4/conf/all/accept_redirects 0
+
+# https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#444
+    # Tweak background writeout
+    write /proc/sys/vm/dirty_expire_centisecs 200
+    write /proc/sys/vm/dirty_background_ratio  5
 
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
 
@@ -93,38 +131,6 @@ done
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 setprop persist.tegra.didim.enable 0
-
-# tcp
-
-echo 65535 > /proc/sys/net/core/rmem_default
-echo 174760 > /proc/sys/net/core/rmem_max
-echo 65535 > /proc/sys/net/core/wmem_default
-echo 131071 > /proc/sys/net/core/wmem_max
-echo "4096 16384 131072" > /proc/sys/net/ipv4/tcp_wmem
-echo "4096 87380 174760" > /proc/sys/net/ipv4/tcp_rmem
-echo 0 > /proc/sys/net/ipv4/tcp_slow_start_after_idle
-echo 0 > /proc/sys/net/ipv4/tcp_timestamps
-echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
-echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
-
-# from LMR1 init.rc, for old versions
-echo 300 > /proc/sys/net/unix/max_dgram_qlen
-# Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-setprop net.tcp.buffersize.wifi 524288,1048576,2097152,262144,524288,1048576
-setprop net.tcp.buffersize.ethernet 524288,1048576,3145728,524288,1048576,2097152
-setprop net.tcp.buffersize.lte 524288,1048576,2097152,262144,524288,1048576
-setprop net.tcp.buffersize.umts 58254,349525,1048576,58254,349525,1048576
-setprop net.tcp.buffersize.hspa 40778,244668,734003,16777,100663,301990
-setprop net.tcp.buffersize.hsupa 40778,244668,734003,16777,100663,301990
-setprop net.tcp.buffersize.hsdpa 61167,367002,1101005,8738,52429,262114
-setprop net.tcp.buffersize.hspap 122334,734003,2202010,32040,192239,576717
-setprop net.tcp.buffersize.edge 4093,26280,70800,4096,16384,70800
-setprop net.tcp.buffersize.gprs 4092,8760,48000,4096,8760,48000
-setprop net.tcp.buffersize.evdo 4094,87380,262144,4096,16384,262144
-# Define default initial receive window size in segments.
-setprop net.tcp.default_init_rwnd 60
 
 # for (mostly) fixing audio stutter when multitasking
 
