@@ -33,6 +33,7 @@ can set up device without wifi
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, scheduler tweaks, kernel samepage merging, 64k log buffers)
 LCD color fix (no Nvidia smartdimmer/Prism)
+GPU optimizations (without OC!)
 internet optimizations
 can use more storage space before it doesn't let you
 Survives ROM updates with addon.d
