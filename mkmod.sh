@@ -1,6 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 cd "$(dirname "$0")/zip"
-rm -rf ../ParrotMod_Grouper_Stable_Univ.zip
+branch=$(git rev-parse --abbrev-ref HEAD)
+rm -rf ../ParrotMod_Grouper_{$branch}.zip
 find . -name '.DS_Store' -delete
-zip -9 -r -q ../ParrotMod_Grouper_Stable_Univ.zip * 
-du -h ../ParrotMod_Grouper_Stable_Univ.zip
+zip -9 -r -q ../ParrotMod_Grouper_{$branch}.zip * 
+du -h ../ParrotMod_Grouper_{$branch}.zip

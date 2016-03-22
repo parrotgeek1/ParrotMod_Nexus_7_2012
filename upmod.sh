@@ -1,3 +1,5 @@
+#!/bin/bash
 cd "$(dirname "$0")"
-rm -f ~/Google\ Drive/Website\ Downloads/Android/ParrotMod_Grouper_Stable_Univ.zip
-cp ParrotMod_Grouper_Stable_Univ.zip ~/Google\ Drive/Website\ Downloads/Android/ParrotMod_Grouper_Stable_Univ.zip
+branch=$(git rev-parse --abbrev-ref HEAD)
+rm -f ~/Google\ Drive/Website\ Downloads/Android/ParrotMod_Grouper_Stable_{$branch}.zip
+cp ParrotMod_Grouper_Stable_{$branch}.zip ~/Google\ Drive/Website\ Downloads/Android/ParrotMod_Grouper_Stable_{$branch}.zip
