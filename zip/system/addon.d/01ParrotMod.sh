@@ -34,8 +34,7 @@ case "$1" in
     done
   ;;
   pre-backup)
-cat /system/etc/parrotmod/libstagefright_wfd.so.orig > /system/lib/libstagefright_wfd.so 
-rm /system/etc/parrotmod/libstagefright_wfd.so.orig
+LC_ALL=C /sbin/busybox sed -i 's@intra-refresh-NOPE@intra-refresh-mode@g' /system/lib/libstagefright_wfd.so
   ;;
   post-backup)
     # Stub

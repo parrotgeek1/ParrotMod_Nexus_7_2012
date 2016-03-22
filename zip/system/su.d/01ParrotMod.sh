@@ -1,6 +1,24 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
+# https://android.googlesource.com/device/huawei/angler/+/master/init.angler.power.sh
+
+################################################################################
+# helper functions to allow Android init like script
+function write() {
+    $bb echo -n $2 > $1
+}
+function copy() {
+    cat $1 > $2
+}
+function get-set-forall() {
+    for f in $1 ; do
+        cat $f
+        write $f $2
+    done
+}
+################################################################################
+
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
@@ -9,12 +27,15 @@ echo 100 > pages_to_scan
 echo 500 > sleep_millisecs
 echo 1 > run
 
+setprop ctl.stop perfprofd # useless service on M+
+
 setprop dalvik.vm.heapstartsize 8m
 setprop dalvik.vm.heapgrowthlimit 128m
 setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
+
 setprop persist.debug.wfd.enable 1
 
 setprop persist.sys.purgeable_assets 1 # only for CM
@@ -23,17 +44,32 @@ setprop net.tethering.noprovisioning true
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
-# process scheduling
+# https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#108
+    # scheduler tunables
+    # Disable auto-scaling of scheduler tunables with hotplug. The tunables
+    # will vary across devices in unpredictable ways if allowed to scale with
+    # cpu cores.
+    write /proc/sys/kernel/sched_tunable_scaling 0
+    write /proc/sys/kernel/sched_latency_ns 10000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_compat_yield 1
+    write /proc/sys/kernel/sched_child_runs_first 0
+# SNIP irrelevant security stuff
+    write /proc/sys/net/unix/max_dgram_qlen 600
+    write /proc/sys/kernel/sched_rt_runtime_us 950000
+    write /proc/sys/kernel/sched_rt_period_us 1000000
 
-echo 1 > /proc/sys/kernel/perf_event_max_sample_rate
-echo "18000000" > /proc/sys/kernel/sched_latency_ns
-echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
-echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
+# https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#444
+    # Tweak background writeout
+    write /proc/sys/vm/dirty_expire_centisecs 200
+    write /proc/sys/vm/dirty_background_ratio  5
 
+# battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
 
 echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo ARCH_POWER > /sys/kernel/debug/sched_features
+echo "1" > /sys/devices/system/cpu/sched_mc_power_savings # Maybe 2 but it might degrade perf too much
 
 # eMMC speed
 
@@ -63,38 +99,13 @@ $bb test -e iosched/target_latency && echo 240 > iosched/target_latency # not in
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
-if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
-	cd /sys/block/dm-0/queue
-	$bb test -e scheduler && echo noop > scheduler # don't need two schedulers
-	echo 1 > nr_requests # don't need two queues either
-	echo 0 > add_random # don't contribute to entropy
-	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
-	echo 0 > rq_affinity # there is no queue, who cares
-	echo 1 > nomerges # ditto
-	echo 0 > rotational # obviously
-	echo 0 > iostats # cpu hog
-fi
-
-for f in /sys/devices/system/cpu/cpufreq/*; do
-	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
-done
-
-# tweaks for background disk
-
-echo "250" > /proc/sys/vm/dirty_writeback_centisecs
-echo "500" > /proc/sys/vm/dirty_expire_centisecs
-echo 4 > /proc/sys/vm/page-cluster
-echo "60" > /proc/sys/vm/dirty_ratio
-echo "5" > /proc/sys/vm/dirty_background_ratio
-
 # fs tune
 
-for m in /data /cache; do
-	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,rw,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
-	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,rw,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard "$m" "$m"
+for m in /data /cache /system; do
+	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
+	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard "$m" "$m"
 done
-mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,ro,inode_readahead_blks=128,dioread_nolock,max_batch_time=20000,nomblk_io_submit /system /system
-mount | $bb grep '/system' | $bb grep -q f2fs && mount -o remount,ro,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard  /system /system
+mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=128,max_batch_time=20000 /system /system
 
 for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue
@@ -104,43 +115,35 @@ for f in /sys/fs/ext4/*; do
 	echo 32 > ${f}/mb_stream_req # 128kb
 done
 
+if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
+	cd /sys/block/dm-0/queue
+	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
+	echo 1 > nr_requests # don't need two queues either
+	echo 0 > add_random # don't contribute to entropy
+	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
+	echo 0 > rq_affinity # there is no queue, who cares
+	echo 1 > nomerges # ditto
+	echo 0 > rotational # obviously
+	echo 0 > iostats # cpu hog
+	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,commit=20,inode_readahead_blks=128,max_batch_time=20000 "/data" "/data"
+fi
+
+for f in /sys/devices/system/cpu/cpufreq/*; do
+	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
+done
+
+echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
+
+if $bb test -e "/sys/block/zram0"; then 
+	echo lz4 > /sys/block/zram0/comp_algorithm # less cppu intensive than lzo
+	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of cores
+fi
+
 # GPU
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 setprop persist.tegra.didim.enable 0
-echo 0 > /sys/devices/host1x/gr3d/enable_3d_scaling
-
-# tcp
-
-echo 65535 > /proc/sys/net/core/rmem_default
-echo 174760 > /proc/sys/net/core/rmem_max
-echo 65535 > /proc/sys/net/core/wmem_default
-echo 131071 > /proc/sys/net/core/wmem_max
-echo "4096 16384 131072" > /proc/sys/net/ipv4/tcp_wmem
-echo "4096 87380 174760" > /proc/sys/net/ipv4/tcp_rmem
-echo 0 > /proc/sys/net/ipv4/tcp_slow_start_after_idle
-echo 0 > /proc/sys/net/ipv4/tcp_timestamps
-echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
-echo westwood > /proc/sys/net/ipv4/tcp_congestion_control
-
-# from LMR1 init.rc, for old versions
-echo 300 > /proc/sys/net/unix/max_dgram_qlen
-# Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-setprop net.tcp.buffersize.wifi 524288,1048576,2097152,262144,524288,1048576
-setprop net.tcp.buffersize.ethernet 524288,1048576,3145728,524288,1048576,2097152
-setprop net.tcp.buffersize.lte 524288,1048576,2097152,262144,524288,1048576
-setprop net.tcp.buffersize.umts 58254,349525,1048576,58254,349525,1048576
-setprop net.tcp.buffersize.hspa 40778,244668,734003,16777,100663,301990
-setprop net.tcp.buffersize.hsupa 40778,244668,734003,16777,100663,301990
-setprop net.tcp.buffersize.hsdpa 61167,367002,1101005,8738,52429,262114
-setprop net.tcp.buffersize.hspap 122334,734003,2202010,32040,192239,576717
-setprop net.tcp.buffersize.edge 4093,26280,70800,4096,16384,70800
-setprop net.tcp.buffersize.gprs 4092,8760,48000,4096,8760,48000
-setprop net.tcp.buffersize.evdo 4094,87380,262144,4096,16384,262144
-# Define default initial receive window size in segments.
-setprop net.tcp.default_init_rwnd 60
+echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 # for (mostly) fixing audio stutter when multitasking
 

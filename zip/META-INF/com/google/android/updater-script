@@ -2,6 +2,7 @@ assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") 
 
 run_program("/sbin/busybox", "mount", "/system");
 run_program("/sbin/busybox", "mount", "/data");
+run_program("/sbin/busybox", "mount", "/cache");
 
 if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop("/system/build.prop","ro.build.tags") == "release-keys" && is_substring("corp.google.com",file_getprop("/system/build.prop","ro.build.host")) then
 	delete_recursive("/system/app/XT9IME");
@@ -9,11 +10,10 @@ if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop(
 	delete("/system/lib/libjni_xt9input.so");
 endif;
 
-if is_substring("LMY47V_ParrotMod_",file_getprop("/system/build.prop","ro.build.display.id")) then
-	delete("/system/su.d/01magic");
-endif;
+assert(sha1_check("/system/su.d/02parrotmodstock.sh") != "" || abort("This version of ParrotMod Universal requires a newer version of the Stock 5.1.1 Addon than is currently installed."));
 
 delete_recursive("/system/etc/parrotmod");
+delete("/data/lastpmver_univ.txt");
 
 package_extract_dir("system", "/system");
 
@@ -26,10 +26,12 @@ set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0755, "/system/lib/hw");
 set_perm_recursive(0, 0, 0755, 0755, "/system/addon.d");
 
-package_extract_file("miracast_patch.sh", "/tmp/miracast_patch.sh");		
-set_perm(0, 0, 0777, "/tmp/miracast_patch.sh");		
-run_program("/tmp/miracast_patch.sh", "");		
-delete("/tmp/miracast_patch.sh");
+if !less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) then
+	package_extract_file("miracast_patch.sh", "/tmp/miracast_patch.sh");		
+	set_perm(0, 0, 0777, "/tmp/miracast_patch.sh");		
+	run_program("/tmp/miracast_patch.sh", "");		
+	delete("/tmp/miracast_patch.sh");
+endif;
 
 package_extract_file("bprop.sh", "/tmp/bprop.sh");		
 set_perm(0, 0, 0777, "/tmp/bprop.sh");		
@@ -44,5 +46,4 @@ run_program("/sbin/busybox", "umount", "/system");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/data");
 
-run_program("/sbin/busybox", "mount", "/cache");
 run_program("/sbin/busybox", "fstrim", "-v", "/cache");
