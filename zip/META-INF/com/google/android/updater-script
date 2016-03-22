@@ -10,11 +10,7 @@ if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop(
 	delete("/system/lib/libjni_xt9input.so");
 endif;
 
-if is_substring("LMY47V_ParrotMod_",file_getprop("/system/build.prop","ro.build.display.id")) then
-	delete("/system/su.d/01magic");
-	delete("/data/lastmpver_univ.txt");
-	delete("/system/su.d/02parrotmodstock.sh");
-endif;
+assert(sha1_check("/system/su.d/02parrotmodstock.sh") != "" || abort("This version of ParrotMod Universal requires a newer version of the Stock 5.1.1 Addon than is currently installed."));
 
 delete_recursive("/system/etc/parrotmod");
 delete("/data/lastpmver.txt");

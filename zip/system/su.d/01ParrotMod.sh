@@ -132,11 +132,13 @@ for f in /sys/devices/system/cpu/cpufreq/*; do
 	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
 done
 
+echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
+
 if $bb test -e "/sys/block/zram0"; then 
 	echo lz4 > /sys/block/zram0/comp_algorithm # less cppu intensive than lzo
 	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of cores
-	echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
 fi
+
 # GPU
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
