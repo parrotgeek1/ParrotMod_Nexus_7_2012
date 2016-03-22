@@ -5,7 +5,7 @@ while [ "$($bb pidof com.android.systemui)" = "" ]; do sleep 1; done
 
 [ -e "/system/etc/parrotmodstock/postboot.sh" ] && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
 
-if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc5" ]; then
+if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc6" ]; then
 # do I need these??
   settings put global sys_storage_full_threshold_bytes 8388608
   settings put global sys_storage_threshold_percentage 2
@@ -13,16 +13,16 @@ if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc5" ]; then
   settings put global fstrim_mandatory_interval 259200000 # 3 days, same as stock
   settings put global tether_dun_required 0
   
-  settings put global parrotmod_univ_last_version "2.0rc5"
+  settings put global parrotmod_univ_last_version "2.0rc6"
   $bb rm -f /data/lastpmver.txt /data/lastpmver_univ.txt
   
   am start -a android.intent.action.REBOOT # cleaner reboot
   
 fi
 
-# FIXME: block changes by AM (again)
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
+$bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
 #block ota
 pm disable 'com.google.android.gms/.update.SystemUpdateActivity'
