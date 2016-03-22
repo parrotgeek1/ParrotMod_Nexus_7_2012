@@ -27,7 +27,7 @@ Features:
 FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC FSYNC
 uses ext4 but can use data/cache f2fs
 audio stutter and multitasking fix
-miracast enabled
+miracast enabled (but it freezes on disconnect unless you unplug from the receiver end)
 64k log buffers for ram freeing
 can set up device without wifi
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
@@ -39,6 +39,7 @@ Survives ROM updates with addon.d
 block Google ota updates
 tethering without carrier checks on tilapia
 Speed up full disk encryption, but it's still pretty bad
+GPU optimizations (without OC!)
 
 Credit
 ------
