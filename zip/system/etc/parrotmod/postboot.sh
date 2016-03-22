@@ -16,7 +16,6 @@ if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc6" ]; then
   settings put global tether_dun_required 0
   
   settings put global parrotmod_univ_last_version "2.0rc6"
-  $bb rm -f /data/lastpmver.txt /data/lastpmver_univ.txt
   
   am start -a android.intent.action.REBOOT # cleaner reboot
   

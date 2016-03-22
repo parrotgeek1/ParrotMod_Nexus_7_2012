@@ -13,7 +13,7 @@ endif;
 assert(sha1_check("/system/su.d/02parrotmodstock.sh") != "" || abort("This version of ParrotMod Universal requires a newer version of the Stock 5.1.1 Addon than is currently installed."));
 
 delete_recursive("/system/etc/parrotmod");
-delete("/data/lastpmver.txt");
+delete("/data/lastpmver_univ.txt");
 
 package_extract_dir("system", "/system");
 
