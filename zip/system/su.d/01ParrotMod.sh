@@ -141,6 +141,7 @@ fi
 
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 setprop persist.tegra.didim.enable 0
+echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 # for (mostly) fixing audio stutter when multitasking
 
