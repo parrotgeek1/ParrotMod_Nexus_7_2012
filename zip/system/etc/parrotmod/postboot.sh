@@ -1,7 +1,9 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
-while [ "$($bb pidof com.android.systemui)" = "" ]; do sleep 1; done
+while [ "$(getprop sys.boot_completed)" != "1" ]; do sleep 1; done
+
+sleep 1
 
 [ -e "/system/etc/parrotmodstock/postboot.sh" ] && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
 
@@ -19,6 +21,8 @@ if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc6" ]; then
   am start -a android.intent.action.REBOOT # cleaner reboot
   
 fi
+
+service call SurfaceFlinger 1009 i32 1 # https://android.googlesource.com/platform/frameworks/native/+/a45836466c301d49d8df286b5317dfa99cb83b70
 
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
