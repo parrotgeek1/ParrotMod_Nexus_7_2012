@@ -3,9 +3,7 @@ Soon
 F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
 space check
 Speaker addon.d with migrate from K<->L
-ro.audio.flinger_standbytime_ms=1000 ???
 fix bug, to disconnect miracast, need to unplug miracast dongle from tv
-armv7 busybox
 
 Later
 
