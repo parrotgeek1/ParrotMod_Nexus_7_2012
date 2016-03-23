@@ -7,7 +7,7 @@ sleep 1
 
 [ -e "/system/etc/parrotmodstock/postboot.sh" ] && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
 
-if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc6" ]; then
+if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc7" ]; then
 # do I need these??
   settings put global sys_storage_full_threshold_bytes 8388608
   settings put global sys_storage_threshold_percentage 2
@@ -15,7 +15,7 @@ if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc6" ]; then
   settings put global fstrim_mandatory_interval 259200000 # 3 days, same as stock
   settings put global tether_dun_required 0
   
-  settings put global parrotmod_univ_last_version "2.0rc6"
+  settings put global parrotmod_univ_last_version "2.0rc7"
   
   am start -a android.intent.action.REBOOT # cleaner reboot
   
