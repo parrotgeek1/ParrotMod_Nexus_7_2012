@@ -69,7 +69,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 
 echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo ARCH_POWER > /sys/kernel/debug/sched_features
-echo "1" > /sys/devices/system/cpu/sched_mc_power_savings # Maybe 2 but it might degrade perf too much
+echo "0" > /sys/devices/system/cpu/sched_mc_power_savings # it might degrade perf too much
 
 # eMMC speed
 
