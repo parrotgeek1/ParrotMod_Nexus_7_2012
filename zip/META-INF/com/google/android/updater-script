@@ -5,7 +5,7 @@ run_program("/sbin/busybox", "mount", "/data");
 run_program("/sbin/busybox", "mount", "/cache");
 
 if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop("/system/build.prop","ro.build.tags") == "release-keys" && is_substring("corp.google.com",file_getprop("/system/build.prop","ro.build.host")) then
-	delete_recursive("/system/app/XT9IME");
+	run_program("/sbin/busybox", "find","/system/app/XT9IME","-depth","-xdev","-follow","-delete");
 	delete("/system/app/XT9IME.apk");
 	delete("/system/lib/libjni_xt9input.so");
 endif;
