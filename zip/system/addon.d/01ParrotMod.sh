@@ -6,6 +6,7 @@
 . /tmp/backuptool.functions
 
 list_files() {
+echo "etc/nvram.txt"
 echo "su.d/01ParrotMod.sh"
 echo "addon.d/01ParrotMod.sh"
 cd /system
