@@ -8,7 +8,6 @@ sleep 1
 [ -e "/system/etc/parrotmodstock/postboot.sh" ] && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
 
 if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc7" ]; then
-# do I need these??
   settings put global sys_storage_threshold_percentage 2
   settings put global sys_storage_threshold_max_bytes 104857600
   settings put global tether_dun_required 0
@@ -16,7 +15,6 @@ if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc7" ]; then
   settings put global parrotmod_univ_last_version "2.0rc7"
   
   am start -a android.intent.action.REBOOT # cleaner reboot
-  
 fi
 
 service call SurfaceFlinger 1009 i32 1 # https://android.googlesource.com/platform/frameworks/native/+/a45836466c301d49d8df286b5317dfa99cb83b70
