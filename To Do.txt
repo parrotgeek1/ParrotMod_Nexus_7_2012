@@ -8,7 +8,6 @@ fix bug, to disconnect miracast, need to unplug miracast dongle from tv
 Later
 
 Baseband xmm power wake lock fix
-make addon.d less redundant
 
 Maybe 
 

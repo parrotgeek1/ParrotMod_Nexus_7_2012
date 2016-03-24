@@ -44,15 +44,7 @@ LC_ALL=C /sbin/busybox sed -i 's@intra-refresh-NOPE@intra-refresh-mode@g' /syste
     # Stub
   ;;
   post-restore)
-LC_ALL=C /sbin/busybox sed -i 's@intra-refresh-mode@intra-refresh-NOPE@g' /system/lib/libstagefright_wfd.so
-chcon -R u:object_r:system_file:s0 /system/etc/parrotmod
-chcon u:object_r:system_file:s0 /system/su.d/01ParrotMod.sh
-/sbin/busybox sed -i 's@ro.setupwizard.network_required=.*$@ro.setupwizard.network_required=false@' /system/build.prop
-/sbin/busybox sed -i 's@ro.setupwizard.wifi_required=.*$@ro.setupwizard.wifi_required=false@' /system/build.prop
-/sbin/busybox sed -i 's@ro.logd.size=.*$@ro.logd.size=65536@' /system/build.prop
-/sbin/busybox grep -F -v -q 'ro.setupwizard.network_required=' /system/build.prop && echo 'ro.setupwizard.network_required=false' >> /system/build.prop
-/sbin/busybox grep -F -v -q 'ro.setupwizard.wifi_required=' /system/build.prop && echo 'ro.setupwizard.wifi_required=false' >> /system/build.prop
-/sbin/busybox grep -F -v -q 'ro.logd.size=' /system/build.prop && echo 'ro.logd.size=65536' >> /system/build.prop
+. /system/etc/parrotmod/bprop.sh # @me: don't remove the .
 /sbin/busybox fstrim -v /system
   ;;
 esac
