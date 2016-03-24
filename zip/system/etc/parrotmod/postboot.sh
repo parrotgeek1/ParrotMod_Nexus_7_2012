@@ -9,10 +9,8 @@ sleep 1
 
 if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc7" ]; then
 # do I need these??
-  settings put global sys_storage_full_threshold_bytes 8388608
   settings put global sys_storage_threshold_percentage 2
   settings put global sys_storage_threshold_max_bytes 104857600
-  settings put global fstrim_mandatory_interval 259200000 # 3 days, same as stock
   settings put global tether_dun_required 0
   
   settings put global parrotmod_univ_last_version "2.0rc7"
