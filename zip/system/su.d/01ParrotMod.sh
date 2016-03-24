@@ -118,11 +118,11 @@ done
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	cd /sys/block/dm-0/queue
 	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
-	echo 1 > nr_requests # don't need two queues either
+	echo 32 > nr_requests # maybe increase perf
 	echo 0 > add_random # don't contribute to entropy
-	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
+	echo 128 > read_ahead_kb # encryption is cpu intensive so put back to default
 	echo 0 > rq_affinity # there is no queue, who cares
-	echo 1 > nomerges # ditto
+	echo 0 > nomerges # ditto
 	echo 0 > rotational # obviously
 	echo 0 > iostats # cpu hog
 	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,commit=20,inode_readahead_blks=128,max_batch_time=20000 "/data" "/data"
