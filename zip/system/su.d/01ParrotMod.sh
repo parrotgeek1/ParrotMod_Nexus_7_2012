@@ -60,7 +60,6 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 
 echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo ARCH_POWER > /sys/kernel/debug/sched_features
-echo "0" > /sys/devices/system/cpu/sched_mc_power_savings # it might degrade perf too much
 
 # eMMC speed
 
@@ -109,11 +108,11 @@ done
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	cd /sys/block/dm-0/queue
 	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
-	echo 32 > nr_requests # maybe increase perf
+	echo 1 > nr_requests # unnecessary
 	echo 0 > add_random # don't contribute to entropy
-	echo 128 > read_ahead_kb # encryption is cpu intensive so put back to default
+	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
 	echo 0 > rq_affinity # there is no queue, who cares
-	echo 0 > nomerges # ditto
+	echo 0 > nomerges # try to merge
 	echo 0 > rotational # obviously
 	echo 0 > iostats # cpu hog
 	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,commit=20,inode_readahead_blks=128,max_batch_time=20000 "/data" "/data"
