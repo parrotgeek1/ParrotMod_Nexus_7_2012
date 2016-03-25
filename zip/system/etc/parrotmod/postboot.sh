@@ -17,6 +17,8 @@ if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc7" ]; then
   am start -a android.intent.action.REBOOT # cleaner reboot
 fi
 
+$bb renice -10 $($bb pidof mediaserver) #avoid underruns
+
 service call SurfaceFlinger 1009 i32 1 # https://android.googlesource.com/platform/frameworks/native/+/a45836466c301d49d8df286b5317dfa99cb83b70
 
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
