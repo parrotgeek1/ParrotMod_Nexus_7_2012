@@ -8,15 +8,6 @@ bb=/system/etc/parrotmod/busybox
 function write() {
     $bb echo -n $2 > $1
 }
-function copy() {
-    cat $1 > $2
-}
-function get-set-forall() {
-    for f in $1 ; do
-        cat $f
-        write $f $2
-    done
-}
 ################################################################################
 
 # ram tuning
