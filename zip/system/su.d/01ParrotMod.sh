@@ -10,6 +10,9 @@ function write() {
 }
 ################################################################################
 
+# Disable sysrq from keyboard
+write /proc/sys/kernel/sysrq 0
+
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
