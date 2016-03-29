@@ -104,12 +104,12 @@ for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue
 	# http://lxr.free-electrons.com/source/fs/ext4/mballoc.c#L133
 	echo 4 > ${f}/max_writeback_mb_bump
-	echo 256 > ${f}/mb_group_prealloc # 128????
+	echo 128 > ${f}/mb_group_prealloc # 256????
 	echo 0 > ${f}/mb_stats
 	echo 32 > ${f}/mb_stream_req # 128kb
 	echo 8 > mb_min_to_scan # 16????
 	echo 128 > mb_max_to_scan
-	echo 4 > mb_order2_req 
+	echo 4 > mb_order2_req # it was 2 default
 done
 
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
