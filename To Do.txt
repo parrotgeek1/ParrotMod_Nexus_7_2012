@@ -5,12 +5,7 @@ space check
 Speaker addon.d with migrate from K<->L
 fix bug, to disconnect miracast, need to unplug miracast dongle from tv
 
-Later
-
-Baseband xmm power wake lock fix
-
 Maybe 
 
 not need root at all
-force fast charge
 Actual charging noise fix no apk, & include?
