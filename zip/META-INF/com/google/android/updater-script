@@ -1,4 +1,4 @@
-assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") == "grouper" || getprop("ro.product.device") == "tilapia" || getprop("ro.build.product") == "tilapia" || abort("This device is not a 2012 Nexus 7!"));
+assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
 
 run_program("/sbin/busybox", "mount", "/system");
 run_program("/sbin/busybox", "mount", "/data");
