@@ -102,10 +102,14 @@ mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahea
 
 for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue
-	echo 8 > ${f}/max_writeback_mb_bump
-	echo 1 > ${f}/mb_group_prealloc
+	# http://lxr.free-electrons.com/source/fs/ext4/mballoc.c#L133
+	echo 4 > ${f}/max_writeback_mb_bump
+	echo 256 > ${f}/mb_group_prealloc # 128????
 	echo 0 > ${f}/mb_stats
 	echo 32 > ${f}/mb_stream_req # 128kb
+	echo 8 > mb_min_to_scan # 16????
+	echo 128 > mb_max_to_scan
+	# set mb_order2_req to 3?
 done
 
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
