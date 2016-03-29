@@ -3,9 +3,7 @@ Soon
 F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
 space check
 Speaker addon.d with migrate from K<->L
+
+Later
+
 fix bug, to disconnect miracast, need to unplug miracast dongle from tv
-
-Maybe 
-
-not need root at all
-Actual charging noise fix no apk, & include?
