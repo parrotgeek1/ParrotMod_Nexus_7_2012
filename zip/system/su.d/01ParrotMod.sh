@@ -99,7 +99,15 @@ for m in /data /cache /system; do
 	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard "$m" "$m"
 done
 mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=128,max_batch_time=20000 /system /system
-
+if $bb test -e "/data/useoldext4"; then
+for f in /sys/fs/ext4/*; do
+	$bb test "$f" = "/sys/fs/ext4/features" && continue
+	echo 8 > ${f}/max_writeback_mb_bump
+	echo 1 > ${f}/mb_group_prealloc
+	echo 0 > ${f}/mb_stats
+	echo 32 > ${f}/mb_stream_req # 128kb
+done
+else
 for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue
 	# http://lxr.free-electrons.com/source/fs/ext4/mballoc.c#L133
@@ -111,7 +119,7 @@ for f in /sys/fs/ext4/*; do
 	echo 128 > mb_max_to_scan
 	echo 4 > mb_order2_req # it was 2 default
 done
-
+fi
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	cd /sys/block/dm-0/queue
 	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
