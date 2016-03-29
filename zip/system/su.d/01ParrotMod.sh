@@ -109,7 +109,7 @@ for f in /sys/fs/ext4/*; do
 	echo 32 > ${f}/mb_stream_req # 128kb
 	echo 8 > mb_min_to_scan # 16????
 	echo 128 > mb_max_to_scan
-	# set mb_order2_req to 3?
+	echo 4 > mb_order2_req 
 done
 
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
