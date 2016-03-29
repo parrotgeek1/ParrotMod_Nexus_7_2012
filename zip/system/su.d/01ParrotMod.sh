@@ -80,7 +80,7 @@ echo 0 > iostats # cpu hog
 
 echo cfq > scheduler
 echo 4 > iosched/slice_async_rq
-echo 12 > iosched/quantum
+echo 1 > iosched/quantum
 echo 40 > iosched/slice_async
 echo 120 > iosched/slice_sync
 echo 0 > iosched/slice_idle
