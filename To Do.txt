@@ -2,7 +2,7 @@ Soon
 
 F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
 space check
-Speaker addon.d with migrate from K<->L
+Speaker addon.d
 
 Later
 
