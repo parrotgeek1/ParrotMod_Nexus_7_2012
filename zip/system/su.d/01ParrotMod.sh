@@ -33,6 +33,12 @@ setprop persist.sys.purgeable_assets 1 # only for CM
 
 setprop net.tethering.noprovisioning true
 
+if $bb test -e /proc/sys/net/ipv4/tcp_default_init_rwnd; then
+	echo 16 > /proc/sys/net/ipv4/tcp_default_init_rwnd
+	# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
+	chmod 444 /proc/sys/net/ipv4/tcp_default_init_rwnd
+fi
+
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
 # https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#108
