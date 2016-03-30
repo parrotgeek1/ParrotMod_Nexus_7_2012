@@ -16,10 +16,7 @@ write /proc/sys/kernel/sysrq 0
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
-cd /sys/kernel/mm/ksm 
-echo 100 > pages_to_scan
-echo 500 > sleep_millisecs
-echo 1 > run
+$bb test -e /sys/kernel/mm/ksm/run && echo 0 > /sys/kernel/mm/ksm/run # too cpu intensive, not much savings
 
 setprop ctl.stop perfprofd # useless service on M+
 
@@ -139,9 +136,16 @@ done
 
 echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
 
-if $bb test -e "/sys/block/zram0"; then 
-	echo lz4 > /sys/block/zram0/comp_algorithm # less cppu intensive than lzo
-	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of cores
+if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
+	# use busybox bc some old roms swap utils don't work
+	$bb swapoff /dev/block/zram0
+	$bb umount /dev/block/zram0
+	echo 1 > /sys/block/zram0/reset
+	echo lz4 > /sys/block/zram0/comp_algorithm # less cpu intensive than lzo
+	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of core
+	echo $((256*1024*1024)) > /sys/block/zram0/disksize
+	$bb mkswap /dev/block/zram0
+	$bb swapon -p 32767 /dev/block/zram0 # max priority
 fi
 
 # GPU
