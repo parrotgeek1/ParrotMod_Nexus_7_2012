@@ -9,7 +9,12 @@ Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable_Univer
 
 Performance Video (old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
 
-You can install it on top of stock 5.1.1 WITHOUT ERASING YOUR DATA!
+Upgrade notes
+-------------
+
+It is safe to flash new ParrotMod versions without wiping data, but if you use the Stock 5.1.1 version you must flash Universal update first.
+IF YOU UPGRADE MAJOR ANDROID VERSIONS YOU MUST WIPE SYSTEM, FLASH THE WHOLE ROM, AND REINSTALL PARROTMOD.
+UPGRADING ROM BUILDS WORKS FINE! In ROMs with addon.d support, it will even keep ParrotMod installed.
 
 Notes
 -----
