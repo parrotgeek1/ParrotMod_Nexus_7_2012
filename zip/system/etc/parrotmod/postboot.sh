@@ -7,12 +7,12 @@ sleep 1
 
 [ -e "/system/etc/parrotmodstock/postboot.sh" ] && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
 
-if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc7" ]; then
+if [ "$(settings get global parrotmod_univ_last_version)" != "2.0.0" ]; then
   settings put global sys_storage_threshold_percentage 2
   settings put global sys_storage_threshold_max_bytes 104857600
   settings put global tether_dun_required 0
   
-  settings put global parrotmod_univ_last_version "2.0rc7"
+  settings put global parrotmod_univ_last_version "2.0.0"
   
   am start -a android.intent.action.REBOOT # cleaner reboot
 fi
