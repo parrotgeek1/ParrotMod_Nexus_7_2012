@@ -21,6 +21,7 @@ Notes
 
 REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
 Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
+The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance!
 
 Recommended Kernel: 
 ===================
@@ -49,11 +50,14 @@ block Google ota updates
 tethering without carrier checks on tilapia
 Speed up full disk encryption, but it's still pretty bad
 GPU optimizations (without OC!)
+Reverted to jemalloc for reducing ram usage
+ART_USE_HSPACE_COMPACT enabled for better garbage collection
 
 Credit
 ------
 
 Busybox from https://busybox.net/downloads/binaries/
+libc/libart from Google flounder factory images (yes, even 32-bit!)
 
 Thanks
 ------

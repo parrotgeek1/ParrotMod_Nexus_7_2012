@@ -9,6 +9,16 @@ list_files() {
 echo "etc/nvram.txt"
 echo "su.d/01ParrotMod.sh"
 echo "addon.d/01ParrotMod.sh"
+if /sbin/busybox test -e /system/etc/parrotmod/libc_installed_flag; then
+	echo "lib/libc.so"
+fi
+if /sbin/busybox test -e /system/etc/parrotmod/libart_installed_flag; then
+	if /sbin/busybox test -e /system/xposed.prop; then
+		echo "lib/libart.so.orig"
+	else
+		echo "lib/libart.so"
+	fi
+fi
 cd /system
 /sbin/busybox find etc/parrotmod -type f
 if ! /sbin/busybox test -e /system/etc/permissions/android.hardware.bluetooth_le.xml; then
