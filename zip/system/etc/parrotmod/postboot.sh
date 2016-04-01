@@ -19,8 +19,6 @@ fi
 
 $bb renice -10 $($bb pidof mediaserver) #avoid underruns
 
-service call SurfaceFlinger 1009 i32 1 # https://android.googlesource.com/platform/frameworks/native/+/a45836466c301d49d8df286b5317dfa99cb83b70
-
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
