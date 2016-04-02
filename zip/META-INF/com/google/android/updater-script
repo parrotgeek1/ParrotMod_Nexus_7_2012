@@ -5,12 +5,14 @@ ui_print("#############################################");
 ui_print("");
 
 assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
+
+run_program("/sbin/busybox", "mount", "/system");
+
 assert(less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ParrotMod currently only supports Android 4.1-6.x, refusing to install."));
 
 ui_print("Installing...");
 ui_print("");
 
-run_program("/sbin/busybox", "mount", "/system");
 run_program("/sbin/busybox", "mount", "/data");
 run_program("/sbin/busybox", "mount", "/cache");
 
