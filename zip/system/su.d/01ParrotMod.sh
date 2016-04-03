@@ -48,7 +48,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # cpu cores.
     write /proc/sys/kernel/sched_tunable_scaling 0
     write /proc/sys/kernel/sched_latency_ns 10000000
-    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 3000000 # was 2000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 # SNIP irrelevant security stuff
@@ -59,7 +59,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 # https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#444
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio  5
+    write /proc/sys/vm/dirty_background_ratio  10 # was 5
 
 # battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
@@ -153,7 +153,7 @@ echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 # for (mostly) fixing audio stutter when multitasking
 
-$bb renice -10 $($bb pidof hd-audio0) #avoid underruns
-$bb ionice -c 1 -n 4 $($bb pidof hd-audio0)
+$bb renice -15 $($bb pidof hd-audio0) #avoid underruns
+$bb ionice -c 1 -n 3 $($bb pidof hd-audio0)
 
 $bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
