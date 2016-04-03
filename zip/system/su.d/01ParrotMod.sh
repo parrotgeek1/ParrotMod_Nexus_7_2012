@@ -154,4 +154,6 @@ echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 # for (mostly) fixing audio stutter when multitasking
 
 $bb renice -10 $($bb pidof hd-audio0) #avoid underruns
+$bb ionice -c 1 -n 4 $($bb pidof hd-audio0)
+
 $bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
