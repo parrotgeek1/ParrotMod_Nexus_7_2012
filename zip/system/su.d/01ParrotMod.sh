@@ -48,7 +48,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # cpu cores.
     write /proc/sys/kernel/sched_tunable_scaling 0
     write /proc/sys/kernel/sched_latency_ns 10000000
-    write /proc/sys/kernel/sched_wakeup_granularity_ns 3000000 # was 2000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 3000000 # was 2000000, harder to preempt = better audio
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 # SNIP irrelevant security stuff
@@ -97,9 +97,12 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
 # fs tune
 
+# not using discard because it makes audio stutter worse
+
 for m in /data /cache /system; do
-	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
-	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard "$m" "$m"
+	$bb fstrim -v $m
+	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
+	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
 done
 mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=128,max_batch_time=20000 /system /system
 

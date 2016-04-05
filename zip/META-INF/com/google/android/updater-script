@@ -34,18 +34,18 @@ if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro
 	package_extract_dir("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
 
-if sha1_check(package_extract_file("NOlibc/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
+if sha1_check(package_extract_file("libc/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
 	package_extract_dir("libc/system", "/system");
 	package_extract_dir("libc/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
 
-if sha1_check(package_extract_file("NOlibart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
-	if sha1_check("/system/xposed.prop") != "" then
+if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
+	ifelse(sha1_check("/system/xposed.prop") != ""),(
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");
 		ui_print("WARNING: Some ART runtime optimizations are not available when Xposed is installed! Please uninstall it to enable them.");
-	else
+	),(
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so");
-	endif;
+	));
 endif;
 
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
