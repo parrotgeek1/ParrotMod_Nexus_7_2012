@@ -8,7 +8,7 @@ assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2
 
 run_program("/sbin/busybox", "mount", "/system");
 
-assert(less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ParrotMod currently only supports Android 4.1-6.x, refusing to install."));
+assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) && less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ParrotMod currently only supports Android 4.2-6.x, refusing to install."));
 
 ui_print("Installing...");
 ui_print("");
