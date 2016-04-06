@@ -48,7 +48,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # cpu cores.
     write /proc/sys/kernel/sched_tunable_scaling 0
     write /proc/sys/kernel/sched_latency_ns 10000000
-    write /proc/sys/kernel/sched_wakeup_granularity_ns 3000000 # was 2000000, harder to preempt = better audio
+    cat /proc/sys/kernel/sched_min_granularity_ns > /proc/sys/kernel/sched_wakeup_granularity_ns # harder to preempt = better audio
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 # SNIP irrelevant security stuff
@@ -60,14 +60,10 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio  10 # was 5
-    
-    # http://www.postgresql.org/message-id/50E4AAB1.9040902@optionshouse.com
-    echo 5000000 > /proc/sys/kernel/sched_migration_cost
 
 # battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
 
-echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo ARCH_POWER > /sys/kernel/debug/sched_features
 
 # eMMC speed
