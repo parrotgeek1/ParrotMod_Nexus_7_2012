@@ -60,6 +60,9 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio  10 # was 5
+    
+    # http://www.postgresql.org/message-id/50E4AAB1.9040902@optionshouse.com
+    echo 5000000 > /proc/sys/kernel/sched_migration_cost
 
 # battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
