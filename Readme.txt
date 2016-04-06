@@ -41,7 +41,7 @@ miracast enabled (but it freezes on disconnect unless you unplug from the receiv
 64k log buffers for ram freeing
 can set up device without wifi
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
-more apps open at once (minfree tweak, scheduler tweaks, kernel samepage merging, 64k log buffers, zram optimized)
+more apps open at once (minfree tweak, scheduler tweaks, 64k log buffers, zram optimized)
 LCD color fix (no Nvidia smartdimmer/Prism)
 internet optimizations
 can use more storage space before it doesn't let you
