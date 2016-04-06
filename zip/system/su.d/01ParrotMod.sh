@@ -72,7 +72,7 @@ echo ARCH_POWER > /sys/kernel/debug/sched_features
 
 # eMMC speed
 
-$bb renice 5 $($bb pidof mmcqd/0) # to avoid sound stutter
+$bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to avoid sound stutter
 cd /sys/block/mmcblk0/queue
 echo 4096 > nr_requests
 echo 0 > add_random # don't contribute to entropy
