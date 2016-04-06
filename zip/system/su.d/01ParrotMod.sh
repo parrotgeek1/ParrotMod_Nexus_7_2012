@@ -48,7 +48,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # cpu cores.
     write /proc/sys/kernel/sched_tunable_scaling 0
     write /proc/sys/kernel/sched_latency_ns 10000000
-    write /proc/sys/kernel/sched_wakeup_granularity_ns 3000000 # was 2000000, harder to preempt = better audio
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 1000000 # was 2000000, EASIER to preempt = better audio because other process can not make audio thread stop for very long
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 # SNIP irrelevant security stuff
