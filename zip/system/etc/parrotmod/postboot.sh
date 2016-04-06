@@ -5,14 +5,16 @@ while [ "$(getprop sys.boot_completed)" != "1" ]; do sleep 1; done
 
 sleep 1
 
-if [ "$(settings get global parrotmod_univ_last_version)" != "2.0.0" ]; then
+if [ "$(cat /data/system/parrotmod_univ_last_version)" != "2.0.0" ]; then
 
   [ -e "/system/etc/parrotmodstock/postboot.sh" ] && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
   
-  settings put global parrotmod_univ_last_version "2.0.0"
+  echo "2.0.0" > /data/system/parrotmod_univ_last_version
   
-  settings put global fstrim_mandatory_interval 0 # never
-  settings put global storage_benchmark_interval -1 # never
+  if [ -e "/system/bin/settings" ]; then
+    settings put global fstrim_mandatory_interval 0 # never
+    settings put global storage_benchmark_interval -1 # never
+  fi
 
   am start -a android.intent.action.REBOOT # cleaner reboot
 fi
