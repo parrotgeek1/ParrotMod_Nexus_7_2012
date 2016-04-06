@@ -38,7 +38,6 @@ FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC
 uses ext4 but can use data/cache f2fs
 audio stutter and multitasking fix
 miracast enabled (but it freezes on disconnect unless you unplug from the receiver end)
-64k log buffers for ram freeing
 can set up device without wifi
 Bluetooth 4.0 enabled (BLE/GATT/SMP)
 more apps open at once (minfree tweak, scheduler tweaks, 64k log buffers, zram optimized)
