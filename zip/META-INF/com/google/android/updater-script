@@ -40,7 +40,7 @@ if sha1_check(package_extract_file("libc/"+file_getprop("/system/build.prop","ro
 endif;
 
 if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
-	ifelse(sha1_check("/system/xposed.prop") != ""),(
+	ifelse(sha1_check("/system/xposed.prop") != "",(
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");
 		ui_print("WARNING: Some ART runtime optimizations are not available when Xposed is installed! Please uninstall it to enable them.");
 	),(
