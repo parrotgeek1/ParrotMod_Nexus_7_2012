@@ -48,7 +48,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # cpu cores.
     write /proc/sys/kernel/sched_tunable_scaling 0
     write /proc/sys/kernel/sched_latency_ns 10000000
-    cat /proc/sys/kernel/sched_min_granularity_ns > /proc/sys/kernel/sched_wakeup_granularity_ns # harder to preempt = better audio
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 # SNIP irrelevant security stuff
@@ -67,9 +67,6 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 echo ARCH_POWER > /sys/kernel/debug/sched_features
 
 # eMMC speed
-
-$bb renice 5 $($bb pidof mmcqd/0)
-$bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to avoid sound stutter
 
 cd /sys/block/mmcblk0/queue
 echo 2048 > nr_requests
