@@ -68,9 +68,11 @@ echo ARCH_POWER > /sys/kernel/debug/sched_features
 
 # eMMC speed
 
+$bb renice 5 $($bb pidof mmcqd/0)
 $bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to avoid sound stutter
+
 cd /sys/block/mmcblk0/queue
-echo 4096 > nr_requests
+echo 2048 > nr_requests
 echo 0 > add_random # don't contribute to entropy
 echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 echo 1 > rq_affinity # stay on same cpu core
@@ -82,7 +84,7 @@ echo 0 > iostats # cpu hog
 
 echo cfq > scheduler
 echo 4 > iosched/slice_async_rq
-echo 1 > iosched/quantum
+echo 32 > iosched/quantum # was 1
 echo 40 > iosched/slice_async
 echo 120 > iosched/slice_sync
 echo 0 > iosched/slice_idle
