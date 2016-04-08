@@ -3,7 +3,7 @@ bb=/system/etc/parrotmod/busybox
 
 while $bb test "$(getprop sys.boot_completed)" != "1"; do sleep 1; done
 
-sleep 1
+sleep 2
 
 if $bb test "$(cat /data/system/parrotmod_univ_last_version)" != "2.0.0"; then
 
@@ -16,10 +16,11 @@ if $bb test "$(cat /data/system/parrotmod_univ_last_version)" != "2.0.0"; then
     settings put global storage_benchmark_interval -1 # never
   fi
 
-  am start -a android.intent.action.REBOOT # cleaner reboot
+  $bb sync
+  reboot # the other code didn't work sometimes 
 fi
 
-$bb ionice -c 1 -n 7 $($bb pidof mediaserver)
+$bb ionice -c 1 -n 7 -p $($bb pidof mediaserver)
 
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
