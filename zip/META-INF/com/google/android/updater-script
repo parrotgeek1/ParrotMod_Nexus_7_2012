@@ -1,11 +1,23 @@
-assert(getprop("ro.product.device") == "grouper" || getprop("ro.build.product") == "grouper" || getprop("ro.product.device") == "tilapia" || getprop("ro.build.product") == "tilapia" || abort("This device is not a 2012 Nexus 7!"));
+ui_print("#############################################");
+ui_print("#        ParrotMod v2.0 - Universal         #");
+ui_print("#   By: @parrotgeek1 (www.parrotgeek.com)   #");
+ui_print("#############################################");
+ui_print("");
+
+assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
 
 run_program("/sbin/busybox", "mount", "/system");
+
+assert(less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ParrotMod currently only supports Android 4.1-6.x, refusing to install."));
+
+ui_print("Installing...");
+ui_print("");
+
 run_program("/sbin/busybox", "mount", "/data");
 run_program("/sbin/busybox", "mount", "/cache");
 
 if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop("/system/build.prop","ro.build.tags") == "release-keys" && is_substring("corp.google.com",file_getprop("/system/build.prop","ro.build.host")) then
-	delete_recursive("/system/app/XT9IME");
+	run_program("/sbin/busybox", "find","/system/app/XT9IME","-depth","-xdev","-follow","-delete");
 	delete("/system/app/XT9IME.apk");
 	delete("/system/lib/libjni_xt9input.so");
 endif;
@@ -18,7 +30,22 @@ delete("/data/lastpmver_univ.txt");
 package_extract_dir("system", "/system");
 
 if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && sha1_check("/system/etc/permissions/android.hardware.bluetooth_le.xml") == "" then
+	package_extract_dir("bt40/system", "/system");
 	package_extract_dir("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
+endif;
+
+if sha1_check(package_extract_file("libc/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
+	package_extract_dir("libc/system", "/system");
+	package_extract_dir("libc/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
+endif;
+
+if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
+	ifelse(sha1_check("/system/xposed.prop") == "",(
+		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");
+		ui_print("WARNING: Some ART runtime optimizations are not available when Xposed is installed! Please uninstall it to enable them.");
+	),(
+		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so");
+	));
 endif;
 
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
@@ -33,13 +60,10 @@ if !less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) 
 	delete("/tmp/miracast_patch.sh");
 endif;
 
-package_extract_file("bprop.sh", "/tmp/bprop.sh");		
-set_perm(0, 0, 0777, "/tmp/bprop.sh");		
-run_program("/tmp/bprop.sh", "");		
-delete("/tmp/bprop.sh");
-
 run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/etc/parrotmod");
 run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/su.d");
+
+run_program("/system/etc/parrotmod/bprop.sh", "");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
@@ -47,3 +71,5 @@ run_program("/sbin/busybox", "umount", "/system");
 run_program("/sbin/busybox", "fstrim", "-v", "/data");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/cache");
+
+ui_print("Enjoy ParrotMod!");

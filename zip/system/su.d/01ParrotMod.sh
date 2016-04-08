@@ -8,24 +8,15 @@ bb=/system/etc/parrotmod/busybox
 function write() {
     $bb echo -n $2 > $1
 }
-function copy() {
-    cat $1 > $2
-}
-function get-set-forall() {
-    for f in $1 ; do
-        cat $f
-        write $f $2
-    done
-}
 ################################################################################
+
+# Disable sysrq from keyboard
+write /proc/sys/kernel/sysrq 0
 
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
-cd /sys/kernel/mm/ksm 
-echo 100 > pages_to_scan
-echo 500 > sleep_millisecs
-echo 1 > run
+$bb test -e /sys/kernel/mm/ksm/run && echo 0 > /sys/kernel/mm/ksm/run # too cpu intensive, not much savings
 
 setprop ctl.stop perfprofd # useless service on M+
 
@@ -41,6 +32,12 @@ setprop persist.debug.wfd.enable 1
 setprop persist.sys.purgeable_assets 1 # only for CM
 
 setprop net.tethering.noprovisioning true
+
+if $bb test -e /proc/sys/net/ipv4/tcp_default_init_rwnd; then
+	echo 16 > /proc/sys/net/ipv4/tcp_default_init_rwnd
+	# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
+	chmod 444 /proc/sys/net/ipv4/tcp_default_init_rwnd
+fi
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
@@ -62,22 +59,19 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 # https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#444
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio  5
+    write /proc/sys/vm/dirty_background_ratio  10 # was 5
 
 # battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
 
-echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo ARCH_POWER > /sys/kernel/debug/sched_features
-echo "0" > /sys/devices/system/cpu/sched_mc_power_savings # it might degrade perf too much
 
 # eMMC speed
 
-$bb renice -10 $($bb pidof mmcqd/0)
 cd /sys/block/mmcblk0/queue
-echo 4096 > nr_requests
+echo 2048 > nr_requests
 echo 0 > add_random # don't contribute to entropy
-echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
+echo 0 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 echo 1 > rq_affinity # stay on same cpu core
 echo 0 > nomerges # try hard to merge requests 
 echo 0 > rotational # obviously
@@ -87,7 +81,7 @@ echo 0 > iostats # cpu hog
 
 echo cfq > scheduler
 echo 4 > iosched/slice_async_rq
-echo 12 > iosched/quantum
+echo 32 > iosched/quantum # was 1
 echo 40 > iosched/slice_async
 echo 120 > iosched/slice_sync
 echo 0 > iosched/slice_idle
@@ -101,31 +95,37 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
 # fs tune
 
+# not using discard because it makes audio stutter worse
+
 for m in /data /cache /system; do
-	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,discard,journal_async_commit,journal_ioprio=5,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
-	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry,discard "$m" "$m"
+	$bb fstrim -v $m
+	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
+	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
 done
-mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=128,max_batch_time=20000 /system /system
+mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=128 /system /system
 
 for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue
-	echo 8 > ${f}/max_writeback_mb_bump
-	echo 1 > ${f}/mb_group_prealloc
+	# http://lxr.free-electrons.com/source/fs/ext4/mballoc.c#L133
+	echo 4 > ${f}/max_writeback_mb_bump
+	echo 256 > ${f}/mb_group_prealloc
 	echo 0 > ${f}/mb_stats
 	echo 32 > ${f}/mb_stream_req # 128kb
+	echo 8 > mb_min_to_scan
+	echo 128 > mb_max_to_scan
 done
 
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	cd /sys/block/dm-0/queue
 	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
-	echo 1 > nr_requests # don't need two queues either
+	echo 1 > nr_requests # unnecessary
 	echo 0 > add_random # don't contribute to entropy
 	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
 	echo 0 > rq_affinity # there is no queue, who cares
-	echo 1 > nomerges # ditto
+	echo 0 > nomerges # try to merge
 	echo 0 > rotational # obviously
 	echo 0 > iostats # cpu hog
-	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,commit=20,inode_readahead_blks=128,max_batch_time=20000 "/data" "/data"
+	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,commit=30,inode_readahead_blks=128,max_batch_time=25000 "/data" "/data"
 fi
 
 for f in /sys/devices/system/cpu/cpufreq/*; do
@@ -134,9 +134,16 @@ done
 
 echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
 
-if $bb test -e "/sys/block/zram0"; then 
-	echo lz4 > /sys/block/zram0/comp_algorithm # less cppu intensive than lzo
-	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of cores
+if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
+	# use busybox bc some old roms swap utils don't work
+	$bb swapoff /dev/block/zram0
+	$bb umount /dev/block/zram0
+	echo 1 > /sys/block/zram0/reset
+	echo lz4 > /sys/block/zram0/comp_algorithm # less cpu intensive than lzo
+	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of core
+	echo $((256*1024*1024)) > /sys/block/zram0/disksize
+	$bb mkswap /dev/block/zram0
+	$bb swapon -p 32767 /dev/block/zram0 # max priority
 fi
 
 # GPU
@@ -148,4 +155,6 @@ echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 # for (mostly) fixing audio stutter when multitasking
 
 $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
+$bb ionice -c 1 -n 3 $($bb pidof hd-audio0)
+
 $bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &

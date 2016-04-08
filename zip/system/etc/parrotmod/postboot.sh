@@ -1,27 +1,25 @@
 #!/system/bin/sh
 bb=/system/etc/parrotmod/busybox
 
-while [ "$(getprop sys.boot_completed)" != "1" ]; do sleep 1; done
+while $bb test "$(getprop sys.boot_completed)" != "1"; do sleep 1; done
 
 sleep 1
 
-[ -e "/system/etc/parrotmodstock/postboot.sh" ] && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
+if $bb test "$(cat /data/system/parrotmod_univ_last_version)" != "2.0.0"; then
 
-if [ "$(settings get global parrotmod_univ_last_version)" != "2.0rc6" ]; then
-# do I need these??
-  settings put global sys_storage_full_threshold_bytes 8388608
-  settings put global sys_storage_threshold_percentage 2
-  settings put global sys_storage_threshold_max_bytes 104857600
-  settings put global fstrim_mandatory_interval 259200000 # 3 days, same as stock
-  settings put global tether_dun_required 0
+  $bb test -e "/system/etc/parrotmodstock/postboot.sh" && . "/system/etc/parrotmodstock/postboot.sh" # @me: don't get rid of .
   
-  settings put global parrotmod_univ_last_version "2.0rc6"
+  echo "2.0.0" > /data/system/parrotmod_univ_last_version
   
+  if $bb test -e "/system/bin/settings"; then
+    settings put global fstrim_mandatory_interval 0 # never
+    settings put global storage_benchmark_interval -1 # never
+  fi
+
   am start -a android.intent.action.REBOOT # cleaner reboot
-  
 fi
 
-service call SurfaceFlinger 1009 i32 1 # https://android.googlesource.com/platform/frameworks/native/+/a45836466c301d49d8df286b5317dfa99cb83b70
+$bb ionice -c 1 -n 7 $($bb pidof mediaserver)
 
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
