@@ -36,7 +36,6 @@ setprop net.tethering.noprovisioning true
 if $bb test -e /proc/sys/net/ipv4/tcp_default_init_rwnd; then
 	echo 16 > /proc/sys/net/ipv4/tcp_default_init_rwnd
 	# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
-	chmod 444 /proc/sys/net/ipv4/tcp_default_init_rwnd
 fi
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
@@ -49,7 +48,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     write /proc/sys/kernel/sched_tunable_scaling 0
     write /proc/sys/kernel/sched_latency_ns 10000000
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
-    write /proc/sys/kernel/sched_compat_yield 1
+    $bb test -e /proc/sys/kernel/sched_compat_yield && write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 # SNIP irrelevant security stuff
     write /proc/sys/net/unix/max_dgram_qlen 600
@@ -111,8 +110,8 @@ for f in /sys/fs/ext4/*; do
 	echo 256 > ${f}/mb_group_prealloc
 	echo 0 > ${f}/mb_stats
 	echo 32 > ${f}/mb_stream_req # 128kb
-	echo 8 > mb_min_to_scan
-	echo 128 > mb_max_to_scan
+	$bb test -e mb_min_to_scan && echo 8 > mb_min_to_scan
+	$bb test -e mb_max_to_scan && echo 128 > mb_max_to_scan
 done
 
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
@@ -155,6 +154,6 @@ echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 # for (mostly) fixing audio stutter when multitasking
 
 $bb renice -15 $($bb pidof hd-audio0) #avoid underruns
-$bb ionice -c 1 -n 3 $($bb pidof hd-audio0)
+$bb ionice -c 1 -n 3 -p $($bb pidof hd-audio0)
 
 $bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
