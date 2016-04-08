@@ -71,7 +71,7 @@ echo ARCH_POWER > /sys/kernel/debug/sched_features
 cd /sys/block/mmcblk0/queue
 echo 2048 > nr_requests
 echo 0 > add_random # don't contribute to entropy
-echo 4 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
+echo 0 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 echo 1 > rq_affinity # stay on same cpu core
 echo 0 > nomerges # try hard to merge requests 
 echo 0 > rotational # obviously
