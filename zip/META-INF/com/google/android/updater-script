@@ -39,6 +39,7 @@ if sha1_check(package_extract_file("libc/"+file_getprop("/system/build.prop","ro
 	package_extract_dir("libc/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
 
+ui_print("***"+sha1_check("/system/xposed.prop")+"***");
 if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
 	ifelse(sha1_check("/system/xposed.prop") == "",(
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");

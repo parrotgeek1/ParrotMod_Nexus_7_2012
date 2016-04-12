@@ -6,7 +6,7 @@ bb=/system/etc/parrotmod/busybox
 ################################################################################
 # helper functions to allow Android init like script
 function write() {
-    $bb echo -n $2 > $1
+    $bb echo -n $2 > $1 2>/dev/null
 }
 ################################################################################
 
@@ -48,7 +48,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     write /proc/sys/kernel/sched_tunable_scaling 0
     write /proc/sys/kernel/sched_latency_ns 10000000
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
-    $bb test -e /proc/sys/kernel/sched_compat_yield && write /proc/sys/kernel/sched_compat_yield 1
+    write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 # SNIP irrelevant security stuff
     write /proc/sys/net/unix/max_dgram_qlen 600
@@ -63,7 +63,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 # battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
 
-echo ARCH_POWER > /sys/kernel/debug/sched_features
+write /sys/kernel/debug/sched_features ARCH_POWER
 
 # eMMC speed
 
@@ -135,12 +135,12 @@ echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
 
 if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
 	# use busybox bc some old roms swap utils don't work
-	$bb swapoff /dev/block/zram0
-	$bb umount /dev/block/zram0
-	echo 1 > /sys/block/zram0/reset
-	echo lz4 > /sys/block/zram0/comp_algorithm # less cpu intensive than lzo
-	echo 2 > /sys/block/zram0/max_comp_streams # on 2015 Google devices, this is half the number of core
-	echo $((256*1024*1024)) > /sys/block/zram0/disksize
+	$bb swapoff /dev/block/zram0 >/dev/null 2>&1
+	$bb umount /dev/block/zram0 >/dev/null 2>&1
+	write /sys/block/zram0/reset 1
+	write /sys/block/zram0/comp_algorithm lz4 # less cpu intensive than lzo
+	write /sys/block/zram0/max_comp_streams 2 # on 2015 Google devices, this is half the number of core
+	write /sys/block/zram0/disksize $((256*1024*1024))
 	$bb mkswap /dev/block/zram0
 	$bb swapon -p 32767 /dev/block/zram0 # max priority
 fi
@@ -151,9 +151,7 @@ echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 setprop persist.tegra.didim.enable 0
 echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
-# for (mostly) fixing audio stutter when multitasking
-
-$bb renice -15 $($bb pidof hd-audio0) #avoid underruns
-$bb ionice -c 1 -n 3 -p $($bb pidof hd-audio0)
+$bb renice 5 $($bb pidof mmcqd/0)
+$bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to stop auto ionice from renice
 
 $bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
