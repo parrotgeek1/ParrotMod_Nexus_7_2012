@@ -53,10 +53,9 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
 
-# https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#444
-    # Tweak background writeout
-    write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio 5
+    # Tweak background writeout MODDED for N7
+    write /proc/sys/vm/dirty_expire_centisecs 500 # was 200, a bit too low
+    write /proc/sys/vm/dirty_background_ratio 10 # was 5, a bit too low
 
 write /proc/sys/vm/highmem_is_dirtyable 1
 
@@ -82,8 +81,8 @@ echo 0 > iostats # cpu hog
 # https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
 
 echo cfq > scheduler
-echo 4 > iosched/slice_async_rq
-echo 32 > iosched/quantum # was 1
+echo 16 > iosched/slice_async_rq # they should be the same ratio as slices
+echo 48 > iosched/quantum 
 echo 40 > iosched/slice_async
 echo 120 > iosched/slice_sync
 echo 0 > iosched/slice_idle
