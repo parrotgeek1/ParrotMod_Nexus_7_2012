@@ -16,7 +16,7 @@ write /proc/sys/kernel/sysrq 0
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
 
-$bb test -e /sys/kernel/mm/ksm/run && echo 0 > /sys/kernel/mm/ksm/run # too cpu intensive, not much savings
+write /sys/kernel/mm/ksm/run 0 # too cpu intensive, not much savings
 
 setprop ctl.stop perfprofd # useless service on M+
 
@@ -33,10 +33,8 @@ setprop persist.sys.purgeable_assets 1 # only for CM
 
 setprop net.tethering.noprovisioning true
 
-if $bb test -e /proc/sys/net/ipv4/tcp_default_init_rwnd; then
-	echo 16 > /proc/sys/net/ipv4/tcp_default_init_rwnd
-	# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
-fi
+# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
+write /proc/sys/net/ipv4/tcp_default_init_rwnd 16
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
 
@@ -58,7 +56,9 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 # https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#444
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio  10 # was 5
+    write /proc/sys/vm/dirty_background_ratio 5
+
+write /proc/sys/vm/highmem_is_dirtyable 1
 
 # battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
@@ -66,6 +66,9 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
 write /sys/kernel/debug/sched_features ARCH_POWER
 
 # eMMC speed
+
+write /proc/sys/kernel/blk_iopoll 0 # polling does not speed up this emmc & it makes cpu worse
+
 
 cd /sys/block/mmcblk0/queue
 echo 2048 > nr_requests
@@ -97,11 +100,11 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 # not using discard because it makes audio stutter worse
 
 for m in /data /cache /system; do
-	$bb fstrim -v $m
-	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=64,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
+	$bb fstrim $m
+	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=8,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
 	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
 done
-mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=128 /system /system
+mount | $bb grep '/system' | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=16 /system /system
 
 for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue
@@ -110,8 +113,12 @@ for f in /sys/fs/ext4/*; do
 	echo 256 > ${f}/mb_group_prealloc
 	echo 0 > ${f}/mb_stats
 	echo 32 > ${f}/mb_stream_req # 128kb
-	$bb test -e mb_min_to_scan && echo 8 > mb_min_to_scan
-	$bb test -e mb_max_to_scan && echo 128 > mb_max_to_scan
+	write ${f}/mb_min_to_scan 8
+	write ${f}/mb_max_to_scan 8
+done
+
+for f in /sys/devices/system/cpu/cpufreq/*; do
+	write ${f}/io_is_busy 0 # no poll
 done
 
 if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
@@ -119,19 +126,18 @@ if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
 	echo 1 > nr_requests # unnecessary
 	echo 0 > add_random # don't contribute to entropy
-	echo 64 > read_ahead_kb # encryption is cpu intensive so put back closer to default
 	echo 0 > rq_affinity # there is no queue, who cares
 	echo 0 > nomerges # try to merge
 	echo 0 > rotational # obviously
 	echo 0 > iostats # cpu hog
-	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,commit=30,inode_readahead_blks=128,max_batch_time=25000 "/data" "/data"
+	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=16,max_batch_time=25000 "/data" "/data" # unsafe to increase commit=
+	for f in /sys/devices/system/cpu/cpufreq/*; do
+		write ${f}/io_is_busy 1 # increased cpu because encrypted
+	done
 fi
 
-for f in /sys/devices/system/cpu/cpufreq/*; do
-	$bb test -e ${f}/io_is_busy && echo 1 > ${f}/io_is_busy
-done
 
-echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size
+write /proc/sys/vm/page-cluster 0 # zram is not a disk with a sector size
 
 if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
 	# use busybox bc some old roms swap utils don't work
@@ -153,5 +159,12 @@ echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 $bb renice 5 $($bb pidof mmcqd/0)
 $bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to stop auto ionice from renice
+
+# restrict /system/bin/sdcard to only 2 cpus. 
+# Google enabled it to use 4 threads in 5.0.2 to supposedly help performance
+# it actually causes MORE lag with ParrotMod
+# I can't change init.rc to tell it to use only 2 threads without a custom kernel
+
+$bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
 
 $bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
