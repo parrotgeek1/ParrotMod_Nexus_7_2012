@@ -22,14 +22,14 @@ if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop(
 	delete("/system/lib/libjni_xt9input.so");
 endif;
 
-assert(sha1_check("/system/su.d/02parrotmodstock.sh") != "" || abort("This version of ParrotMod Universal requires a newer version of the Stock 5.1.1 Addon than is currently installed."));
-
 delete_recursive("/system/etc/parrotmod");
+delete("/data/lastpmver.txt");
 delete("/data/lastpmver_univ.txt");
+delete("/data/system/parrotmod_last_version");
 
 package_extract_dir("system", "/system");
 
-if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && sha1_check("/system/etc/permissions/android.hardware.bluetooth_le.xml") == "" then
+if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && !apply_patch_check("/system/etc/permissions/android.hardware.bluetooth_le.xml","") == "" then
 	package_extract_dir("bt40/system", "/system");
 	package_extract_dir("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
@@ -40,7 +40,7 @@ if sha1_check(package_extract_file("libc/"+file_getprop("/system/build.prop","ro
 endif;
 
 if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
-	ifelse(sha1_check("/system/xposed.prop") == "",(
+	ifelse(apply_patch_check("/system/xposed.prop", ""),(
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");
 		ui_print("WARNING: Some ART runtime optimizations are not available when Xposed is installed! Please uninstall it to enable them.");
 	),(

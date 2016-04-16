@@ -21,7 +21,7 @@ if /sbin/busybox test -e /system/etc/parrotmod/libart_installed_flag; then
 fi
 cd /system
 /sbin/busybox find etc/parrotmod -type f
-if ! /sbin/busybox test -e /system/etc/permissions/android.hardware.bluetooth_le.xml; then
+if ! /sbin/busybox test -e /system/etc/parrotmod/bt40_installed_flag; then
 cat << 'EOF'
 etc/permissions/android.hardware.bluetooth_le.xml
 lib/hw/bluetooth.default.so
