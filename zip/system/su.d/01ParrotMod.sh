@@ -54,10 +54,10 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     write /proc/sys/kernel/sched_rt_period_us 1000000
 
     # Tweak background writeout MODDED for N7
-    write /proc/sys/vm/dirty_expire_centisecs 500 # was 200, a bit too low
+    write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio 10 # was 5, a bit too low
-
-write /proc/sys/vm/highmem_is_dirtyable 1
+    write /proc/sys/vm/vfs_cache_pressure 20 # default is 50
+    write /proc/sys/vm/highmem_is_dirtyable 1
 
 # battery
 # https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/kernel/sched_features.h
@@ -67,7 +67,6 @@ write /sys/kernel/debug/sched_features ARCH_POWER
 # eMMC speed
 
 write /proc/sys/kernel/blk_iopoll 0 # polling does not speed up this emmc & it makes cpu worse
-
 
 cd /sys/block/mmcblk0/queue
 echo 2048 > nr_requests
@@ -81,16 +80,16 @@ echo 0 > iostats # cpu hog
 # https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
 
 echo cfq > scheduler
-echo 16 > iosched/slice_async_rq # they should be the same ratio as slices
-echo 48 > iosched/quantum 
+echo 8 > iosched/slice_async_rq # they should be the same ratio as slices
+echo 24 > iosched/quantum 
 echo 40 > iosched/slice_async
 echo 120 > iosched/slice_sync
-echo 0 > iosched/slice_idle
-echo 0 > iosched/group_idle
+echo 0 > iosched/slice_idle 
+echo 1 > iosched/group_idle # TESTING for enable kernel request ordering
 echo 80 > iosched/fifo_expire_sync
 echo 240 > iosched/fifo_expire_async
 echo "1" > iosched/low_latency
-$bb test -e iosched/target_latency && echo 240 > iosched/target_latency # not in 3.1
+write iosched/target_latency 240 # not in 3.1
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
@@ -164,6 +163,6 @@ $bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to stop auto ionice from renice
 # it actually causes MORE lag with ParrotMod
 # I can't change init.rc to tell it to use only 2 threads without a custom kernel
 
-$bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
+$b test "$(getprop ro.build.version.sdk)" -ge 21 && $bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
 
 $bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
