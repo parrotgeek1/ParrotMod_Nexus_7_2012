@@ -137,7 +137,7 @@ if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	echo 0 > nomerges # try to merge
 	echo 0 > rotational # obviously
 	echo 0 > iostats # cpu hog
-	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,inode_readahead_blks=16,max_batch_time=25000 "/data" "/data" # unsafe to increase commit=
+	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,max_batch_time=25000 "/data" "/data" # unsafe to increase commit=
 	for f in /sys/devices/system/cpu/cpufreq/*; do
 		write ${f}/io_is_busy 1 # increased cpu because encrypted
 	done
