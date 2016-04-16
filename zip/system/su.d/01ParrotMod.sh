@@ -13,8 +13,20 @@ function write() {
 # Disable sysrq from keyboard
 write /proc/sys/kernel/sysrq 0
 
+setprop persist.debug.wfd.enable 1
+
+setprop net.tethering.noprovisioning true
+
+# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
+write /proc/sys/net/ipv4/tcp_default_init_rwnd 16
+
+# MULTITASKING
+
+
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
+
+setprop persist.sys.purgeable_assets 1 # only for CM
 
 write /sys/kernel/mm/ksm/run 0 # too cpu intensive, not much savings
 
@@ -27,16 +39,13 @@ setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
 
-setprop persist.debug.wfd.enable 1
+echo 2 > /proc/sys/vm/min_free_order_shift # default is 4
+$bb chmod 0444 /proc/sys/vm/min_free_order_shift
+echo 8192 > /proc/sys/vm/min_free_kbytes # protect against increased OOM possibility with MFOS=2
 
-setprop persist.sys.purgeable_assets 1 # only for CM
-
-setprop net.tethering.noprovisioning true
-
-# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
-write /proc/sys/net/ipv4/tcp_default_init_rwnd 16
-
-echo 4096 > /proc/sys/vm/min_free_kbytes
+echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
+echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
+$bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
 # https://android.googlesource.com/platform/system/core/+/master/rootdir/init.rc#108
     # scheduler tunables
@@ -56,7 +65,7 @@ echo 4096 > /proc/sys/vm/min_free_kbytes
     # Tweak background writeout MODDED for N7
     write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio 10 # was 5, a bit too low
-    write /proc/sys/vm/vfs_cache_pressure 20 # default is 50
+    write /proc/sys/vm/vfs_cache_pressure 200 # default is 100, it's more important to keep page cache than directory entries
     write /proc/sys/vm/highmem_is_dirtyable 1
 
 # battery
@@ -85,11 +94,11 @@ echo 24 > iosched/quantum
 echo 40 > iosched/slice_async
 echo 120 > iosched/slice_sync
 echo 0 > iosched/slice_idle 
-echo 1 > iosched/group_idle # TESTING for enable kernel request ordering
-echo 80 > iosched/fifo_expire_sync
-echo 240 > iosched/fifo_expire_async
+echo 4 > iosched/group_idle # make sure there is differentiation between cgroups
+echo 240 > iosched/fifo_expire_sync
+echo 80 > iosched/fifo_expire_async
 echo "1" > iosched/low_latency
-write iosched/target_latency 240 # not in 3.1
+write iosched/target_latency 320 # not in 3.1
 echo "1" > iosched/back_seek_penalty # no penalty
 echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
@@ -162,11 +171,7 @@ echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
 $b test "$(getprop ro.build.version.sdk)" -ge 21 && $bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
 
-# for (mostly) fixing audio stutter when multitasking
+# for fixing audio stutter when multitasking
 
 $bb renice -10 $($bb pidof hd-audio0)
 $bb ionice -c 1 -n 2 -p $($bb pidof hd-audio0)
-
-echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
-echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
-$bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
