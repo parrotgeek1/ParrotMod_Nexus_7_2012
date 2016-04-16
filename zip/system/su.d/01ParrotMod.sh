@@ -155,14 +155,18 @@ echo 0 > /sys/devices/tegradc.0/smartdimmer/enable
 setprop persist.tegra.didim.enable 0
 echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 
-$bb renice 5 $($bb pidof mmcqd/0)
-$bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to stop auto ionice from renice
-
-# restrict /system/bin/sdcard to only 2 cpus. 
+# restrict /system/bin/sdcard to only 2 cpus on lollipop. 
 # Google enabled it to use 4 threads in 5.0.2 to supposedly help performance
 # it actually causes MORE lag with ParrotMod
 # I can't change init.rc to tell it to use only 2 threads without a custom kernel
 
 $b test "$(getprop ro.build.version.sdk)" -ge 21 && $bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
 
-$bb nohup su -cn u:r:init:s0 -c "$bb sh /system/etc/parrotmod/postboot.sh" >/dev/null 2>&1 &
+# for (mostly) fixing audio stutter when multitasking
+
+$bb renice -10 $($bb pidof hd-audio0)
+$bb ionice -c 1 -n 2 -p $($bb pidof hd-audio0)
+
+echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
+echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
+$bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
