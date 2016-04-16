@@ -62,10 +62,10 @@ $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit
     write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
 
-    # Tweak background writeout MODDED for N7
+    # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio 10 # was 5, a bit too low
-    write /proc/sys/vm/vfs_cache_pressure 200 # default is 100, it's more important to keep page cache than directory entries
+    write /proc/sys/vm/dirty_background_ratio 5
+    # MODDED FOR N7
     write /proc/sys/vm/highmem_is_dirtyable 1
 
 # battery
@@ -121,7 +121,7 @@ for f in /sys/fs/ext4/*; do
 	echo 0 > ${f}/mb_stats
 	echo 32 > ${f}/mb_stream_req # 128kb
 	write ${f}/mb_min_to_scan 8
-	write ${f}/mb_max_to_scan 8
+	write ${f}/mb_max_to_scan 128
 done
 
 for f in /sys/devices/system/cpu/cpufreq/*; do
@@ -169,7 +169,10 @@ echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling
 # it actually causes MORE lag with ParrotMod
 # I can't change init.rc to tell it to use only 2 threads without a custom kernel
 
-$b test "$(getprop ro.build.version.sdk)" -ge 21 && $bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
+if $bb test "$(getprop ro.build.version.sdk)" -ge 21; then
+	$bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
+	$bb renice 5 "$($bb pidof sdcard)"
+fi
 
 # for fixing audio stutter when multitasking
 
