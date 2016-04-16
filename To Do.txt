@@ -1,9 +1,19 @@
 Soon
 
+free space check
+Noise fix include and addon.d and not a branch
+Support realdata mount point for secondary ROM & loop0 block Device/ram0?
+Test encryption and optimize for speed
+Check for SuperSU
+Put back TCP window size changes IF NOT LOLLIPOP?
+
+Medium 
+
 F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
-space check
-Speaker addon.d
 
 Later
 
 fix bug, to disconnect miracast, need to unplug miracast dongle from tv
+Bt4.0 fix cves 
+support 5.0.2 libc/art optimized
+"Fake update DM crypt to allow trim on encrypted devices" pull request kernel
