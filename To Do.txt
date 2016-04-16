@@ -2,7 +2,7 @@ Soon
 
 free space check
 Noise fix include and addon.d and not a branch
-Support realdata mount point for secondary ROM & loop0 block Device/ram0?
+support multirom USB drive: loop0 block device optimize
 Test encryption and optimize for speed
 Check for SuperSU
 Put back TCP window size changes IF NOT LOLLIPOP?
