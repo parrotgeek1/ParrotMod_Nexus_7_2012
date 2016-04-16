@@ -23,6 +23,7 @@ if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop(
 endif;
 
 delete_recursive("/system/etc/parrotmod");
+delete_recursive("/system/etc/parrotmodstock");
 delete("/data/lastpmver.txt");
 delete("/data/lastpmver_univ.txt");
 delete("/data/system/parrotmod_last_version");
