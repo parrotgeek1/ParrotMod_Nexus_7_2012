@@ -20,6 +20,8 @@ if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop(
 	run_program("/sbin/busybox", "find","/system/app/XT9IME","-depth","-xdev","-follow","-delete");
 	delete("/system/app/XT9IME.apk");
 	delete("/system/lib/libjni_xt9input.so");
+	delete("/system/su.d/01magic");
+	delete("/system/su.d/02parrotmodstock.sh");
 endif;
 
 delete_recursive("/system/etc/parrotmod");
