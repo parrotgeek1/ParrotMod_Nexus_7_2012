@@ -178,3 +178,6 @@ fi
 
 $bb renice -10 $($bb pidof hd-audio0)
 $bb ionice -c 1 -n 2 -p $($bb pidof hd-audio0)
+
+$bb renice 5 $($bb pidof mmcqd/0)
+$bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to stop auto ionice from renice
