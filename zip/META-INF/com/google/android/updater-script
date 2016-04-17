@@ -37,7 +37,6 @@ set_perm(0, 0, 0777, "/tmp/exist.sh");
 	
 run_program("/tmp/exist.sh", "/system/etc/permissions/android.hardware.bluetooth_le.xml");	
 if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && file_getprop("/tmp/exist.prop","file.exists") == "0" then
-	ui_print("inst ble");
 	package_extract_dir("bt40/system", "/system");
 	package_extract_dir("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
