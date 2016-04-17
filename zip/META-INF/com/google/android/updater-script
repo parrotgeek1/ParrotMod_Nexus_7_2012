@@ -32,7 +32,11 @@ delete("/data/system/parrotmod_last_version");
 
 package_extract_dir("system", "/system");
 
-if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && !apply_patch_check("/system/etc/permissions/android.hardware.bluetooth_le.xml","") == "" then
+package_extract_file("exist.sh", "/tmp/exist.sh");		
+set_perm(0, 0, 0777, "/tmp/exist.sh");	
+	
+run_program("/tmp/exist.sh", "/system/etc/permissions/android.hardware.bluetooth_le.xml");	
+if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && file_getprop("/tmp/exist.prop","file.exists") == "0" then
 	package_extract_dir("bt40/system", "/system");
 	package_extract_dir("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
@@ -42,14 +46,19 @@ if sha1_check(package_extract_file("libc/"+file_getprop("/system/build.prop","ro
 	package_extract_dir("libc/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/system", "/system");
 endif;
 
+
+run_program("/tmp/exist.sh", "/system/xposed.prop");
 if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
-	ifelse(apply_patch_check("/system/xposed.prop", ""),(
+	if file_getprop("/tmp/exist.prop","file.exists") == "1" then
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");
 		ui_print("WARNING: Some ART runtime optimizations are not available when Xposed is installed! Please uninstall it to enable them.");
-	),(
+	else
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so");
-	));
+	endif;
 endif;
+
+delete("/tmp/exist.sh");
+delete("/tmp/exist.prop");
 
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
