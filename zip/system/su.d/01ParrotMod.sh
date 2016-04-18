@@ -39,9 +39,7 @@ setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512m
 setprop dalvik.vm.heapmaxfree 8m
 
-echo 2 > /proc/sys/vm/min_free_order_shift # default is 4
-$bb chmod 0444 /proc/sys/vm/min_free_order_shift
-echo 8192 > /proc/sys/vm/min_free_kbytes # protect against increased OOM possibility with MFOS=2
+echo 4096 > /proc/sys/vm/min_free_kbytes # protect against increased OOM possibility with MFOS=2
 
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
