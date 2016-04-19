@@ -79,8 +79,8 @@ cd /sys/block/mmcblk0/queue
 echo 2048 > nr_requests
 echo 0 > add_random # don't contribute to entropy
 echo 0 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
-echo 0 > rq_affinity # actually better for battery this way
-echo 0 > nomerges # try hard to merge requests 
+echo 1 > rq_affinity # bouncing around between cores makes audio worse
+echo 1 > nomerges # try slightly less hard to merge requests, less cpu load
 echo 0 > rotational # obviously
 echo 0 > iostats # cpu hog
 
@@ -131,8 +131,8 @@ if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
 	echo 1 > nr_requests # unnecessary
 	echo 0 > add_random # don't contribute to entropy
-	echo 0 > rq_affinity # there is no queue, who cares
-	echo 0 > nomerges # try to merge
+	echo 1 > rq_affinity # bouncing around between cores makes audio worse
+	echo 1 > nomerges # try slightly less hard to merge requests, less cpu load
 	echo 0 > rotational # obviously
 	echo 0 > iostats # cpu hog
 	mount | $bb grep "/data" | $bb grep -q ext4 && mount -o remount,max_batch_time=25000 "/data" "/data" # unsafe to increase commit=
