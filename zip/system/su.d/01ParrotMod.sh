@@ -79,7 +79,7 @@ cd /sys/block/mmcblk0/queue
 echo 2048 > nr_requests
 echo 0 > add_random # don't contribute to entropy
 echo 0 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
-echo 1 > rq_affinity # stay on same cpu core
+echo 0 > rq_affinity # actually better for battery this way
 echo 0 > nomerges # try hard to merge requests 
 echo 0 > rotational # obviously
 echo 0 > iostats # cpu hog
@@ -150,7 +150,7 @@ if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
 	$bb umount /dev/block/zram0 >/dev/null 2>&1
 	write /sys/block/zram0/reset 1
 	write /sys/block/zram0/comp_algorithm lz4 # less cpu intensive than lzo
-	write /sys/block/zram0/max_comp_streams 2 # on 2015 Google devices, this is half the number of core
+	write /sys/block/zram0/max_comp_streams 2 # on 2015 Google devices, this is half the number of cores
 	write /sys/block/zram0/disksize $((256*1024*1024))
 	$bb mkswap /dev/block/zram0
 	$bb swapon -p 32767 /dev/block/zram0 # max priority
