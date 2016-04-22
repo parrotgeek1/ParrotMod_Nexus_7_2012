@@ -113,7 +113,8 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
 # noauto_da_alloc = don't do unnecessary speculative writes to emmc
 # delalloc = DELayed ALLOCation until absolutely necessary
-# journal_async_commit = make journaling run in background
+# data=writeback = don't care about journal order, for performance
+# journal_async_commit = don't care about journal order, for performance
 # journal_ioprio=7 = 7 is LOWEST possible priority
 # barrier=0 = dont check if writes succeeded before starting new one (not as unsafe as it sounds)
 # commit=15 = save every file every 15 sec, default is 5
@@ -122,11 +123,12 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 # dioread_nolock = like barrier=0 but for reads
 # max_batch_time=15000 # wait to see if not unnecessarily duplicating reads
 # nomblk_io_submit = i forget, something with really big hard drives? it's unnecessary. Google disabled it on wingray (xoom) to improve performance
+# stripe=1  = don't care about # of blocks allocated at once
 
 for m in /data /realdata /cache /system ; do
 	$bb test ! -e $m && continue
 	$bb fstrim $m
-	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=8,dioread_nolock,max_batch_time=15000,nomblk_io_submit "$m" "$m"
+	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,data=writeback,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=8,dioread_nolock,max_batch_time=15000,nomblk_io_submit,stripe=1 "$m" "$m"
 	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
 done
 
