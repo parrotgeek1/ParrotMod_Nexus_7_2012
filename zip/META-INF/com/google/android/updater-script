@@ -2,8 +2,10 @@ run_program("/sbin/busybox", "mount", "/system");
 
 if !less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),21) then
 package_extract_dir("system", "/system");
+delete("/system/app/ChargingNoiseFix.apk");
 else
 package_extract_file("system/app/ChargingNoiseFix/ChargingNoiseFix.apk","/system/app/ChargingNoiseFix.apk");
+delete_recursive("/system/app/ChargingNoiseFix");
 endif;
 
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
