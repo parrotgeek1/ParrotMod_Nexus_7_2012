@@ -83,7 +83,7 @@ Credit
 Busybox from https://busybox.net/downloads/binaries/
 libc/libart from i9300 CM13/JustArchi CM12.1 old beta
 Charging Noise Fix is based on an apk from the Moto G 2015 stock ROM.
-
+Bluetooth 4.0 libs from https://github.com/manuelnaranjo/AndroidBluetoothLowEnergyEnabler/tree/master/releases
 
 Thanks
 ------
