@@ -3,7 +3,6 @@ Soon
 Noise fix addon.d and not a branch
 support multirom USB drive: loop0 block device optimize
 Test encryption and optimize for speed
-document f2fs mount options
 real armv7 busybox from bszaosplp & credit it 
 
 Medium 

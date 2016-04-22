@@ -111,6 +111,8 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 
 # not using discard because it makes audio stutter worse
 
+# ext4:
+
 # noauto_da_alloc = don't do unnecessary speculative writes to emmc
 # delalloc = DELayed ALLOCation until absolutely necessary
 # data=writeback = don't care about journal order, for performance
@@ -124,6 +126,12 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 # max_batch_time=15000 # wait to see if not unnecessarily duplicating reads
 # nomblk_io_submit = i forget, something with really big hard drives? it's unnecessary. Google disabled it on wingray (xoom) to improve performance
 # stripe=1  = don't care about # of blocks allocated at once
+
+# f2fs:
+
+# nobarrier = like barrier=0 above
+# flush_merge = more efficient writing
+# inline_* = more efficiently pack file info together
 
 for m in /data /realdata /cache /system ; do
 	$bb test ! -e $m && continue
