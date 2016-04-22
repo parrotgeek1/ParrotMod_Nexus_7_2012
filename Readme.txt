@@ -5,31 +5,13 @@ This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY roo
 
 XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
 
-Download: http://download.parrotgeek.com/android/ParrotMod_Grouper_Stable_Universal.zip
+Download: http://download.parrotgeek.com/android/ParrotMod/
+[THESE NEW VERSIONS DO NOT AUTO REBOOT AFTER INSTALL]
 
-Performance Video (old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
+Github: https://github.com/parrotgeek1/ParrotMod_Grouper
+Feel free to fork/pull request! But always credit me if you make something based on it and ask me for permission first.
 
-Upgrade notes
--------------
-
-It is safe to flash new ParrotMod versions without wiping data, but if you use the Stock 5.1.1 version you must flash Universal update first.
-IF YOU UPGRADE MAJOR ANDROID VERSIONS YOU MUST WIPE SYSTEM, FLASH THE WHOLE ROM, AND REINSTALL PARROTMOD.
-UPGRADING ROM BUILDS WORKS FINE! In ROMs with addon.d support, it will even keep ParrotMod installed.
-
-Notes
------
-
-REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
-Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
-The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4 or 5.0.
-
-Recommended Kernel: 
-===================
-http://forum.xda-developers.com/nexus-7/development/kernel-dc-kernel-t3310642
-
-Slow charging hardware fix:
-===========================
-http://forum.xda-developers.com/showthread.php?p=65039448
+Performance Video (very old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
 
 Features:
 =========
@@ -52,6 +34,42 @@ GPU optimizations (without OC!)
 Reverted to dlmalloc for reducing ram usage
 ART_USE_HSPACE_COMPACT enabled for better garbage collection
 
+Upgrade notes
+-------------
+
+It is safe to flash new ParrotMod versions without wiping data.
+IF YOU UPGRADE MAJOR ANDROID VERSIONS YOU MUST WIPE SYSTEM, FLASH THE WHOLE ROM, AND REINSTALL PARROTMOD.
+UPGRADING ROM BUILDS WORKS FINE! In ROMs with addon.d support, it will even keep ParrotMod installed.
+
+IMPORTANT NOTE
+--------------
+
+REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
+EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
+
+Please don't use with ParrotMod:
+--------------------------------
+
+L Speed/any other "supercharger" like tweaks. I will ignore any support requests if you use them. Most are very badly programmed/full of placebos.
+Trimmer (unnecessary because it's integrated into ParrotMod)
+disable journaling zip (it conflicts with my script, and doesn't improve performance)
+Don't limit background processes, it might even make the tablet SLOWER
+
+Known Bugs
+----------
+
+F2FS optimizations are missing, mostly because I don't want to wipe data to test them. Performance should still be fine though.
+Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
+The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4 or 5.0.
+
+Recommended Kernel: 
+===================
+http://forum.xda-developers.com/nexus-7/development/kernel-dc-kernel-t3310642
+
+Slow charging hardware fix:
+===========================
+http://forum.xda-developers.com/showthread.php?p=65039448
+
 Credit
 ------
 
@@ -62,3 +80,17 @@ Thanks
 ------
 
 Thanks to bangsergio on XDA for testing several dozen beta versions
+
+
+
+
+How ParrotMod Works
+-------------------
+
+ParrotMod works by trying to counteract the slow eMMC flash speed, by decreasing unnecessary reads and writes, and also optimizing how well processes share the bandwidth.
+To optimize RAM, it also changes minfree values, replaces libart and libc with optimized versions (reverting to the memory allocator that was in 4.4.4), and enables zram (but in a less CPU intensive compression mode).
+It also enables GPU clock scaling instead of throttling based on CPU speed, to improve performance in GPU-bound games. It also disables nvidia PRISM adaptive backlight to fix washed out screen in videos. 
+It increases the CPU priority of audio players, and the hd-audio0 kernel thread, to fix sound stutter when multitasking.
+Finally, it increases wifi transmit power and noise filter in nvram.txt to increase wifi range.
+(I also made my own patches to enable miracast and BT 4.0)
+The code on GitHub is extremely well commented.

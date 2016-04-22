@@ -6,6 +6,7 @@ support multirom USB drive: loop0 block device optimize
 Test encryption and optimize for speed
 Check for SuperSU
 Put back TCP window size changes IF NOT LOLLIPOP?
+document f2fs mount options
 
 Medium 
 

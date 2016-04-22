@@ -16,7 +16,8 @@ boardnum=22
 cckdigfilttype=20             #20~26
 ag0=255
 aa2g=3
-ccode=ALL
+ccode=XY
+regrev=4
 #pa0itssit=0x20
 #pa0b0=0x1203
 #pa0b1=0xfd99
@@ -49,9 +50,6 @@ noise_cal_enable_2g=1
 txgaintbl=1
 muxenab=0x10
 #triso2g=9
-sd_gpout=0
-sd_gpval=1
-sd_gpdc=0
 
 #for BT-coexistence
 btc_params87=10000
