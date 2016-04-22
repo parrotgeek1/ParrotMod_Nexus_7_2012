@@ -136,7 +136,7 @@ for f in /sys/fs/ext4/*; do
 	$bb test "$f" = "/sys/fs/ext4/features" && continue
 	# http://lxr.free-electrons.com/source/fs/ext4/mballoc.c#L133
 	echo 4 > ${f}/max_writeback_mb_bump # don't spend too long writing ONE file if multiple need to write
-	echo 256 > ${f}/mb_group_prealloc # optimize small file allocation
+	echo 128 > ${f}/mb_group_prealloc # less unnecessary allocation
 	echo 0 > ${f}/mb_stats # cpu hog
 	echo 32 > ${f}/mb_stream_req # 128kb optimize small file allocation
 	write ${f}/mb_min_to_scan 8 # was 16?
