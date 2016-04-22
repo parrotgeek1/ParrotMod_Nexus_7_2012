@@ -19,10 +19,6 @@ setprop persist.debug.wfd.enable 1
 #enable tethering even if carrier blocks it (tilapia)
 setprop net.tethering.noprovisioning true
 
-#improve internet speed at the start of TCP connections, the pdf explains why
-# https://developers.google.com/speed/articles/tcp_initcwnd_paper.pdf
-write /proc/sys/net/ipv4/tcp_default_init_rwnd 16
-
 # MULTITASKING
 
 setprop persist.sys.purgeable_assets 1 1 # only for CM, can purge bitmaps
