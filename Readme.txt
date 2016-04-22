@@ -7,6 +7,7 @@ XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-s
 
 Download: http://download.parrotgeek.com/android/ParrotMod/
 [THESE NEW VERSIONS DO NOT AUTO REBOOT AFTER INSTALL]
+Don't use Universal_Test unless I tell you to
 
 Github: https://github.com/parrotgeek1/ParrotMod_Grouper
 Feel free to fork/pull request! But always credit me if you make something based on it and ask me for permission first.
@@ -33,6 +34,12 @@ Speed up full disk encryption, but it's still pretty bad
 GPU optimizations (without OC!)
 Reverted to dlmalloc for reducing ram usage
 ART_USE_HSPACE_COMPACT enabled for better garbage collection
+
+Extras
+======
+
+Fix for speaker/headphone buzzing while charging
+http://download.parrotgeek.com/android/ParrotMod/ChargingNoiseFix/
 
 Upgrade notes
 -------------
