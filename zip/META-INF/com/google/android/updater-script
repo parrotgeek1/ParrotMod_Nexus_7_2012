@@ -4,6 +4,8 @@ ui_print("#   By: @parrotgeek1 (www.parrotgeek.com)   #");
 ui_print("#############################################");
 ui_print("");
 
+ui_print("Checking requirements...");
+
 assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
 
 run_program("/sbin/busybox", "mount", "/system");
@@ -19,6 +21,25 @@ if file_getprop("/tmp/exist.prop","file.exists") == "0" then
 	delete("/tmp/exist.prop");
 	abort("ERROR: ParrotMod requires the newest version of SuperSU, refusing to install.");
 endif;
+	
+ui_print("Freeing space...");
+
+if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop("/system/build.prop","ro.build.tags") == "release-keys" && is_substring("corp.google.com",file_getprop("/system/build.prop","ro.build.host")) then
+	run_program("/sbin/busybox", "find","/system/app/XT9IME","-depth","-xdev","-follow","-delete");
+	delete("/system/app/XT9IME.apk");
+	delete("/system/lib/libjni_xt9input.so");
+	delete("/system/su.d/01magic");
+	delete("/system/su.d/02parrotmodstock.sh");
+endif;
+
+run_program("/sbin/busybox", "mount", "/data");
+run_program("/sbin/busybox", "mount", "/cache");
+
+delete_recursive("/system/etc/parrotmod");
+delete_recursive("/system/etc/parrotmodstock");
+delete("/data/lastpmver.txt");
+delete("/data/lastpmver_univ.txt");
+delete("/data/system/parrotmod_last_version");
 
 package_extract_file("space.sh", "/tmp/space.sh");		
 set_perm(0, 0, 0777, "/tmp/space.sh");
@@ -33,27 +54,9 @@ if file_getprop("/tmp/space.prop","enough.space") == "0" then
 endif;
 delete("/tmp/space.sh");
 delete("/tmp/space.prop");
-	
 
 ui_print("Installing...");
 ui_print("");
-
-run_program("/sbin/busybox", "mount", "/data");
-run_program("/sbin/busybox", "mount", "/cache");
-
-if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop("/system/build.prop","ro.build.tags") == "release-keys" && is_substring("corp.google.com",file_getprop("/system/build.prop","ro.build.host")) then
-	run_program("/sbin/busybox", "find","/system/app/XT9IME","-depth","-xdev","-follow","-delete");
-	delete("/system/app/XT9IME.apk");
-	delete("/system/lib/libjni_xt9input.so");
-	delete("/system/su.d/01magic");
-	delete("/system/su.d/02parrotmodstock.sh");
-endif;
-
-delete_recursive("/system/etc/parrotmod");
-delete_recursive("/system/etc/parrotmodstock");
-delete("/data/lastpmver.txt");
-delete("/data/lastpmver_univ.txt");
-delete("/data/system/parrotmod_last_version");
 
 package_extract_dir("system", "/system");
 	
