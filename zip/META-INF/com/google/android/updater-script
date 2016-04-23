@@ -15,7 +15,7 @@ assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),
 package_extract_file("exist.sh", "/tmp/exist.sh");		
 set_perm(0, 0, 0777, "/tmp/exist.sh");
 
-run_program("/tmp/exist.sh", "/system/xbin/sugote");	
+run_program("/tmp/exist.sh", "/system/xbin/daemonsu");	
 if file_getprop("/tmp/exist.prop","file.exists") == "0" then
 	delete("/tmp/exist.sh");
 	delete("/tmp/exist.prop");
