@@ -4,17 +4,25 @@ ui_print("#   By: @parrotgeek1 (www.parrotgeek.com)   #");
 ui_print("#############################################");
 ui_print("");
 
+ui_print("Checking requirements...");
+
 assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
 
 run_program("/sbin/busybox", "mount", "/system");
 
-assert(less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ParrotMod currently only supports Android 4.1-6.x, refusing to install."));
+assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) && less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ERROR: ParrotMod currently only supports Android 4.2-6.x, refusing to install."));
 
-ui_print("Installing...");
-ui_print("");
+package_extract_file("exist.sh", "/tmp/exist.sh");		
+set_perm(0, 0, 0777, "/tmp/exist.sh");
 
-run_program("/sbin/busybox", "mount", "/data");
-run_program("/sbin/busybox", "mount", "/cache");
+run_program("/tmp/exist.sh", "/system/xbin/daemonsu");	
+if file_getprop("/tmp/exist.prop","file.exists") == "0" then
+	delete("/tmp/exist.sh");
+	delete("/tmp/exist.prop");
+	abort("ERROR: ParrotMod requires the newest version of SuperSU, refusing to install.");
+endif;
+	
+ui_print("Freeing space...");
 
 if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop("/system/build.prop","ro.build.tags") == "release-keys" && is_substring("corp.google.com",file_getprop("/system/build.prop","ro.build.host")) then
 	run_program("/sbin/busybox", "find","/system/app/XT9IME","-depth","-xdev","-follow","-delete");
@@ -24,16 +32,33 @@ if file_getprop("/system/build.prop","ro.build.type") == "user" && file_getprop(
 	delete("/system/su.d/02parrotmodstock.sh");
 endif;
 
+run_program("/sbin/busybox", "mount", "/data");
+run_program("/sbin/busybox", "mount", "/cache");
+
 delete_recursive("/system/etc/parrotmod");
 delete_recursive("/system/etc/parrotmodstock");
 delete("/data/lastpmver.txt");
 delete("/data/lastpmver_univ.txt");
 delete("/data/system/parrotmod_last_version");
 
-package_extract_dir("system", "/system");
+package_extract_file("space.sh", "/tmp/space.sh");		
+set_perm(0, 0, 0777, "/tmp/space.sh");
 
-package_extract_file("exist.sh", "/tmp/exist.sh");		
-set_perm(0, 0, 0777, "/tmp/exist.sh");	
+run_program("/tmp/space.sh", "8");
+if file_getprop("/tmp/space.prop","enough.space") == "0" then
+	delete("/tmp/exist.sh");
+	delete("/tmp/exist.prop");
+	delete("/tmp/space.sh");
+	delete("/tmp/space.prop");
+	abort("ERROR: ParrotMod requires at least 8MB of free space on the system partition, refusing to install. Delete some system apps or use a smaller GApps package.");
+endif;
+delete("/tmp/space.sh");
+delete("/tmp/space.prop");
+
+ui_print("Installing...");
+ui_print("");
+
+package_extract_dir("system", "/system");
 	
 run_program("/tmp/exist.sh", "/system/etc/permissions/android.hardware.bluetooth_le.xml");	
 if sha1_check(package_extract_file("bt40/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" && file_getprop("/tmp/exist.prop","file.exists") == "0" then
