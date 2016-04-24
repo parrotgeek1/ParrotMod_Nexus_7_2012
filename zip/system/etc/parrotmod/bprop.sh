@@ -12,6 +12,7 @@ comment_out() {
 change_or_add ro.setupwizard.network_required false
 change_or_add ro.setupwizard.wifi_required false
 comment_out ro.sys.fw.bg_apps_limit # pure nexus fix
+comment_out ro.config.low_ram # same ^
 change_or_add ro.config.max_starting_bg 1
 
 exit 0
