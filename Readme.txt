@@ -14,6 +14,15 @@ Feel free to fork/pull request! But always credit me if you make something based
 
 Performance Video (very old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
 
+IMPORTANT NOTE
+--------------
+
+PLEASE disable io scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
+REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
+EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
+
+You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer.
+
 Features:
 =========
 
@@ -48,19 +57,13 @@ It is safe to flash new ParrotMod versions without wiping data.
 IF YOU UPGRADE MAJOR ANDROID VERSIONS YOU MUST WIPE SYSTEM, FLASH THE WHOLE ROM, AND REINSTALL PARROTMOD.
 UPGRADING ROM BUILDS WORKS FINE! In ROMs with addon.d support, it will even keep ParrotMod installed.
 
-IMPORTANT NOTE
---------------
-
-REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
-EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
-
 Please don't use with ParrotMod:
 --------------------------------
 
 L Speed/any other "supercharger" like tweaks. I will ignore any support requests if you use them. Most are very badly programmed/full of placebos.
 Trimmer (unnecessary because it's integrated into ParrotMod)
 disable journaling zip (it conflicts with my script, and doesn't improve performance)
-Don't limit background processes, it might even make the tablet SLOWER
+Don't limit background processes, it might even make the tablet SLOWER. As of 4/24/16, the installer script removes this setting from build.prop automatically.
 
 Known Bugs
 ----------
