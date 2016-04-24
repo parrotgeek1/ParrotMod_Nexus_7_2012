@@ -6,7 +6,7 @@ change_or_add() {
 }
 
 comment_out() {
-	/sbin/busybox sed -i "s@${1}=@#${1}=@" /system/build.prop
+	/sbin/busybox sed -i "s@^${1}=@#${1}=@" /system/build.prop
 }
 
 change_or_add ro.setupwizard.network_required false
