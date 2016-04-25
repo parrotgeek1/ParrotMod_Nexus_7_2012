@@ -63,7 +63,7 @@ Please don't use with ParrotMod:
 L Speed/any other "supercharger" like tweaks. I will ignore any support requests if you use them. Most are very badly programmed/full of placebos.
 Trimmer (unnecessary because it's integrated into ParrotMod)
 disable journaling zip (it conflicts with my script, and doesn't improve performance)
-Don't limit background processes, it might even make the tablet SLOWER. As of 4/24/16, the installer script removes this setting from build.prop automatically.
+Don't limit background processes, it might even make the tablet SLOWER. As of version 2016-04-25, the installer script removes this setting from build.prop automatically.
 
 Known Bugs
 ----------
