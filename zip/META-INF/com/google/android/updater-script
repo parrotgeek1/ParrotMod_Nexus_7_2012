@@ -8,6 +8,16 @@ ui_print("Checking requirements...");
 
 assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
 
+package_extract_file("checkbb.sh", "/tmp/checkbb.sh");		
+set_perm(0, 0, 0777, "/tmp/checkbb.sh");
+
+run_program("/tmp/checkbb.sh");
+if file_getprop("/tmp/bb.prop","bb.exists") == "0" then
+	delete("/tmp/checkbb.sh");
+	delete("/tmp/bb.prop");
+	abort("ERROR: ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP do. CWM does not.)");
+endif;
+
 run_program("/sbin/busybox", "mount", "/system");
 
 assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) && less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ERROR: ParrotMod currently only supports Android 4.2-6.x, refusing to install."));
@@ -46,7 +56,6 @@ delete("/tmp/space.sh");
 delete("/tmp/space.prop");
 
 ui_print("Installing...");
-ui_print("");
 
 package_extract_dir("system", "/system");
 
@@ -94,6 +103,9 @@ run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/syste
 run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/su.d");
 
 run_program("/system/etc/parrotmod/bprop.sh", "");
+
+ui_print("Running fstrim...");
+ui_print("");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
