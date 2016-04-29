@@ -41,20 +41,6 @@ delete("/data/lastpmver.txt");
 delete("/data/lastpmver_univ.txt");
 delete("/data/system/parrotmod_last_version");
 
-package_extract_file("space.sh", "/tmp/space.sh");		
-set_perm(0, 0, 0777, "/tmp/space.sh");
-
-run_program("/tmp/space.sh", "8");
-if file_getprop("/tmp/space.prop","enough.space") == "0" then
-	delete("/tmp/exist.sh");
-	delete("/tmp/exist.prop");
-	delete("/tmp/space.sh");
-	delete("/tmp/space.prop");
-	abort("ERROR: ParrotMod requires at least 8MB of free space on the system partition, refusing to install. Delete some system apps or use a smaller GApps package.");
-endif;
-delete("/tmp/space.sh");
-delete("/tmp/space.prop");
-
 ui_print("Installing...");
 
 package_extract_dir("system", "/system");
