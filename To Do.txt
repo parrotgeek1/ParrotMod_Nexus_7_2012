@@ -1,6 +1,6 @@
 Soon
 
-Noise fix addon.d and not a branch
+Noise fix addon.d
 support multirom USB drive: loop0 block device optimize
 Test encryption and optimize for speed
 real armv7 busybox from bszaosplp & credit it 
