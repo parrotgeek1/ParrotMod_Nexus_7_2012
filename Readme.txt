@@ -17,6 +17,7 @@ Performance Video (very old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
 IMPORTANT NOTE
 --------------
 
+ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP do. CWM does not.)
 PLEASE disable io scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
 REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
 EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
