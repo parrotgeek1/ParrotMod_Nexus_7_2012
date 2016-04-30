@@ -106,7 +106,6 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 # fs tune
 
 # not using discard because it makes audio stutter worse
-# trim is super slow on hynix/kingston
 
 # ext4:
 
@@ -130,8 +129,12 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 # flush_merge = more efficient writing
 # inline_* = more efficiently pack file info together
 
+# trim is super slow on hynix/kingston
+manfid=$(cat /sys/block/mmcblk0/device/manfid)
+
 for m in /data /realdata /cache /system ; do
 	$bb test ! -e $m && continue
+	$bb test $manfid = "0x000015" && fstrim -v "$m"
 	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,data=writeback,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=8,dioread_nolock,max_batch_time=15000,nomblk_io_submit,stripe=1 "$m" "$m"
 	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
 done
