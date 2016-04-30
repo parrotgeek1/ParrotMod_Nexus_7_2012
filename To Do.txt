@@ -11,7 +11,6 @@ F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blo
 Later
 
 fix bug, to disconnect miracast, need to unplug miracast dongle from tv
-Bt4.0 fix cves NOT from bszaosplp and use 12.1 on 12
 "Fake update dm-crypt to allow trim on encrypted devices" pull request DC-kernel
 
 Maybe

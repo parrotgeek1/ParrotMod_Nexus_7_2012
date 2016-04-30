@@ -23,6 +23,8 @@ PLEASE disable io scheduler/RAM/read ahead tweaks in kernel apps. They override 
 REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
 EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
 
+It's a good idea to schedule fstrim using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
+
 You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer.
 
 Features:
@@ -33,18 +35,16 @@ uses ext4 but can use data/cache f2fs
 audio stutter and multitasking fix
 miracast enabled (but it freezes on disconnect unless you unplug from the receiver end)
 can set up device without wifi
-Bluetooth 4.0 enabled (BLE/GATT/SMP)
+Bluetooth 4.0 enabled (BLE/GATT/SMP), CVE vulnerabilities fixed (for 5.x)
 more apps open at once (minfree tweak, scheduler tweaks, 64k log buffers, zram optimized)
 LCD color fix (no Nvidia smartdimmer/Prism)
 internet optimizations
 can use more storage space before it doesn't let you
 Survives ROM updates with addon.d
-block Google ota updates
 tethering without carrier checks on tilapia
 Speed up full disk encryption, but it's still pretty bad
 GPU optimizations (without OC!)
-Reverted to dlmalloc for reducing ram usage
-ART_USE_HSPACE_COMPACT enabled for better garbage collection
+Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x]
 
 Extras
 ======
@@ -88,6 +88,7 @@ Busybox from BSZAospLp ROM LMY49H
 libc/libart from i9300 CM13/JustArchi CM12.1 old beta
 Charging Noise Fix is based on an apk from the Moto G 2015 stock ROM.
 Bluetooth 4.0 libs from https://github.com/manuelnaranjo/AndroidBluetoothLowEnergyEnabler/tree/master/releases
+5.x BT libs from Dreams - version 5.3.9.4 for Maguro
 
 Thanks
 ------
