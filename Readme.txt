@@ -63,9 +63,8 @@ Please don't use with ParrotMod:
 --------------------------------
 
 L Speed/any other "supercharger" like tweaks. I will ignore any support requests if you use them. Most are very badly programmed/full of placebos.
-Trimmer (unnecessary because it's integrated into ParrotMod)
 disable journaling zip (it conflicts with my script, and doesn't improve performance)
-Don't limit background processes, it might even make the tablet SLOWER. As of version 2016-04-25, the installer script removes this setting from build.prop automatically.
+Don't limit background processes, it might even make the tablet SLOWER. As of version 2016-04-30, the installer script removes this setting from build.prop automatically.
 
 Known Bugs
 ----------
@@ -85,7 +84,7 @@ http://forum.xda-developers.com/showthread.php?p=65039448
 Credit
 ------
 
-Busybox from https://busybox.net/downloads/binaries/
+Busybox from BSZAospLp ROM LMY49H
 libc/libart from i9300 CM13/JustArchi CM12.1 old beta
 Charging Noise Fix is based on an apk from the Moto G 2015 stock ROM.
 Bluetooth 4.0 libs from https://github.com/manuelnaranjo/AndroidBluetoothLowEnergyEnabler/tree/master/releases

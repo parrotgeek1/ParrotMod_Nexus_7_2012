@@ -3,11 +3,10 @@ Soon
 Noise fix addon.d
 support multirom USB drive: loop0 block device optimize
 Test encryption and optimize for speed
-real armv7 busybox from bszaosplp & credit it 
 
 Medium 
 
-F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154
+F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/filesystems/f2fs.txt#L154 https://github.com/CyanogenMod/android_kernel_asus_grouper/blob/cm-13.0/Documentation/ABI/testing/sysfs-fs-f2fs
 
 Later
 
