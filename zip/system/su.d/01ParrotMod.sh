@@ -182,6 +182,9 @@ if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
 	write /sys/block/zram0/disksize $((256*1024*1024))
 	$bb mkswap /dev/block/zram0
 	$bb swapon -p 32767 /dev/block/zram0 # max priority
+	echo noop > /sys/block/zram0/queue/scheduler # it's not a disk
+	echo 2 > /sys/block/zram0/queue/nomerges
+	echo 0 > /sys/block/zram0/queue/read_ahead_kb 
 fi
 
 # GPU
