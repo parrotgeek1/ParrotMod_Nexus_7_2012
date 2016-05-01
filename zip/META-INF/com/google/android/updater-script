@@ -1,4 +1,29 @@
+ui_print("#############################################");
+ui_print("#      ParrotMod - Charging Noise Fix       #");
+ui_print("#   By: @parrotgeek1 (www.parrotgeek.com)   #");
+ui_print("#############################################");
+ui_print("");
+
+ui_print("Checking requirements...");
+
+assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
+
+package_extract_file("checkbb.sh", "/tmp/checkbb.sh");		
+set_perm(0, 0, 0777, "/tmp/checkbb.sh");
+
+run_program("/tmp/checkbb.sh");
+if file_getprop("/tmp/bb.prop","bb.exists") == "0" then
+	delete("/tmp/checkbb.sh");
+	delete("/tmp/bb.prop");
+	abort("ERROR: ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP do. CWM does not.)");
+endif;
+
+delete("/tmp/checkbb.sh");
+delete("/tmp/bb.prop");
+
 run_program("/sbin/busybox", "mount", "/system");
+
+ui_print("Installing...");
 
 if !less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),21) then
 package_extract_dir("system", "/system");
@@ -8,5 +33,14 @@ package_extract_file("system/app/ChargingNoiseFix/ChargingNoiseFix.apk","/system
 delete_recursive("/system/app/ChargingNoiseFix");
 endif;
 
+ui_print("Running fstrim...");
+ui_print("");
+
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
+
+run_program("/sbin/busybox", "fstrim", "-v", "/data");
+
+run_program("/sbin/busybox", "fstrim", "-v", "/cache");
+
+ui_print("Enjoy the Charging Noise Fix!");
