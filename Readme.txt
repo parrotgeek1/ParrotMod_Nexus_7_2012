@@ -1,5 +1,5 @@
-What?
-=====
+What is ParrotMod?
+==================
 
 This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM. (except for 4.1.x, due to SuperSU incompatibility)
 
@@ -49,11 +49,9 @@ Speed up full disk encryption, but it's still pretty bad
 GPU optimizations (without OC!)
 Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x]
 
-
-
 Instructions - From unrooted stock 5.1.1
 ========================================
-[SPOILER]
+
 Download KingRoot apk from http://www.kingroot.net/, install it, ignore the warnings about the app being unsafe, and tap Root. If it says root failed, try again. It will eventually work.
 Install Flashify from the Play Store
 Download the latest Universal zip in the download link above on your tablet
@@ -77,7 +75,6 @@ When it finishes installing tap Reboot System
 Your tablet will reboot
 Wait 30 seconds for the device to settle
 Enjoy the improved speed! (You can delete ParrotMod_Grouper_Universal_XXXXXXX.zip now)
-[/SPOILER]
 
 Extras
 ======
@@ -104,7 +101,7 @@ Known Bugs
 
 F2FS optimizations are missing, mostly because I don't want to wipe data to test them. Performance should still be fine though.
 Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
-The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4 or 5.0.
+The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4.x or 5.0.x.
 
 Recommended Kernel: 
 ===================
@@ -112,6 +109,7 @@ http://forum.xda-developers.com/nexus-7/development/kernel-dc-kernel-t3310642
 
 Slow charging hardware fix:
 ===========================
+
 http://forum.xda-developers.com/showthread.php?p=65039448
 
 Credit
