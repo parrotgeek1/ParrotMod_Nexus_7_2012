@@ -1,8 +1,18 @@
 #!/sbin/sh
-/sbin/busybox sed -i 's@ro.setupwizard.network_required=.*$@ro.setupwizard.network_required=false@' /system/build.prop
-/sbin/busybox sed -i 's@ro.setupwizard.wifi_required=.*$@ro.setupwizard.wifi_required=false@' /system/build.prop
 
-/sbin/busybox grep -F -v -q 'ro.setupwizard.network_required=' /system/build.prop && echo 'ro.setupwizard.network_required=false' >> /system/build.prop
-/sbin/busybox grep -F -v -q 'ro.setupwizard.wifi_required=' /system/build.prop && echo 'ro.setupwizard.wifi_required=false' >> /system/build.prop
+change_or_add() {
+	/sbin/busybox sed -i "s@${1}=.*@${1}=${2}@" /system/build.prop
+	/sbin/busybox grep -F -v -q "${1}=" /system/build.prop && echo "${1}=${2}" >> /system/build.prop
+}
+
+comment_out() {
+	/sbin/busybox sed -i "s@^${1}=@#${1}=@" /system/build.prop
+}
+
+change_or_add ro.setupwizard.network_required false
+change_or_add ro.setupwizard.wifi_required false
+comment_out ro.sys.fw.bg_apps_limit # pure nexus fix
+comment_out ro.config.low_ram # same ^
+change_or_add ro.config.max_starting_bg 1
 
 exit 0

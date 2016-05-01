@@ -8,6 +8,19 @@ ui_print("Checking requirements...");
 
 assert(getprop("ro.product.board") == "grouper" || abort("This device is not a 2012 Nexus 7!"));
 
+package_extract_file("checkbb.sh", "/tmp/checkbb.sh");		
+set_perm(0, 0, 0777, "/tmp/checkbb.sh");
+
+run_program("/tmp/checkbb.sh");
+if file_getprop("/tmp/bb.prop","bb.exists") == "0" then
+	delete("/tmp/checkbb.sh");
+	delete("/tmp/bb.prop");
+	abort("ERROR: ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP do. CWM does not.)");
+endif;
+
+delete("/tmp/checkbb.sh");
+delete("/tmp/bb.prop");
+
 run_program("/sbin/busybox", "mount", "/system");
 
 assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) && less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ERROR: ParrotMod currently only supports Android 4.2-6.x, refusing to install."));
@@ -31,22 +44,7 @@ delete("/data/lastpmver.txt");
 delete("/data/lastpmver_univ.txt");
 delete("/data/system/parrotmod_last_version");
 
-package_extract_file("space.sh", "/tmp/space.sh");		
-set_perm(0, 0, 0777, "/tmp/space.sh");
-
-run_program("/tmp/space.sh", "8");
-if file_getprop("/tmp/space.prop","enough.space") == "0" then
-	delete("/tmp/exist.sh");
-	delete("/tmp/exist.prop");
-	delete("/tmp/space.sh");
-	delete("/tmp/space.prop");
-	abort("ERROR: ParrotMod requires at least 8MB of free space on the system partition, refusing to install. Delete some system apps or use a smaller GApps package.");
-endif;
-delete("/tmp/space.sh");
-delete("/tmp/space.prop");
-
 ui_print("Installing...");
-ui_print("");
 
 package_extract_dir("system", "/system");
 
@@ -78,6 +76,17 @@ endif;
 delete("/tmp/exist.sh");
 delete("/tmp/exist.prop");
 
+package_extract_file("emmcmodel.sh", "/tmp/emmcmodel.sh");		
+set_perm(0, 0, 0777, "/tmp/emmcmodel.sh");
+
+run_program("/tmp/emmcmodel.sh");
+if file_getprop("/tmp/emmc.prop","emmc.manfid") != "0x000015" then
+	ui_print("NOTICE: Automatic fstrim at boot is disabled because it would be too slow on your eMMC chip. It's a good idea to use a trimmer app or keep your tablet on overnight.");
+endif;
+
+delete("/tmp/emmcmodel.sh");
+delete("/tmp/emmc.prop");
+
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0755, "/system/lib/hw");
@@ -94,6 +103,9 @@ run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/syste
 run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/system/su.d");
 
 run_program("/system/etc/parrotmod/bprop.sh", "");
+
+ui_print("Running fstrim...");
+ui_print("");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");

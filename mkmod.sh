@@ -4,17 +4,11 @@ mkdir -p "ParrotMod/$branch"
 mv ParrotMod_Grouper_${branch}_2*.zip $branch/ 2>/dev/null
 date=$(date +%Y-%m-%d_%H.%M.%S)
 cd "$(dirname "$0")/zip"
-cd system/etc/parrotmod
-rm -f busybox
-curl -# -L -o busybox https://busybox.net/downloads/binaries/busybox-armv5l 
-cd ../../../
 rm -rf ../ParrotMod_Grouper_${branch}_${date}.zip
 find . -name '.DS_Store' -delete
 zip -9 -r -q ../ParrotMod_Grouper_${branch}_${date}.zip * 
 du -h ../ParrotMod_Grouper_${branch}_${date}.zip
-cd system/etc/parrotmod
-rm -f busybox
-cd ../../../../
+cd ..
 mv ParrotMod_Grouper_${branch}_2*.zip ParrotMod/$branch/ 2>/dev/null
 cd ParrotMod/$branch
 cn=1
