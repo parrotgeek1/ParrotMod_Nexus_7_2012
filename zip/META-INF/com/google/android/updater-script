@@ -80,7 +80,7 @@ package_extract_file("emmcmodel.sh", "/tmp/emmcmodel.sh");
 set_perm(0, 0, 0777, "/tmp/emmcmodel.sh");
 
 run_program("/tmp/emmcmodel.sh");
-if file_getprop("/tmp/emmc.prop","emmc.manfid") != "0x000015" then
+if file_getprop("/tmp/emmc.prop","emmc.manfid") == "0x000015" then
 	ui_print("NOTICE: Automatic fstrim at boot is disabled because it would be too slow on your eMMC chip. It's a good idea to use a trimmer app or keep your tablet on overnight.");
 endif;
 
