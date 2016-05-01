@@ -1,4 +1,3 @@
-
 #!/sbin/sh
 # 
 # /system/addon.d/01ParrotMod.sh
@@ -54,7 +53,7 @@ LC_ALL=C /sbin/busybox sed -i 's@intra-refresh-NOPE@intra-refresh-mode@g' /syste
     # Stub
   ;;
   post-restore)
-. /system/etc/parrotmod/bprop.sh # @me: don't remove the .
-/sbin/busybox fstrim -v /system
+    . /system/etc/parrotmod/bprop.sh # @me: don't remove the .
+    /sbin/busybox fstrim -v /system
   ;;
 esac
