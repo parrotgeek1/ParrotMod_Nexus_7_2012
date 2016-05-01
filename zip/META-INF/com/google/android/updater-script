@@ -81,11 +81,10 @@ set_perm(0, 0, 0777, "/tmp/emmcmodel.sh");
 
 run_program("/tmp/emmcmodel.sh");
 if file_getprop("/tmp/emmc.prop","emmc.manfid") == "0x000070" then
-	ui_print("NOTICE: Automatic fstrim at boot is disabled because it would be too slow on your Kingston eMMC chip. It's a good idea to use a trimmer app or keep your tablet on overnight.");
+	ui_print("NOTICE: Automatic fstrim at boot is disabled because it would be too slow on your tablet's Kingston eMMC chip. It's a good idea to use a trimmer app or keep your tablet on overnight.");
 endif;
 
 delete("/tmp/emmcmodel.sh");
-delete("/tmp/emmc.prop");
 
 set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
@@ -105,6 +104,11 @@ run_program("/sbin/busybox", "chcon", "-R", "u:object_r:system_file:s0", "/syste
 run_program("/system/etc/parrotmod/bprop.sh", "");
 
 ui_print("Running fstrim...");
+if file_getprop("/tmp/emmc.prop","emmc.manfid") == "0x000070" then
+	ui_print("NOTICE: This could take up to 10 minutes on your tablet's Kingston eMMC chip.");
+endif;
+
+delete("/tmp/emmc.prop");
 ui_print("");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/system");

@@ -7,7 +7,7 @@ XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-s
 
 Download: http://download.parrotgeek.com/android/ParrotMod/
 [THESE NEW VERSIONS DO NOT AUTO REBOOT AFTER INSTALL]
-Don't use Universal_Test unless I tell you to
+Don't use Universal_Test unless I tell you to.
 
 Github: https://github.com/parrotgeek1/ParrotMod_Grouper
 Feel free to fork/pull request! But always credit me if you make something based on it and ask me for permission first.
@@ -19,11 +19,13 @@ IMPORTANT NOTE
 
 ParrotMod needs 8MB of free space on the system partition. Don't use huge gapps packages.
 ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP do. CWM does not.)
+
 PLEASE disable io scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
+
 REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
 EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
 
-It's a good idea to schedule fstrim using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
+If the installer warns you about fstrim on boot being disabled, it's a good idea to schedule fstrim using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
 
 You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer.
 
@@ -46,6 +48,36 @@ tethering without carrier checks on tilapia
 Speed up full disk encryption, but it's still pretty bad
 GPU optimizations (without OC!)
 Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x]
+
+
+
+Instructions - From unrooted stock 5.1.1
+========================================
+[SPOILER]
+Download KingRoot apk from http://www.kingroot.net/, install it, ignore the warnings about the app being unsafe, and tap Root. If it says root failed, try again. It will eventually work.
+Install Flashify from the Play Store
+Download the latest Universal zip in the download link above on your tablet
+Download the zip from http://download.chainfire.eu/supersu-stable on your tablet
+Open Flashify and install TWRP recovery, the latest version (3.0.2 currently)
+Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
+Delete the KingRoot and Purify Apps
+Plug your tablet into a computer! (not even a charger) otherwise it will freeze on the next step. This is a bug in the tablet itself.
+Reboot your tablet while holding the power and volume down buttons. If this does not work power on while holding BOTH volume UP and DOWN. 
+Scroll with volume buttons to Recovery mode and tap power button
+You will see a Google screen and then TeamWin logo, just wait
+Tap Never show this screen again and Swipe to allow modification
+Tap Install
+You will see the files on your internal storage, go to Download folder
+Tap on ParrotMod_Grouper_Universal_XXXXXXX.zip
+Tap add more zips
+You will see the files on your internal storage, go to Download folder
+Tap on UPDATE-SuperSU-v2.55.zip
+Swipe to confirm flash
+When it finishes installing tap Reboot System
+Your tablet will reboot
+Wait 30 seconds for the device to settle
+Enjoy the improved speed! (You can delete ParrotMod_Grouper_Universal_XXXXXXX.zip now)
+[/SPOILER]
 
 Extras
 ======
@@ -94,9 +126,8 @@ Bluetooth 4.0 libs from https://github.com/manuelnaranjo/AndroidBluetoothLowEner
 Thanks
 ------
 
-Thanks to bangsergio on XDA for testing several dozen beta versions
-Thanks to @nereis for showing me a zram tweak
-
+Thanks to bangsergio on XDA for testing several dozen beta versions.
+Thanks to @nereis for showing me a zram tweak.
 
 How ParrotMod Works
 -------------------
