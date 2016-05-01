@@ -19,11 +19,13 @@ IMPORTANT NOTE
 
 ParrotMod needs 8MB of free space on the system partition. Don't use huge gapps packages.
 ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP do. CWM does not.)
+
 PLEASE disable io scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
+
 REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
 EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
 
-It's a good idea to schedule fstrim using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
+If the installer warns you about fstrim on boot being disabled, it's a good idea to schedule fstrim using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
 
 You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer.
 
