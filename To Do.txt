@@ -1,6 +1,5 @@
 Soon
 
-Noise fix addon.d
 support multirom USB drive: loop0 block device optimize
 Test encryption and optimize for speed
 
