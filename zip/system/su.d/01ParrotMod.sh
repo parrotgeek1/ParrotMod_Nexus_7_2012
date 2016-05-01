@@ -80,7 +80,7 @@ echo 2048 > nr_requests # don't clog the pipes
 # ANY READ that is unnecessary is bad
 echo 0 > add_random # don't contribute to entropy, it reads randomly in background
 echo 0 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
-echo 1 > rq_affinity # stay on same cpu core
+echo 2 > rq_affinity # moving cpus is "expensive"
 echo 0 > nomerges # try hard to merge requests 
 echo 0 > rotational # obviously, it's an ssd
 echo 0 > iostats # cpu hog
@@ -134,7 +134,7 @@ manfid=$(cat /sys/block/mmcblk0/device/manfid)
 
 for m in /data /realdata /cache /system ; do
 	$bb test ! -e $m && continue
-	$bb test $manfid != "0x000015" && fstrim -v "$m"
+	$bb test $manfid != "0x000070" && fstrim -v "$m"
 	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,data=writeback,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,noatime,nodiratime,inode_readahead_blks=8,dioread_nolock,max_batch_time=15000,nomblk_io_submit,stripe=1 "$m" "$m"
 	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
 done
@@ -159,7 +159,7 @@ if $bb test -e "/sys/block/dm-0/queue"; then # encrypted
 	$bb test -e scheduler && echo none > scheduler # don't need two schedulers
 	echo 1 > nr_requests # unnecessary
 	echo 0 > add_random # don't contribute to entropy
-	echo 0 > rq_affinity # there is no queue, who cares
+	echo 2 > rq_affinity # moving cpus is "expensive"
 	echo 0 > nomerges # try to merge
 	echo 0 > rotational # obviously
 	echo 0 > iostats # cpu hog
@@ -185,6 +185,7 @@ if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
 	echo noop > /sys/block/zram0/queue/scheduler # it's not a disk
 	echo 2 > /sys/block/zram0/queue/nomerges
 	echo 0 > /sys/block/zram0/queue/read_ahead_kb 
+	echo 2 > /sys/block/zram0/queue/rq_affinity # moving cpus is "expensive"
 fi
 
 # GPU
@@ -192,16 +193,6 @@ fi
 echo 0 > /sys/devices/tegradc.0/smartdimmer/enable # PRISM off
 setprop persist.tegra.didim.enable 0 # PRISM off (2)
 echo 1 > /sys/devices/host1x/gr3d/enable_3d_scaling # stop throttling gpu
-
-# restrict /system/bin/sdcard to only 2 cpus on lollipop. 
-# Google enabled it to use 4 threads in 5.0.2 to supposedly help performance
-# it actually causes MORE lag with ParrotMod
-# I can't change init.rc to tell it to use only 2 threads without a custom kernel
-
-if $bb test "$(getprop ro.build.version.sdk)" -ge 21; then
-	$bb taskset 0x00000003 -p "$($bb pidof sdcard)" # 0x00000003 is processors #0 and #1
-	$bb renice 5 "$($bb pidof sdcard)"
-fi
 
 # for fixing audio stutter when multitasking
 # increase priority of audio, decrease priority of eMMC *when something else is using the CPU ONLY*
