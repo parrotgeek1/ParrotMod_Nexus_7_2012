@@ -46,7 +46,7 @@ can use more storage space before it doesn't let you
 Survives ROM updates with addon.d
 tethering without carrier checks on tilapia
 Speed up full disk encryption, but it's still pretty bad
-GPU optimizations (without OC!)
+GPU optimizations (without OC!) and hardware acceleration properties, decrease GPU RAM usage by 4.4mb per app!
 Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x]
 
 Instructions - From unrooted stock 5.1.1
