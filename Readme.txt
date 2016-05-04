@@ -9,7 +9,7 @@ Download: http://download.parrotgeek.com/android/ParrotMod/
 [THESE NEW VERSIONS DO NOT AUTO REBOOT AFTER INSTALL]
 Don't use Universal_Test unless I tell you to.
 
-Github: https://github.com/parrotgeek1/ParrotMod_Grouper
+GitHub: https://github.com/parrotgeek1/ParrotMod_Grouper
 Feel free to fork/pull request! But always credit me if you make something based on it and ask me for permission first.
 
 Performance Video (very old): https://www.youtube.com/watch?v=CSp8mc5ZkkE
