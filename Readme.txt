@@ -20,12 +20,12 @@ IMPORTANT NOTE
 ParrotMod needs 8MB of free space on the system partition. Don't use huge gapps packages.
 ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP do. CWM does not.)
 
-PLEASE disable io scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
+PLEASE disable IO scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
 
 REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
 EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
 
-If the installer warns you about fstrim on boot being disabled, it's a good idea to schedule fstrim using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
+If the installer warns you about TRIM on boot being disabled, it's a good idea to schedule TRIM using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
 
 You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer.
 
@@ -33,19 +33,19 @@ Features:
 =========
 
 FLASH MEMORY SPEED INCREASE! up to 4x better performance WITHOUT F2FS OR DYNAMIC FSYNC
-Auto trim at boot, but ONLY for Samsung eMMC (it is too slow for Hynix/Kingston)
-uses ext4 but can use data/cache f2fs
-audio stutter and multitasking fix
-miracast enabled (but it freezes on disconnect unless you unplug from the receiver end)
-can set up device without wifi
+Auto trim at boot, but ONLY for Samsung flash storage (it is too slow for Hynix/Kingston)
+Uses ext4 but can use data/cache f2fs
+Audio stutter and multitasking fix
+Miracast enabled (but it freezes on disconnect unless you unplug from the receiver end)
+Can set up device without Wi-Fi
 Bluetooth 4.0 enabled (BLE/GATT/SMP), CVE vulnerabilities fixed (for 5.x)
-more apps open at once (minfree tweak, scheduler tweaks, 64k log buffers, zram optimized)
+More apps open at once (minfree tweak, scheduler tweaks, 64k log buffers, zram optimized)
 LCD color fix (no Nvidia smartdimmer/Prism)
-internet optimizations
-can use more storage space before it doesn't let you
+Internet optimizations
+Can use more storage space before it doesn't let you
 Survives ROM updates with addon.d
-tethering without carrier checks on tilapia
-Speed up full disk encryption, but it's still pretty bad
+Tethering without carrier checks on 3G Nexus 7
+Speed up full disk encryption
 GPU optimizations (without OC!) and hardware acceleration properties, decrease GPU RAM usage by 4.4mb per app!
 Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x]
 
@@ -130,7 +130,7 @@ Thanks to @nereis for showing me a zram tweak.
 How ParrotMod Works
 -------------------
 
-ParrotMod works by trying to counteract the slow eMMC flash speed, by decreasing unnecessary reads and writes, and also optimizing how well processes share the bandwidth.
+ParrotMod works by trying to counteract the slow flash storage speed, by decreasing unnecessary reads and writes, and also optimizing how well processes share the bandwidth.
 To optimize RAM, it also changes minfree values, replaces libart and libc with optimized versions (reverting to the memory allocator that was in 4.4.4), and enables zram (but in a less CPU intensive compression mode).
 It also enables GPU clock scaling instead of throttling based on CPU speed, to improve performance in GPU-bound games. It also disables nvidia PRISM adaptive backlight to fix washed out screen in videos. 
 It increases the CPU priority of audio players, and the hd-audio0 kernel thread, to fix sound stutter when multitasking.
