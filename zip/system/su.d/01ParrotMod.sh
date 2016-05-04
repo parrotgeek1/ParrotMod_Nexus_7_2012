@@ -129,7 +129,7 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 # flush_merge = more efficient writing
 # inline_* = more efficiently pack file info together
 
-# trim is super slow on hynix/kingston
+# trim is super slow on kingston
 manfid=$(cat /sys/block/mmcblk0/device/manfid)
 
 for m in /data /realdata /cache /system ; do
