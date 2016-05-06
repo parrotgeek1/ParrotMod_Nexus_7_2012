@@ -35,7 +35,7 @@ setprop dalvik.vm.heapstartsize 8m
 setprop dalvik.vm.heapgrowthlimit 128m
 setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
-setprop dalvik.vm.heapminfree 512m
+setprop dalvik.vm.heapminfree 512k
 setprop dalvik.vm.heapmaxfree 8m
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
