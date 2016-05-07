@@ -2,7 +2,7 @@
 
 change_or_add() {
 	/sbin/busybox sed -i "s@${1}=.*@${1}=${2}@" /system/build.prop
-	/sbin/busybox grep -F -v -q "${1}=" /system/build.prop && echo "${1}=${2}" >> /system/build.prop
+	/sbin/busybox grep -F -q "${1}=" /system/build.prop || echo "${1}=${2}" >> /system/build.prop
 }
 
 comment_out() {
