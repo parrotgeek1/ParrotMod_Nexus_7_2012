@@ -35,7 +35,7 @@ setprop dalvik.vm.heapstartsize 8m
 setprop dalvik.vm.heapgrowthlimit 128m
 setprop dalvik.vm.heapsize 174m
 setprop dalvik.vm.heaptargetutilization 0.75
-setprop dalvik.vm.heapminfree 512m
+setprop dalvik.vm.heapminfree 512k
 setprop dalvik.vm.heapmaxfree 8m
 
 echo 4096 > /proc/sys/vm/min_free_kbytes
@@ -129,7 +129,7 @@ echo "1000000000" > iosched/back_seek_max # i.e. the whole disk
 # flush_merge = more efficient writing
 # inline_* = more efficiently pack file info together
 
-# trim is super slow on hynix/kingston
+# trim is super slow on kingston
 manfid=$(cat /sys/block/mmcblk0/device/manfid)
 
 for m in /data /realdata /cache /system ; do
