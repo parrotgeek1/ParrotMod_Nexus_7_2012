@@ -6,7 +6,3 @@ F2fs SYSFS tweaks https://github.com/CyanogenMod/android_kernel_asus_grouper/blo
 Later
 
 fix bug, to disconnect miracast, need to unplug miracast dongle from tv
-
-Whenever
-
-Fix BT cves 4.x?
