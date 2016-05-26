@@ -3,6 +3,8 @@ What is ParrotMod?
 
 This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM. (except for 4.1.x, due to SuperSU incompatibility)
 
+(Got a 2013 Nexus 7? Use this version: http://forum.xda-developers.com/nexus-7-2013/orig-development/beta-1-parrotmod-improve-2013-nexus-7-t3375928)
+
 XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
 
 Download: http://download.parrotgeek.com/android/ParrotMod/
