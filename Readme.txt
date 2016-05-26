@@ -27,7 +27,7 @@ EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, TH
 
 If the installer warns you about TRIM on boot being disabled, it's a good idea to schedule TRIM using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
 
-You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer.
+You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer. Do NOT use ROM Toolbox or Root Browser, otherwise you will not be able to see the folders. Use Solid Explorer or FX.
 
 Features:
 =========
@@ -118,8 +118,9 @@ Credit
 Busybox from BSZAospLp ROM LMY49H
 libc/libart from i9300 CM13/JustArchi CM12.1 old beta
 Charging Noise Fix is based on an apk from the Moto G 2015 stock ROM.
-Bluetooth 4.0 libs from https://github.com/manuelnaranjo/AndroidBluetoothLowEnergyEnabler/tree/master/releases
-5.x BT libs from Dreams - version 5.3.9.4 for Maguro
+Bluetooth 4.0 libs for 4.3 from https://github.com/manuelnaranjo/AndroidBluetoothLowEnergyEnabler/tree/master/releases
+BT4.0 KitKat libs from cm-11-20160509-UNOFFICIAL-grouper by @dookie23
+Bt4.0 5.x libs from Dreams - version 5.3.9.4 for Maguro
 
 Thanks
 ------
