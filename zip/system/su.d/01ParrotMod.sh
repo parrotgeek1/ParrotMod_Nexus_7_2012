@@ -4,20 +4,12 @@
 
 mypid=$$
 echo "-1000" > /proc/$mypid/oom_score_adj
+olddir="$(pwd)"
 
 bb=/system/etc/parrotmod/busybox
 
-# https://android.googlesource.com/device/huawei/angler/+/master/init.angler.power.sh
-
-################################################################################
-# helper functions to allow Android init like script
-function write() {
-    $bb echo -n $2 > $1 2>/dev/null
-}
-################################################################################
-
 # Disable sysrq from keyboard, Marshmallow does this
-write /proc/sys/kernel/sysrq 0
+echo 0 > /proc/sys/kernel/sysrq
 
 #enable miracast
 setprop persist.debug.wfd.enable 1
@@ -29,7 +21,7 @@ setprop net.tethering.noprovisioning true
 
 setprop persist.sys.purgeable_assets 1 # only for CM, can purge bitmaps
 
-write /sys/kernel/mm/ksm/run 0 # NO KSM, too cpu intensive, not much savings
+echo 1 > /sys/kernel/mm/ksm/run # NO KSM, too cpu intensive, not much savings
 
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
@@ -45,78 +37,78 @@ setprop dalvik.vm.heapmaxfree 8m
 $bb chmod -R 0777 /sys/module/lowmemorykiller/parameters
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
-echo 48 > /sys/module/lowmemorykiller/parameters/cost
+echo 48 > /sys/module/lowmemorykiller/parameters/cost # default 32
 $bb chmod -R 0555 /sys/module/lowmemorykiller/parameters # so android can't edit it
 
-# Disable auto-scaling of scheduler tunables with hotplug. The tunables
-# will vary across devices in unpredictable ways if allowed to scale with
-# cpu cores.
-write /proc/sys/kernel/sched_tunable_scaling 0
+echo 1 > /proc/sys/vm/highmem_is_dirtyable # allow LMK to free more ram
 
-write /proc/sys/vm/highmem_is_dirtyable 1 # i dont actually know but it works!
-
+settings put global fstrim_mandatory_interval 86400000 # 1 day
+settings put global storage_benchmark_interval 9223372036854775807 # effectively, never
 
 cd /sys/block/mmcblk0/queue
 echo 512 > nr_requests # don't clog the pipes
-# ANY READ that is unnecessary is bad
 echo 0 > add_random # don't contribute to entropy, it reads randomly in background
 echo 0 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 echo 2 > rq_affinity # moving cpus is "expensive"
 
-# https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
+$bb grep -Fq 'row' scheduler && echo row > scheduler # prefer row
 
-echo cfq > scheduler
-echo 4 > iosched/slice_async_rq # they should be the same ratio as slices
-echo 16 > iosched/quantum # can dispatch more to a 2048-big queue at once
+if $bb grep -Fq '[cfq]' scheduler ; then
+# https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt
 echo 0 > iosched/slice_idle # never idle WITHIN groups
 echo 10 > iosched/group_idle # BUT make sure there is differentiation between cgroups
-echo "1" > iosched/low_latency # duh
-echo "1" > iosched/back_seek_penalty # no penalty
-echo "2147483647" > iosched/back_seek_max # i.e. the whole disk
-
-# fs tune
-# not using discard because it makes audio stutter worse
-
-# trim is super slow on kingston
-manfid=$(cat /sys/block/mmcblk0/device/manfid)
-
-for m in /data /realdata /cache /system ; do
-	$bb test ! -e $m && continue
-	$bb test $manfid != "0x000070" && $bb fstrim -m 1048576 "$m"
-	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,inode_readahead_blks=8,dioread_nolock "$m" "$m"
-	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
-done
-
-for f in /sys/fs/ext4/*; do
-	$bb test "$f" = "/sys/fs/ext4/features" && continue
-	echo 8 > ${f}/max_writeback_mb_bump # don't spend too long writing ONE file if multiple need to write
-done
-
-for f in /sys/devices/system/cpu/cpufreq/*; do
-	write ${f}/io_is_busy 0 2>/dev/null # no polling so io does not use cpu
-done
-
-if test -e "/sys/block/dm-0/queue"; then # encrypted
-	cd /sys/block/dm-0/queue
-	echo 0 > add_random # don't contribute to entropy
-	echo 2 > rq_affinity # moving cpus is "expensive"
+echo 1 > iosched/back_seek_penalty # no penalty
+echo 16 > iosched/quantum # default 8. Removes bottleneck
+echo 4 > iosched/slice_async_rq # default 2. See above
+echo 2147483647 > iosched/back_seek_max # i.e. the whole disk
 fi
 
+cd "$olddir"
 
-write /proc/sys/vm/page-cluster 0 # zram is not a disk with a sector size, can swap 1 page at once
+# fs tune
 
-if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
-	# use busybox bc some old roms swap utils don't work
-	$bb swapoff /dev/block/zram0 >/dev/null 2>&1
-	$bb umount /dev/block/zram0 >/dev/null 2>&1
-	write /sys/block/zram0/reset 1
-	write /sys/block/zram0/disksize $((256*1024*1024))
-	$bb mkswap /dev/block/zram0
-	$bb swapon -p 32767 /dev/block/zram0 # max priority
-	echo noop > /sys/block/zram0/queue/scheduler # it's not a disk
-	echo 2 > /sys/block/zram0/queue/nomerges
-	echo 0 > /sys/block/zram0/queue/read_ahead_kb 
-	echo 2 > /sys/block/zram0/queue/rq_affinity # moving cpus is "expensive"
+for m in /data /realdata /cache /system ; do
+test ! -e $m && continue
+$bb test $manfid != "0x000070" && $bb fstrim -m 1048576 "$m"
+mount | $bb grep "$m" | $bb grep -q ext4 && mount -t ext4 -o remount,noauto_da_alloc,journal_async_commit,journal_ioprio=7,barrier=0,dioread_nolock "$m" "$m"
+mount | $bb grep "$m" | $bb grep -q f2fs && mount -t f2fs -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
+done
+
+(for f in /sys/fs/ext4/*; do
+test "$f" = "/sys/fs/ext4/features" && continue
+echo 8 > ${f}/max_writeback_mb_bump # don't spend too long writing ONE file if multiple need to write
+done) 2>/dev/null
+
+for f in /sys/block/*; do
+echo 0 > "${f}/queue/add_random" 2>/dev/null # don't contribute to entropy
+done
+
+if test -e /sys/block/dm-0; then
+for f in /sys/block/dm-*; do # encrypted filesystems
+echo 2 > "${f}/queue/rq_affinity" # moving cpus is "expensive"
+echo 0 > "${f}/queue/rotational"
+done
+fi
+
+if test -e /sys/block/loop0; then
+for f in /sys/block/loop*; do # loopback, like multirom USB boot
+echo none > "${f}/queue/scheduler"
+echo 0 > "${f}/queue/read_ahead_kb" # because there is already readahead on the USB device
+echo 0 > "${f}/queue/rotational"
+done
+fi
+
+echo 40 > /proc/sys/vm/swappiness # 60 default is too high especially with lmk cost changed
+echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size, can swap 1 page at once
+
+if test -e /sys/block/zram0; then
+swapoff /dev/block/zram0 >/dev/null 2>&1
+echo 1 > /sys/block/zram0/reset
+test -e /sys/block/zram0/max_comp_streams && echo 2 > /sys/block/zram0/max_comp_streams # half the number of cores
+test -e /sys/block/zram0/comp_algorithm && echo lz4 > /sys/block/zram0/comp_algorithm # it's faster than lzo but some kernels don't have it
+echo 536870912 > /sys/block/zram0/disksize # 512mb
+mkswap /dev/block/zram0
+swapon -p 32767 /dev/block/zram0 # highest possible priority
 fi
 
 # GPU
