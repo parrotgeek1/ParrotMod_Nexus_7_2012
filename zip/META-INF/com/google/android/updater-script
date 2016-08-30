@@ -23,7 +23,7 @@ delete("/tmp/bb.prop");
 
 run_program("/sbin/busybox", "mount", "/system");
 
-assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) && less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),24) || abort ("ERROR: ParrotMod currently only supports Android 4.2-6.x, refusing to install."));
+assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) || abort ("ERROR: ParrotMod currently only supports Android 4.2+, refusing to install."));
 	
 ui_print("Freeing space...");
 
@@ -63,8 +63,8 @@ if sha1_check(package_extract_file("libc/"+file_getprop("/system/build.prop","ro
 endif;
 
 
-run_program("/tmp/exist.sh", "/system/xposed.prop");
 if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
+	run_program("/tmp/exist.sh", "/system/xposed.prop");
 	if file_getprop("/tmp/exist.prop","file.exists") == "1" then
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");
 		ui_print("WARNING: Some ART runtime optimizations are not available when Xposed is installed! Please uninstall it to enable them.");
@@ -76,9 +76,9 @@ endif;
 delete("/tmp/exist.sh");
 delete("/tmp/exist.prop");
 
-set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
+set_perm_recursive(0, 0, 0755, 0755, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
-set_perm_recursive(0, 0, 0755, 0755, "/system/lib/hw");
+set_perm_recursive(0, 0, 0755, 0644, "/system/lib/hw");
 set_perm_recursive(0, 0, 0755, 0755, "/system/addon.d");
 
 if !less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) then

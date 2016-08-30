@@ -42,6 +42,7 @@ setprop dalvik.vm.heaptargetutilization 0.75
 setprop dalvik.vm.heapminfree 512k
 setprop dalvik.vm.heapmaxfree 8m
 
+$bb chmod -R 0777 /sys/module/lowmemorykiller/parameters
 echo "0,1,2,4,7,15" > /sys/module/lowmemorykiller/parameters/adj  # https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/am/ProcessList.java#50
 echo "8192,10240,12288,14336,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree # the same as Moto G 5.1, and AOSP 4.x
 echo 48 > /sys/module/lowmemorykiller/parameters/cost
@@ -81,7 +82,7 @@ manfid=$(cat /sys/block/mmcblk0/device/manfid)
 
 for m in /data /realdata /cache /system ; do
 	$bb test ! -e $m && continue
-	$bb test $manfid != "0x000070" && fstrim -v "$m"
+	$bb test $manfid != "0x000070" && $bb fstrim -m 1048576 "$m"
 	mount | $bb grep "$m" | $bb grep -q ext4 && mount -o remount,noauto_da_alloc,delalloc,journal_async_commit,journal_ioprio=7,barrier=0,commit=15,inode_readahead_blks=8,dioread_nolock "$m" "$m"
 	mount | $bb grep "$m" | $bb grep -q f2fs && mount -o remount,nobarrier,flush_merge,inline_xattr,inline_data,inline_dentry "$m" "$m"
 done
@@ -92,7 +93,7 @@ for f in /sys/fs/ext4/*; do
 done
 
 for f in /sys/devices/system/cpu/cpufreq/*; do
-	write ${f}/io_is_busy 0 # no polling so io does not use cpu
+	write ${f}/io_is_busy 0 2>/dev/null # no polling so io does not use cpu
 done
 
 if test -e "/sys/block/dm-0/queue"; then # encrypted
@@ -109,8 +110,6 @@ if $bb test -e "/sys/block/zram0"; then # 256 mb zram if supported
 	$bb swapoff /dev/block/zram0 >/dev/null 2>&1
 	$bb umount /dev/block/zram0 >/dev/null 2>&1
 	write /sys/block/zram0/reset 1
-	write /sys/block/zram0/comp_algorithm lz4 # less cpu intensive than lzo
-	write /sys/block/zram0/max_comp_streams 2 # on 2015 Google devices, this is half the number of cores
 	write /sys/block/zram0/disksize $((256*1024*1024))
 	$bb mkswap /dev/block/zram0
 	$bb swapon -p 32767 /dev/block/zram0 # max priority
