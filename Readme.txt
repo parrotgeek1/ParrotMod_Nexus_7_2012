@@ -49,7 +49,7 @@ Survives ROM updates with addon.d
 Tethering without carrier checks on 3G Nexus 7
 Speed up full disk encryption
 GPU optimizations (without OC!) and hardware acceleration properties, decrease GPU RAM usage by 4.4mb per app!
-Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x]
+Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x or 7.x]
 
 Instructions - From unrooted stock 5.1.1
 ========================================
@@ -71,7 +71,7 @@ You will see the files on your internal storage, go to Download folder
 Tap on ParrotMod_Grouper_Universal_XXXXXXX.zip
 Tap add more zips
 You will see the files on your internal storage, go to Download folder
-Tap on UPDATE-SuperSU-v2.55.zip
+Tap on UPDATE-SuperSU-v2.XX.zip
 Swipe to confirm flash
 When it finishes installing tap Reboot System
 Your tablet will reboot
