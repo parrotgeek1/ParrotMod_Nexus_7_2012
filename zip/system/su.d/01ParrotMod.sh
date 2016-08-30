@@ -72,6 +72,9 @@ cd "$olddir"
 
 # fs tune
 
+# trim is super slow on kingston
+manfid=$(cat /sys/block/mmcblk0/device/manfid)
+
 for m in /data /realdata /cache /system ; do
 test ! -e $m && continue
 $bb test $manfid != "0x000070" && $bb fstrim -m 1048576 "$m"
