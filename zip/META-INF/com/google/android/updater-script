@@ -23,6 +23,8 @@ delete("/tmp/bb.prop");
 
 run_program("/sbin/busybox", "mount", "/system");
 
+assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) || abort ("ERROR: ParrotMod currently only supports Android 4.2+, refusing to install."));
+
 ui_print("Installing...");
 
 if !less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),21) then
@@ -38,9 +40,5 @@ ui_print("");
 
 run_program("/sbin/busybox", "fstrim", "-v", "/system");
 run_program("/sbin/busybox", "umount", "/system");
-
-run_program("/sbin/busybox", "fstrim", "-v", "/data");
-
-run_program("/sbin/busybox", "fstrim", "-v", "/cache");
 
 ui_print("Enjoy the Charging Noise Fix!");
