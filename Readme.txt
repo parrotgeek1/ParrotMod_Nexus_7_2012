@@ -102,7 +102,7 @@ Known Bugs
 ----------
 
 Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
-The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4.x or 5.0.x.
+The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4.x, 5.0.x, or 7.0.
 
 Recommended Kernel: 
 ===================
@@ -121,7 +121,8 @@ libc/libart from i9300 CM13/JustArchi CM12.1 old beta
 Charging Noise Fix is based on an apk from the Moto G 2015 stock ROM.
 Bluetooth 4.0 libs for 4.3 from https://github.com/manuelnaranjo/AndroidBluetoothLowEnergyEnabler/tree/master/releases
 BT4.0 KitKat libs from cm-11-20160509-UNOFFICIAL-grouper by @dookie23
-Bt4.0 5.x libs from Dreams - version 5.3.9.4 for Maguro
+BT4.0 5.x libs from Dreams - version 5.3.9.4 for Maguro
+BT4.0 6.x libs from aosp_grouper-ota-eng-20160803.ds.zip by @AndDiSa
 
 Thanks
 ------
