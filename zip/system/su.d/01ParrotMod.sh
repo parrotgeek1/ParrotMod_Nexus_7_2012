@@ -102,13 +102,13 @@ echo 40 > /proc/sys/vm/swappiness # 60 default is too high especially with lmk c
 echo 0 > /proc/sys/vm/page-cluster # zram is not a disk with a sector size, can swap 1 page at once
 
 if test -e /sys/block/zram0; then
-swapoff /dev/block/zram0 >/dev/null 2>&1
+$bb swapoff /dev/block/zram0 >/dev/null 2>&1
 echo 1 > /sys/block/zram0/reset
 test -e /sys/block/zram0/max_comp_streams && echo 2 > /sys/block/zram0/max_comp_streams # half the number of cores
 test -e /sys/block/zram0/comp_algorithm && echo lz4 > /sys/block/zram0/comp_algorithm # it's faster than lzo but some kernels don't have it
 echo 536870912 > /sys/block/zram0/disksize # 512mb
-mkswap /dev/block/zram0
-swapon -p 32767 /dev/block/zram0 # highest possible priority
+$bb mkswap /dev/block/zram0
+$bb swapon -p 32767 /dev/block/zram0 # highest possible priority
 fi
 
 # GPU
