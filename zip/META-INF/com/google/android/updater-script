@@ -64,6 +64,7 @@ endif;
 
 
 if sha1_check(package_extract_file("libart/"+file_getprop("/system/build.prop","ro.build.version.sdk")+"/sentinel")) != "" then
+	package_extract_dir("libart/system", "/system");
 	run_program("/tmp/exist.sh", "/system/xposed.prop");
 	if file_getprop("/tmp/exist.prop","file.exists") == "1" then
 		package_extract_file("libart/system/lib/libart.so", "/system/lib/libart.so.orig");

@@ -95,13 +95,12 @@ Please don't use with ParrotMod:
 --------------------------------
 
 L Speed/any other "supercharger" like tweaks. I will ignore any support requests if you use them. Most are very badly programmed/full of placebos.
-disable journaling zip (it conflicts with my script, and doesn't improve performance)
+Disable journaling zip (it conflicts with my script, and doesn't improve performance)
 Don't limit background processes, it might even make the tablet SLOWER. As of version 2016-04-30, the installer script removes this setting from build.prop automatically.
 
 Known Bugs
 ----------
 
-F2FS optimizations are missing, mostly because I don't want to wipe data to test them. Performance should still be fine though.
 Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
 The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4.x or 5.0.x.
 
