@@ -77,7 +77,7 @@ endif;
 delete("/tmp/exist.sh");
 delete("/tmp/exist.prop");
 
-set_perm_recursive(0, 0, 0755, 0755, "/system/su.d");
+set_perm_recursive(0, 0, 0700, 0700, "/system/su.d");
 set_perm_recursive(0, 0, 0755, 0755, "/system/etc/parrotmod");
 set_perm_recursive(0, 0, 0755, 0644, "/system/lib/hw");
 set_perm_recursive(0, 0, 0755, 0755, "/system/addon.d");
@@ -111,7 +111,7 @@ endif;
 delete("/tmp/emmc.prop");
 ui_print("");
 
-run_program("/sbin/busybox", "fstrim", "-v", "/system");
+run_program("/sbin/busybox", "fstrim", "/system");
 run_program("/sbin/busybox", "umount", "/system");
 
 ui_print("Enjoy ParrotMod!");

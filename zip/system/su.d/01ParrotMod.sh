@@ -1,10 +1,4 @@
-#!/system/bin/sh
-
-date > /data/cheese
-
-# i give up
-selinuxold=$(cat /sys/fs/selinux/enforce)
-echo 0 > /sys/fs/selinux/enforce
+#!/tmp-mksh/tmp-mksh
 
 # stop this script from being killed
 
@@ -133,5 +127,3 @@ $bb ionice -c 1 -n 2 -p $($bb pidof hd-audio0)
 
 $bb renice 5 $($bb pidof mmcqd/0)
 $bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to stop auto ionice from renice
-
-echo $selinuxold > /sys/fs/selinux/enforce
