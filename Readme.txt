@@ -57,7 +57,7 @@ Instructions - From unrooted stock 5.1.1
 Download KingRoot apk from http://www.kingroot.net/, install it, ignore the warnings about the app being unsafe, and tap Root. If it says root failed, try again. It will eventually work.
 Install Flashify from the Play Store
 Download the latest Universal zip in the download link above on your tablet
-Download the zip from http://download.chainfire.eu/supersu-stable on your tablet
+Download the SuperSU 2.71 zip from [url]http://download.chainfire.eu/932[/url] on your tablet
 Open Flashify and install TWRP recovery, the latest version (3.0.2 currently)
 Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
 Delete the KingRoot and Purify Apps
