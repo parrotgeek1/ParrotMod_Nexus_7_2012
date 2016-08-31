@@ -1,14 +1,13 @@
 What is ParrotMod?
 ==================
 
-This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM. (except for 4.1-4.3, due to SuperSU incompatibility)
+This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM. (except for 4.1-4.2, due to SuperSU incompatibility)
 
 (Got a 2013 Nexus 7? Use this version: http://forum.xda-developers.com/nexus-7-2013/orig-development/beta-1-parrotmod-improve-2013-nexus-7-t3375928)
 
 XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
 
 Download: http://download.parrotgeek.com/android/ParrotMod/
-[THESE NEW VERSIONS DO NOT AUTO REBOOT AFTER INSTALL]
 Don't use Universal_Test unless I tell you to.
 
 GitHub: https://github.com/parrotgeek1/ParrotMod_Grouper
@@ -24,8 +23,9 @@ ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP d
 
 PLEASE disable IO scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
 
-REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
-EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
+REQUIRES SUPERSU 2.71 INSTALLED FIRST: https://download.chainfire.eu/932
+EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU 2.71!
+NOTHING NEWER THAN 2.71 WILL WORK DUE TO A BUG IN SUPERSU ITSELF.
 
 If the installer warns you about TRIM on boot being disabled, it's a good idea to schedule TRIM using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
 
@@ -81,8 +81,7 @@ Enjoy the improved speed! (You can delete ParrotMod_Grouper_Universal_XXXXXXX.zi
 Extras
 ======
 
-Fix for speaker/headphone buzzing while charging
-http://download.parrotgeek.com/android/ParrotMod/ChargingNoiseFix/
+Fix for speaker/headphone buzzing while charging: http://download.parrotgeek.com/android/ParrotMod/ChargingNoiseFix/
 
 Upgrade notes
 -------------
