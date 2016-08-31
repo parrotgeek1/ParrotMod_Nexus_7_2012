@@ -23,7 +23,7 @@ delete("/tmp/bb.prop");
 
 run_program("/sbin/busybox", "mount", "/system");
 
-assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),17) || abort ("ERROR: ParrotMod currently only supports Android 4.2+, refusing to install."));
+assert(!less_than_int(file_getprop("/system/build.prop","ro.build.version.sdk"),18) || abort ("ERROR: ParrotMod currently only supports Android 4.3+, refusing to install."));
 	
 ui_print("Freeing space...");
 
