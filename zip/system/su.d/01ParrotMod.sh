@@ -1,8 +1,4 @@
-#!/system/bin/sh
-
-# i give up
-selinuxold=$(cat /sys/fs/selinux/enforce)
-echo 0 > /sys/fs/selinux/enforce
+#!/tmp-mksh/tmp-mksh
 
 # stop this script from being killed
 
@@ -52,8 +48,8 @@ settings put global storage_benchmark_interval 9223372036854775807 # effectively
 cd /sys/block/mmcblk0/queue
 echo 512 > nr_requests # don't clog the pipes
 echo 0 > add_random # don't contribute to entropy, it reads randomly in background
-echo 0 > read_ahead_kb # yes, I am serious, see http://forum.xda-developers.com/showthread.php?t=1032317
 echo 2 > rq_affinity # moving cpus is "expensive"
+echo 0 > read_ahead_kb
 
 $bb grep -Fq 'row' scheduler && echo row > scheduler # prefer row
 
@@ -70,6 +66,9 @@ fi
 cd "$olddir"
 
 # fs tune
+
+# trim is super slow on kingston
+manfid=$(cat /sys/block/mmcblk0/device/manfid)
 
 for m in /data /realdata /cache /system ; do
 test ! -e $m && continue
@@ -110,7 +109,7 @@ $bb swapoff /dev/block/zram0 >/dev/null 2>&1
 echo 1 > /sys/block/zram0/reset
 test -e /sys/block/zram0/max_comp_streams && echo 2 > /sys/block/zram0/max_comp_streams # half the number of cores
 test -e /sys/block/zram0/comp_algorithm && echo lz4 > /sys/block/zram0/comp_algorithm # it's faster than lzo but some kernels don't have it
-echo 536870912 > /sys/block/zram0/disksize # 512mb
+echo 268435456 > /sys/block/zram0/disksize # 256mb
 $bb mkswap /dev/block/zram0
 $bb swapon -p 32767 /dev/block/zram0 # highest possible priority
 fi
@@ -129,5 +128,3 @@ $bb ionice -c 1 -n 2 -p $($bb pidof hd-audio0)
 
 $bb renice 5 $($bb pidof mmcqd/0)
 $bb ionice -c 2 -n 4 -p $($bb pidof mmcqd/0) # to stop auto ionice from renice
-
-echo $selinuxold > /sys/fs/selinux/enforce
