@@ -7,7 +7,7 @@ This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY roo
 
 XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
 
-Download: http://download.parrotgeek.com/android/ParrotMod/
+Download: http://download.parrotgeek.com/Android/ParrotMod/
 Don't use Universal_Test unless I tell you to.
 
 GitHub: https://github.com/parrotgeek1/ParrotMod_Grouper
