@@ -48,7 +48,7 @@ Survives ROM updates with addon.d
 Tethering without carrier checks on 3G Nexus 7
 Speed up full disk encryption
 GPU optimizations (without OC!) and hardware acceleration properties, decrease GPU RAM usage by 4.4mb per app!
-Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x or 7.x]
+Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for better garbage collection [Not on 5.0.x]
 
 Instructions - From unrooted stock 5.1.1
 ========================================
@@ -56,7 +56,7 @@ Instructions - From unrooted stock 5.1.1
 Download KingRoot apk from http://www.kingroot.net/ on your tablet, install it, ignore the warnings about the app being unsafe, and tap Root. If it says root failed, try again. It will eventually work.
 Install Flashify from the Play Store
 Download the latest Universal zip in the download link above on your tablet
-Download the SuperSU 2.71 zip from http://download.chainfire.eu/supersu-stable on your tablet
+Download the SuperSU zip from http://download.chainfire.eu/supersu-stable on your tablet
 Open Flashify and install TWRP recovery, the latest version (3.0.2 currently)
 Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
 Delete the KingRoot and Purify Apps
@@ -100,7 +100,7 @@ Known Bugs
 ----------
 
 Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
-The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4.x, 5.0.x, or 7.0.
+The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4.x or 5.0.x.
 
 Recommended Kernel: 
 ===================
@@ -137,5 +137,4 @@ To optimize RAM, it also changes minfree values, replaces libart and libc with o
 It also enables GPU clock scaling instead of throttling based on CPU speed, to improve performance in GPU-bound games. It also disables nvidia PRISM adaptive backlight to fix washed out screen in videos. 
 It increases the CPU priority of audio players, and the hd-audio0 kernel thread, to fix sound stutter when multitasking.
 Finally, it increases wifi transmit power and noise filter in nvram.txt to increase wifi range.
-(I also made my own patches to enable miracast and BT 4.0)
-The code on GitHub is extremely well commented.
+I also made my own patches to enable miracast and BT 4.0.
