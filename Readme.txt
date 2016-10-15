@@ -1,7 +1,7 @@
 What is ParrotMod?
 ==================
 
-This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted ROM. (except for 4.1-4.2, due to SuperSU incompatibility)
+This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted Android 4.3+ ROM.
 
 (Got a 2013 Nexus 7? Use this version: http://forum.xda-developers.com/nexus-7-2013/orig-development/beta-1-parrotmod-improve-2013-nexus-7-t3375928)
 
@@ -23,9 +23,8 @@ ParrotMod requires a recovery that has BusyBox built in. (All versions of TWRP d
 
 PLEASE disable IO scheduler/RAM/read ahead tweaks in kernel apps. They override ParrotMod's meticulously optimized settings.
 
-REQUIRES SUPERSU 2.71 INSTALLED FIRST: https://download.chainfire.eu/932
-EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU 2.71!
-NOTHING NEWER THAN 2.71 WILL WORK DUE TO A BUG IN SUPERSU ITSELF.
+REQUIRES LATEST SUPERSU INSTALLED FIRST http://download.chainfire.eu/supersu-stable
+EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, THEN FLASH SUPERSU!!
 
 If the installer warns you about TRIM on boot being disabled, it's a good idea to schedule TRIM using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
 
@@ -54,10 +53,10 @@ Reverted to dlmalloc for reducing ram usage / ART_USE_HSPACE_COMPACT enabled for
 Instructions - From unrooted stock 5.1.1
 ========================================
 
-Download KingRoot apk from http://www.kingroot.net/, install it, ignore the warnings about the app being unsafe, and tap Root. If it says root failed, try again. It will eventually work.
+Download KingRoot apk from http://www.kingroot.net/ on your tablet, install it, ignore the warnings about the app being unsafe, and tap Root. If it says root failed, try again. It will eventually work.
 Install Flashify from the Play Store
 Download the latest Universal zip in the download link above on your tablet
-Download the SuperSU 2.71 zip from [url]http://download.chainfire.eu/932[/url] on your tablet
+Download the SuperSU 2.71 zip from http://download.chainfire.eu/supersu-stable on your tablet
 Open Flashify and install TWRP recovery, the latest version (3.0.2 currently)
 Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
 Delete the KingRoot and Purify Apps
@@ -116,12 +115,13 @@ Credit
 ------
 
 Busybox from BSZAospLp ROM LMY49H
-libc/libart from i9300 CM13/JustArchi CM12.1 old beta
+libc/libart from i9300 CM14/i9300 CM13/i9300 JustArchi CM12.1 old beta
 Charging Noise Fix is based on an apk from the Moto G 2015 stock ROM.
 Bluetooth 4.0 libs for 4.3 from https://github.com/manuelnaranjo/AndroidBluetoothLowEnergyEnabler/tree/master/releases
 BT4.0 KitKat libs from cm-11-20160509-UNOFFICIAL-grouper by @dookie23
 BT4.0 5.x libs from Dreams - version 5.3.9.4 for Maguro
 BT4.0 6.x libs from aosp_grouper-ota-eng-20160803.ds.zip by @AndDiSa
+BT4.0 7.x libs from cm-14.0-20160924-UNOFFICIAL-i9300.zip by @Taker18
 
 Thanks
 ------

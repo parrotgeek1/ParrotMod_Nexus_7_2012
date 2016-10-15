@@ -1,9 +1,8 @@
-#!/tmp-mksh/tmp-mksh
+#!/su/bin/sush
 
-# stop this script from being killed
+test "`getprop parrotmod.running`" = "" || exit 0
+setprop parrotmod.running yes
 
-mypid=$$
-echo "-1000" > /proc/$mypid/oom_score_adj
 olddir="$(pwd)"
 
 bb=/system/etc/parrotmod/busybox
@@ -21,7 +20,7 @@ setprop net.tethering.noprovisioning true
 
 setprop persist.sys.purgeable_assets 1 # only for CM, can purge bitmaps
 
-echo 1 > /sys/kernel/mm/ksm/run # NO KSM, too cpu intensive, not much savings
+echo 0 > /sys/kernel/mm/ksm/run # NO KSM, too cpu intensive, not much savings
 
 # ram tuning
 # https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1
