@@ -6,7 +6,7 @@
 
 list_files() {
 echo "etc/nvram.txt"
-echo "su.d/01ParrotMod.sh"
+echo su.d/*ParrotMod*.sh
 echo "addon.d/01ParrotMod.sh"
 if /sbin/busybox test -e /system/etc/parrotmod/libc_installed_flag; then
 	echo "lib/libc.so"
