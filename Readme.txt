@@ -28,7 +28,12 @@ EVEN IF YOUR ROM HAS BUILT IN ROOT LIKE CYANOGENMOD, TURN IT OFF IN SETTINGS, TH
 
 If the installer warns you about TRIM on boot being disabled, it's a good idea to schedule TRIM using an app like Trimmer, or just leave your tablet on overnight (on silent) instead of turning it off, so it can automatically trim.
 
-You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/queue/read_ahead_kb contains "0", using a root explorer. Do NOT use ROM Toolbox or Root Browser, otherwise you will not be able to see the folders. Use Solid Explorer or FX.
+You can tell if ParrotMod is working by opening a terminal emulator app and typing:
+
+su
+getprop parrotmod.running
+
+If it says "yes" then it works.
 
 Features:
 =========
