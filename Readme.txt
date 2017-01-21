@@ -2,10 +2,10 @@ What is ParrotMod?
 ==================
 
 This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY rooted Android 4.3+ ROM.
+It doesn't work on Nougat. I can't fix it, because I don't own this device anymore - I gave it to a friend's little brother.
+Feel free to fork it and fix that.
 
 (Got a 2013 Nexus 7? Use this version: http://forum.xda-developers.com/nexus-7-2013/orig-development/beta-1-parrotmod-improve-2013-nexus-7-t3375928)
-
-XDA thread: http://forum.xda-developers.com/nexus-7/orig-development/parrotmod-speed-2012-nexus-7-emmc-fix-t3300416
 
 Download: http://download.parrotgeek.com/Android/ParrotMod/
 Don't use Universal_Test unless I tell you to.
@@ -131,7 +131,7 @@ BT4.0 7.x libs from cm-14.0-20160924-UNOFFICIAL-i9300.zip by @Taker18
 Thanks
 ------
 
-Thanks to bangsergio on XDA for testing several dozen beta versions.
+Thanks to @bangsergio for testing several dozen beta versions.
 Thanks to @nereis for showing me a zram tweak.
 
 How ParrotMod Works

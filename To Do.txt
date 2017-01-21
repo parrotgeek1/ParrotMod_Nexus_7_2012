@@ -1,3 +1,5 @@
+(never? I don't own a nexus 7 anymore)
+
 fix bug, to disconnect miracast, need to unplug miracast dongle from tv
 libart/libc for 5.0.x
 security update all libs that are replaced???
