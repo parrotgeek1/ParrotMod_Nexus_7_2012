@@ -8,7 +8,8 @@ Feel free to fork it and fix that.
 (Got a 2013 Nexus 7? Use this version: http://forum.xda-developers.com/nexus-7-2013/orig-development/beta-1-parrotmod-improve-2013-nexus-7-t3375928)
 
 Download: http://download.parrotgeek.com/Android/ParrotMod/
-Don't use Universal_Test unless I tell you to.
+
+Use the 2016-08-31 one if the latest one doesn't improve the speed.
 
 GitHub: https://github.com/parrotgeek1/ParrotMod_Grouper
 Feel free to fork/pull request! But always credit me if you make something based on it and ask me for permission first.
