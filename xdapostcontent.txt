@@ -6,14 +6,14 @@ This is a mod to greatly improve the performance of the 2012 Nexus 7, on ANY roo
 
 [SIZE="4"](Got a 2013 Nexus 7? Use this version: [url]http://forum.xda-developers.com/nexus-7-2013/orig-development/beta-1-parrotmod-improve-2013-nexus-7-t3375928[/url])
 [/SIZE]
-[SIZE="4"][B]Download: [/B][/SIZE]
-[url]http://download.parrotgeek.com/Android/ParrotMod/[/url]
+[SIZE="5"][B]Download: [/B][/SIZE]
+[url]https://parrotgeek.com/dl.php?file=ParrotMod_Universal_2016-08-31.zip[/url]
 
-[SIZE="5"]Use the 2016-08-31 one if the latest one doesn't improve the speed.
+[SIZE="3"]Use this one if the other one doesn't improve the speed: [url]https://parrotgeek.com/dl.php?file=ParrotMod_Universal_2016-10-17.zip[/url]
 [/SIZE]
 [SIZE="4"][B]GitHub:[/B][/SIZE] 
-[url]https://github.com/parrotgeek1/ParrotMod_Grouper[/url]
-Feel free to fork/pull request! But always credit me if you make something based on it and ask me for permission first.
+[url]https://github.com/parrotgeek1/ParrotMod_Nexus_7_2012[/url]
+Feel free to fork/pull request! But always credit me if you make something based on it and tell me in a PM or email.
 
 [SIZE="4"][B]Performance Video (very old): [/B][/SIZE]
 [url]https://www.youtube.com/watch?v=CSp8mc5ZkkE[/url]
@@ -61,7 +61,7 @@ You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/
 [*]Install Flashify from the Play Store
 [*]Download the latest Universal zip in the download link above on your tablet
 [*]Download the SuperSU zip from [url]http://download.chainfire.eu/supersu-stable[/url] on your tablet
-[*]Open Flashify and install TWRP recovery, the latest version (3.0.2 currently)
+[*]Open Flashify and install TWRP recovery, the latest version
 [*]Open the KingRoot app, tap Menu 3 dots icon, General settings, uninstall KingRoot
 [*]Delete the KingRoot and Purify Apps
 [*]Plug your tablet into a computer! (not even a charger) otherwise it will freeze on the next step. This is a bug in the tablet itself.
@@ -71,7 +71,7 @@ You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/
 [*]Tap Never show this screen again and Swipe to allow modification
 [*]Tap Install
 [*]You will see the files on your internal storage, go to Download folder
-[*]Tap on ParrotMod_Grouper_Universal_XXXXXXX.zip
+[*]Tap on ParrotMod_XXXXXXX.zip
 [*]Tap add more zips
 [*]You will see the files on your internal storage, go to Download folder
 [*]Tap on UPDATE-SuperSU-v2.XX.zip
@@ -79,11 +79,11 @@ You can tell if ParrotMod is working by checking if the file /sys/block/mmcblk0/
 [*]When it finishes installing tap Reboot System
 [*]Your tablet will reboot
 [*]Wait 30 seconds for the device to settle
-[*]Enjoy the improved speed! (You can delete ParrotMod_Grouper_Universal_XXXXXXX.zip now)
+[*]Enjoy the improved speed! (You can delete ParrotMod_XXXXXXX.zip now)
 [/LIST]
 [SIZE="5"][B]Extras[/B][/SIZE]
 
-Fix for speaker/headphone buzzing while charging: [url]http://download.parrotgeek.com/Android/ParrotMod/ChargingNoiseFix/[/url]
+Fix for speaker/headphone buzzing while charging: [url]https://parrotgeek.com/dl.php?file=ParrotMod_ChargingNoiseFix.zip[/url]
 
 [B][SIZE="5"]Upgrade notes[/SIZE][/B]
 
@@ -103,7 +103,6 @@ It is safe to flash new ParrotMod versions without wiping data.
 
 [LIST]
 [*]Doesn't work on most Nougat ROMs
-[*]Makes Bluetooth stop working on some KitKat ROMs
 [*]Miracast will freeze the tablet on disconnection unless you disconnect from the TV/dongle side. This is a common Tegra issue.
 [*]The optimizations to the ART runtime do not work when Xposed is installed, and you will see reduced performance! They also don't work on 4.4.x or 5.0.x.
 [/LIST]
